@@ -13,6 +13,7 @@ export interface ImageData {
   id: string;
   filename: string;
   src: string;
+  title: string;
   tags: string[];
   favorite: boolean;
   folder: string;
@@ -40,13 +41,45 @@ const Index = () => {
   const [isTagSidebarOpen, setIsTagSidebarOpen] = useState(false);
   const [selectedFolders, setSelectedFolders] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<'filename' | 'date'>('filename');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Extract tags from filename
-  const extractTagsFromFilename = (filename: string): string[] => {
-    const lowerFilename = filename.toLowerCase();
-    return PREDEFINED_TAGS.filter(tag => 
+  // Parse filename into title and tags
+  const parseFilename = (filename: string): { title: string; tags: string[] } => {
+    const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
+    
+    if (nameWithoutExt.includes(' - ')) {
+      const [title, tagsPart] = nameWithoutExt.split(' - ', 2);
+      
+      // Split tags by common delimiters and clean them
+      const tagWords = tagsPart
+        .split(/[,\s]+/)
+        .map(tag => tag.trim().toLowerCase())
+        .filter(tag => tag.length > 0);
+      
+      // Also try to match known predefined tags from the tag part
+      const matchedTags = PREDEFINED_TAGS.filter(predefinedTag => 
+        tagsPart.toLowerCase().includes(predefinedTag.toLowerCase())
+      );
+      
+      // Combine individual words and matched predefined tags
+      const allTags = [...new Set([...tagWords, ...matchedTags])];
+      
+      return {
+        title: title.trim(),
+        tags: allTags
+      };
+    }
+    
+    // Fallback: use original logic if no hyphen found
+    const lowerFilename = nameWithoutExt.toLowerCase();
+    const matchedTags = PREDEFINED_TAGS.filter(tag => 
       lowerFilename.includes(tag.toLowerCase())
     );
+    
+    return {
+      title: nameWithoutExt,
+      tags: matchedTags
+    };
   };
 
   // Handle folder selection
@@ -62,11 +95,14 @@ const Index = () => {
           file.webkitRelativePath.split('/').slice(0, -1).join('/') : 
           'root';
         
+        const { title, tags } = parseFilename(file.name);
+        
         return {
           id: `${Date.now()}-${index}`,
           filename: file.name,
           src,
-          tags: extractTagsFromFilename(file.name),
+          title,
+          tags,
           favorite: false,
           folder: folderPath
         };
@@ -74,16 +110,19 @@ const Index = () => {
     );
 
     setImages(loadedImages);
+    setCurrentImageIndex(0);
   };
 
   // Filter images based on search, tags, and folders
   const filteredImages = images.filter(image => {
     const matchesSearch = searchTerm === '' || 
-      image.filename.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      image.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       image.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     
     const matchesTags = selectedTags.length === 0 || 
-      selectedTags.every(tag => image.tags.includes(tag));
+      selectedTags.every(tag => image.tags.some(imgTag => 
+        imgTag.toLowerCase().includes(tag.toLowerCase())
+      ));
     
     const matchesFolder = selectedFolders.length === 0 || 
       selectedFolders.includes(image.folder);
@@ -114,6 +153,29 @@ const Index = () => {
       img.id === imageId ? { ...img, tags: newTags } : img
     ));
   };
+
+  // Navigate images
+  const navigateImage = (direction: 'prev' | 'next') => {
+    if (direction === 'prev') {
+      setCurrentImageIndex(currentImageIndex > 0 ? currentImageIndex - 1 : filteredImages.length - 1);
+    } else {
+      setCurrentImageIndex(currentImageIndex < filteredImages.length - 1 ? currentImageIndex + 1 : 0);
+    }
+  };
+
+  // Handle tag click
+  const handleTagClick = (tag: string) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(prev => prev.filter(t => t !== tag));
+    } else {
+      setSelectedTags(prev => [...prev, tag]);
+    }
+  };
+
+  // Reset to first image when filters change
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [selectedTags, searchTerm, selectedFolders]);
 
   return (
     <SidebarProvider>
@@ -178,8 +240,12 @@ const Index = () => {
               {/* Image Gallery */}
               <ImageGallery 
                 images={filteredImages}
+                currentIndex={currentImageIndex}
+                onNavigate={navigateImage}
                 onToggleFavorite={toggleFavorite}
                 onUpdateTags={updateImageTags}
+                onTagClick={handleTagClick}
+                selectedTags={selectedTags}
                 availableTags={PREDEFINED_TAGS}
                 sortBy={sortBy}
               />
