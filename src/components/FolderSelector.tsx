@@ -66,7 +66,7 @@ export const FolderSelector = ({ onFolderSelect }: FolderSelectorProps) => {
             <input
               id="folder-input"
               type="file"
-              webkitdirectory=""
+              {...({ webkitdirectory: "" } as any)}
               multiple
               accept="image/*"
               onChange={handleFolderSelect}

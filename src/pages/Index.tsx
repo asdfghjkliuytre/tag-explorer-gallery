@@ -19,17 +19,17 @@ export interface ImageData {
 }
 
 const PREDEFINED_TAGS = [
-  'permanent feminization', 'male to female', 'punished', 'husband to wife', 'forced feminization',
-  'fucked as a woman', 'pretty girls lesson', 'gang of girls', 'humiliation', 'revenge tale',
-  'fucked as women', 'learning to be a woman', 'learning to be a women', 'fun crossdressing',
-  'feminized', 'feminized by girlfriend', 'learning to be an women', 'hormones',
-  'feminized by sister', 'pretty girl lesson', 'feminization fun', 'feminized by wife',
-  'pretty girls lessons', 'feminized by sister', 'man turned into women', 'humiliation',
-  'permanent feminization', 'feminized by girl friend', 'pretty girl lessons', 'crossdressing',
-  'pretty girls lesson', 'feminized by mother', 'permanent feminization', 'permanent feminization',
-  'permanent feminization', 'living as a girl', 'dressed as a girl', 'hypnosis', 'love story',
-  'forced feminization', 'learning to be a women', 'learning to be an women', 'pretty girl lesson',
-  'feminized by cousin', 'feminization', 'pretty girls lesson'
+  'permanent femanization', 'male to female', 'punished', 'husband to wife', 'forced femanization',
+  'fucked as a women', 'pretty girls lesson', 'gang of girls', 'humilation', 'revenge tale',
+  'fucked as women', 'learning to be a women', 'learnig to be a women', 'fun crossdressing',
+  'femanized', 'femanized by girlfriend', 'learning to be an women', 'hormones',
+  'femanized by sister', 'pretty girl lesson', 'femanization fun', 'femanized by wife',
+  'pretty girls lessons', 'femaized by sister', 'man turned into women', 'humiliation',
+  'permanent feamnization', 'femanized by girl friend', 'pretty girl lessons', 'crossdressing',
+  'pretty girls leeson', 'femanized by mother', 'premanent femanization', 'permenent femanization',
+  'permenant femanization', 'living as a girl', 'dressed as a girl', 'hypnosis', 'love story',
+  'forced femaization', 'learing to be a women', 'learnig to be an women', 'pretty girl leeson',
+  'femanized by cousin', 'femanization', 'pertty girls leesson'
 ];
 
 const Index = () => {
