@@ -7,7 +7,8 @@ import { FolderSelector } from '@/components/FolderSelector';
 import { ThemeSelector } from '@/components/ThemeSelector';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Filter } from 'lucide-react';
+import { Filter, Images } from 'lucide-react';
+import { extractTagsFromFilename, createTagStats, TagStats } from '@/utils/tagProcessor';
 
 export interface ImageData {
   id: string;
@@ -19,119 +20,15 @@ export interface ImageData {
   folder: string;
 }
 
-// Smart tag grouping - maps variations to canonical forms
-const TAG_GROUPINGS: Record<string, string> = {
-  'male to female': 'male to female',
-  'man to woman': 'male to female',
-  'boy to girl': 'male to female',
-  'man turned into women': 'man turned into woman',
-  'man turned into woman': 'man turned into woman',
-  'man into woman': 'man turned into woman',
-  'turned into woman': 'man turned into woman',
-  'cheated into dress': 'cheated into dress',
-  'cheated dress': 'cheated into dress',
-  'forced into dress': 'cheated into dress',
-  'boyfriend to girlfriend': 'boyfriend to girlfriend',
-  'bf to gf': 'boyfriend to girlfriend',
-  'husband to wife': 'husband to wife',
-  'permanent feminization': 'permanent feminization',
-  'permanent femanization': 'permanent feminization',
-  'permanent feamnization': 'permanent feminization',
-  'premanent femanization': 'permanent feminization',
-  'permenent femanization': 'permanent feminization',
-  'permenant femanization': 'permanent feminization',
-  'forced feminization': 'forced feminization',
-  'forced femanization': 'forced feminization',
-  'forced femaization': 'forced feminization',
-  'feminized': 'feminized',
-  'femanized': 'feminized',
-  'femaized': 'feminized',
-  'feminized by girlfriend': 'feminized by girlfriend',
-  'femanized by girlfriend': 'feminized by girlfriend',
-  'femanized by girl friend': 'feminized by girlfriend',
-  'feminized by sister': 'feminized by sister',
-  'femanized by sister': 'feminized by sister',
-  'femaized by sister': 'feminized by sister',
-  'feminized by wife': 'feminized by wife',
-  'femanized by wife': 'feminized by wife',
-  'feminized by mother': 'feminized by mother',
-  'femanized by mother': 'feminized by mother',
-  'feminized by cousin': 'feminized by cousin',
-  'femanized by cousin': 'feminized by cousin',
-  'pretty girls lesson': 'pretty girls lesson',
-  'pretty girl lesson': 'pretty girls lesson',
-  'pretty girls lessons': 'pretty girls lesson',
-  'pretty girl lessons': 'pretty girls lesson',
-  'pretty girls leeson': 'pretty girls lesson',
-  'pretty girl leeson': 'pretty girls lesson',
-  'pertty girls leesson': 'pretty girls lesson',
-  'learning to be a woman': 'learning to be a woman',
-  'learning to be a women': 'learning to be a woman',
-  'learnig to be a women': 'learning to be a woman',
-  'learning to be an women': 'learning to be a woman',
-  'learnig to be an women': 'learning to be a woman',
-  'learing to be a women': 'learning to be a woman',
-  'living as a girl': 'living as a girl',
-  'dressed as a girl': 'dressed as a girl',
-  'crossdressing': 'crossdressing',
-  'fun crossdressing': 'crossdressing',
-  'humiliation': 'humiliation',
-  'humilation': 'humiliation',
-  'revenge tale': 'revenge tale',
-  'gang of girls': 'gang of girls',
-  'hormones': 'hormones',
-  'hypnosis': 'hypnosis',
-  'love story': 'love story',
-  'punished': 'punished'
-};
-
 const Index = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [selectedTag, setSelectedTag] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isTagSidebarOpen, setIsTagSidebarOpen] = useState(true);
   const [currentTheme, setCurrentTheme] = useState('light');
+  const [tagStats, setTagStats] = useState<TagStats[]>([]);
 
-  // Normalize and group tags
-  const normalizeTag = (tag: string): string => {
-    const cleaned = tag.trim().toLowerCase();
-    return TAG_GROUPINGS[cleaned] || cleaned;
-  };
-
-  // Parse filename into title and tags using ,, delimiter
-  const parseFilename = (filename: string): { title: string; tags: string[] } => {
-    const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
-    
-    // Check if filename contains ,, delimiter
-    if (nameWithoutExt.includes(',,')) {
-      const parts = nameWithoutExt.split(',,');
-      const title = parts[0].trim();
-      
-      // Get all tag parts after the title
-      const tagParts = parts.slice(1);
-      const rawTags = tagParts
-        .map(part => part.trim())
-        .filter(part => part.length > 0);
-      
-      // Normalize and deduplicate tags
-      const normalizedTags = Array.from(new Set(
-        rawTags.map(tag => normalizeTag(tag))
-      )).filter(tag => tag.length > 0);
-      
-      return {
-        title,
-        tags: normalizedTags
-      };
-    }
-    
-    // Fallback: treat entire filename as title with no tags
-    return {
-      title: nameWithoutExt,
-      tags: []
-    };
-  };
-
-  // Handle folder selection
+  // Handle folder selection with enhanced tag processing
   const handleFolderSelect = async (files: FileList) => {
     const imageFiles = Array.from(files).filter(file => 
       file.type.startsWith('image/')
@@ -144,7 +41,7 @@ const Index = () => {
           file.webkitRelativePath.split('/').slice(0, -1).join('/') : 
           'root';
         
-        const { title, tags } = parseFilename(file.name);
+        const { title, tags } = extractTagsFromFilename(file.name);
         
         return {
           id: `${Date.now()}-${index}`,
@@ -159,10 +56,16 @@ const Index = () => {
     );
 
     setImages(loadedImages);
+    
+    // Generate tag statistics
+    const stats = createTagStats(loadedImages);
+    setTagStats(stats);
+    
     setSelectedTag(''); // Clear any existing tag filter
+    setSearchTerm(''); // Clear search
   };
 
-  // Filter images based on selected tag and search
+  // Filter images based on selected tag and search with performance optimization
   const filteredImages = images.filter(image => {
     const matchesTag = selectedTag === '' || 
       image.tags.some(tag => tag.toLowerCase().includes(selectedTag.toLowerCase()));
@@ -174,23 +77,10 @@ const Index = () => {
     return matchesTag && matchesSearch;
   });
 
-  // Get all unique tags from all images
-  const allTags = Array.from(new Set(
-    images.flatMap(image => image.tags)
-  )).sort();
-
   // Toggle favorite
   const toggleFavorite = (imageId: string) => {
     setImages(prev => prev.map(img => 
       img.id === imageId ? { ...img, favorite: !img.favorite } : img
-    ));
-  };
-
-  // Update image tags
-  const updateImageTags = (imageId: string, newTags: string[]) => {
-    const normalizedTags = newTags.map(tag => normalizeTag(tag));
-    setImages(prev => prev.map(img => 
-      img.id === imageId ? { ...img, tags: normalizedTags } : img
     ));
   };
 
@@ -201,19 +91,28 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className={`min-h-screen theme-${currentTheme}`}>
+      <div className={`min-h-screen theme-${currentTheme} bg-background transition-colors duration-300`}>
         {/* Header */}
-        <header className="border-b bg-card p-4 sticky top-0 z-10">
+        <header className="border-b bg-card/95 backdrop-blur-sm p-4 sticky top-0 z-10 shadow-sm">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Image Gallery</h1>
+            <div className="flex items-center gap-3">
+              <Images className="h-8 w-8 text-primary" />
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                Professional Image Gallery
+              </h1>
+            </div>
             <div className="flex items-center gap-4">
               <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => setIsTagSidebarOpen(!isTagSidebarOpen)}
+                className="relative"
               >
                 <Filter className="h-4 w-4" />
+                {selectedTag && (
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"></div>
+                )}
               </Button>
             </div>
           </div>
@@ -223,7 +122,7 @@ const Index = () => {
           {/* Tag Sidebar */}
           {isTagSidebarOpen && (
             <TagSidebar
-              allTags={allTags}
+              tagStats={tagStats}
               selectedTag={selectedTag}
               onTagClick={handleTagClick}
               onClose={() => setIsTagSidebarOpen(false)}
@@ -231,10 +130,12 @@ const Index = () => {
           )}
 
           {/* Main Content */}
-          <main className="flex-1 p-6">
-            <div className="space-y-6 max-w-4xl mx-auto">
+          <main className="flex-1 p-6 min-h-screen bg-gradient-to-br from-background to-muted/20">
+            <div className="space-y-6 max-w-5xl mx-auto">
               {/* Folder Selector */}
-              <FolderSelector onFolderSelect={handleFolderSelect} />
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-sm">
+                <FolderSelector onFolderSelect={handleFolderSelect} />
+              </div>
               
               {/* Search Bar */}
               <SearchBar 
@@ -242,19 +143,33 @@ const Index = () => {
                 onSearchChange={setSearchTerm}
               />
 
-              {/* Selected Tag Display */}
-              {selectedTag && (
-                <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">
-                      Filtered by tag: <span className="font-bold text-primary">{selectedTag}</span>
-                    </span>
+              {/* Active Filters Display */}
+              {(selectedTag || searchTerm) && (
+                <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-foreground">Active filters:</span>
+                      {selectedTag && (
+                        <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded-md border border-primary/20">
+                          Tag: {selectedTag}
+                        </span>
+                      )}
+                      {searchTerm && (
+                        <span className="text-sm bg-secondary/50 text-secondary-foreground px-2 py-1 rounded-md border border-border">
+                          Search: {searchTerm}
+                        </span>
+                      )}
+                    </div>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => setSelectedTag('')}
+                      onClick={() => {
+                        setSelectedTag('');
+                        setSearchTerm('');
+                      }}
+                      className="text-muted-foreground hover:text-foreground"
                     >
-                      Clear Filter
+                      Clear All Filters
                     </Button>
                   </div>
                 </div>
@@ -264,9 +179,9 @@ const Index = () => {
               <ImageGallery 
                 images={filteredImages}
                 onToggleFavorite={toggleFavorite}
-                onUpdateTags={updateImageTags}
                 onTagClick={handleTagClick}
                 selectedTag={selectedTag}
+                searchTerm={searchTerm}
               />
             </div>
           </main>
