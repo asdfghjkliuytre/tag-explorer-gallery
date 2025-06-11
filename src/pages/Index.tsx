@@ -4,7 +4,7 @@ import { ImageGallery } from '@/components/ImageGallery';
 import { TagSidebar } from '@/components/TagSidebar';
 import { SearchBar } from '@/components/SearchBar';
 import { FolderSelector } from '@/components/FolderSelector';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { ThemeSelector } from '@/components/ThemeSelector';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Filter } from 'lucide-react';
@@ -19,66 +19,115 @@ export interface ImageData {
   folder: string;
 }
 
-const PREDEFINED_TAGS = [
-  'permanent femanization', 'male to female', 'punished', 'husband to wife', 'forced femanization',
-  'fucked as a women', 'pretty girls lesson', 'gang of girls', 'humilation', 'revenge tale',
-  'fucked as women', 'learning to be a women', 'learnig to be a women', 'fun crossdressing',
-  'femanized', 'femanized by girlfriend', 'learning to be an women', 'hormones',
-  'femanized by sister', 'pretty girl lesson', 'femanization fun', 'femanized by wife',
-  'pretty girls lessons', 'femaized by sister', 'man turned into women', 'humiliation',
-  'permanent feamnization', 'femanized by girl friend', 'pretty girl lessons', 'crossdressing',
-  'pretty girls leeson', 'femanized by mother', 'premanent femanization', 'permenent femanization',
-  'permenant femanization', 'living as a girl', 'dressed as a girl', 'hypnosis', 'love story',
-  'forced femaization', 'learing to be a women', 'learnig to be an women', 'pretty girl leeson',
-  'femanized by cousin', 'femanization', 'pertty girls leesson'
-];
+// Smart tag grouping - maps variations to canonical forms
+const TAG_GROUPINGS: Record<string, string> = {
+  'male to female': 'male to female',
+  'man to woman': 'male to female',
+  'boy to girl': 'male to female',
+  'man turned into women': 'man turned into woman',
+  'man turned into woman': 'man turned into woman',
+  'man into woman': 'man turned into woman',
+  'turned into woman': 'man turned into woman',
+  'cheated into dress': 'cheated into dress',
+  'cheated dress': 'cheated into dress',
+  'forced into dress': 'cheated into dress',
+  'boyfriend to girlfriend': 'boyfriend to girlfriend',
+  'bf to gf': 'boyfriend to girlfriend',
+  'husband to wife': 'husband to wife',
+  'permanent feminization': 'permanent feminization',
+  'permanent femanization': 'permanent feminization',
+  'permanent feamnization': 'permanent feminization',
+  'premanent femanization': 'permanent feminization',
+  'permenent femanization': 'permanent feminization',
+  'permenant femanization': 'permanent feminization',
+  'forced feminization': 'forced feminization',
+  'forced femanization': 'forced feminization',
+  'forced femaization': 'forced feminization',
+  'feminized': 'feminized',
+  'femanized': 'feminized',
+  'femaized': 'feminized',
+  'feminized by girlfriend': 'feminized by girlfriend',
+  'femanized by girlfriend': 'feminized by girlfriend',
+  'femanized by girl friend': 'feminized by girlfriend',
+  'feminized by sister': 'feminized by sister',
+  'femanized by sister': 'feminized by sister',
+  'femaized by sister': 'feminized by sister',
+  'feminized by wife': 'feminized by wife',
+  'femanized by wife': 'feminized by wife',
+  'feminized by mother': 'feminized by mother',
+  'femanized by mother': 'feminized by mother',
+  'feminized by cousin': 'feminized by cousin',
+  'femanized by cousin': 'feminized by cousin',
+  'pretty girls lesson': 'pretty girls lesson',
+  'pretty girl lesson': 'pretty girls lesson',
+  'pretty girls lessons': 'pretty girls lesson',
+  'pretty girl lessons': 'pretty girls lesson',
+  'pretty girls leeson': 'pretty girls lesson',
+  'pretty girl leeson': 'pretty girls lesson',
+  'pertty girls leesson': 'pretty girls lesson',
+  'learning to be a woman': 'learning to be a woman',
+  'learning to be a women': 'learning to be a woman',
+  'learnig to be a women': 'learning to be a woman',
+  'learning to be an women': 'learning to be a woman',
+  'learnig to be an women': 'learning to be a woman',
+  'learing to be a women': 'learning to be a woman',
+  'living as a girl': 'living as a girl',
+  'dressed as a girl': 'dressed as a girl',
+  'crossdressing': 'crossdressing',
+  'fun crossdressing': 'crossdressing',
+  'humiliation': 'humiliation',
+  'humilation': 'humiliation',
+  'revenge tale': 'revenge tale',
+  'gang of girls': 'gang of girls',
+  'hormones': 'hormones',
+  'hypnosis': 'hypnosis',
+  'love story': 'love story',
+  'punished': 'punished'
+};
 
 const Index = () => {
   const [images, setImages] = useState<ImageData[]>([]);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTag, setSelectedTag] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedFolder, setSelectedFolder] = useState<string>('');
-  const [isTagSidebarOpen, setIsTagSidebarOpen] = useState(false);
-  const [selectedFolders, setSelectedFolders] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState<'filename' | 'date'>('filename');
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTagSidebarOpen, setIsTagSidebarOpen] = useState(true);
+  const [currentTheme, setCurrentTheme] = useState('light');
 
-  // Parse filename into title and tags
+  // Normalize and group tags
+  const normalizeTag = (tag: string): string => {
+    const cleaned = tag.trim().toLowerCase();
+    return TAG_GROUPINGS[cleaned] || cleaned;
+  };
+
+  // Parse filename into title and tags using ,, delimiter
   const parseFilename = (filename: string): { title: string; tags: string[] } => {
     const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
     
-    if (nameWithoutExt.includes(' - ')) {
-      const [title, tagsPart] = nameWithoutExt.split(' - ', 2);
+    // Check if filename contains ,, delimiter
+    if (nameWithoutExt.includes(',,')) {
+      const parts = nameWithoutExt.split(',,');
+      const title = parts[0].trim();
       
-      // Split tags by common delimiters and clean them
-      const tagWords = tagsPart
-        .split(/[,\s]+/)
-        .map(tag => tag.trim().toLowerCase())
-        .filter(tag => tag.length > 0);
+      // Get all tag parts after the title
+      const tagParts = parts.slice(1);
+      const rawTags = tagParts
+        .map(part => part.trim())
+        .filter(part => part.length > 0);
       
-      // Also try to match known predefined tags from the tag part
-      const matchedTags = PREDEFINED_TAGS.filter(predefinedTag => 
-        tagsPart.toLowerCase().includes(predefinedTag.toLowerCase())
-      );
-      
-      // Combine individual words and matched predefined tags
-      const allTags = [...new Set([...tagWords, ...matchedTags])];
+      // Normalize and deduplicate tags
+      const normalizedTags = Array.from(new Set(
+        rawTags.map(tag => normalizeTag(tag))
+      )).filter(tag => tag.length > 0);
       
       return {
-        title: title.trim(),
-        tags: allTags
+        title,
+        tags: normalizedTags
       };
     }
     
-    // Fallback: use original logic if no hyphen found
-    const lowerFilename = nameWithoutExt.toLowerCase();
-    const matchedTags = PREDEFINED_TAGS.filter(tag => 
-      lowerFilename.includes(tag.toLowerCase())
-    );
-    
+    // Fallback: treat entire filename as title with no tags
     return {
       title: nameWithoutExt,
-      tags: matchedTags
+      tags: []
     };
   };
 
@@ -110,34 +159,24 @@ const Index = () => {
     );
 
     setImages(loadedImages);
-    setCurrentImageIndex(0);
+    setSelectedTag(''); // Clear any existing tag filter
   };
 
-  // Filter images based on search, tags, and folders
+  // Filter images based on selected tag and search
   const filteredImages = images.filter(image => {
+    const matchesTag = selectedTag === '' || 
+      image.tags.some(tag => tag.toLowerCase().includes(selectedTag.toLowerCase()));
+    
     const matchesSearch = searchTerm === '' || 
       image.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       image.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesTags = selectedTags.length === 0 || 
-      selectedTags.every(tag => image.tags.some(imgTag => 
-        imgTag.toLowerCase().includes(tag.toLowerCase())
-      ));
-    
-    const matchesFolder = selectedFolders.length === 0 || 
-      selectedFolders.includes(image.folder);
 
-    return matchesSearch && matchesTags && matchesFolder;
+    return matchesTag && matchesSearch;
   });
 
   // Get all unique tags from all images
   const allTags = Array.from(new Set(
     images.flatMap(image => image.tags)
-  )).sort();
-
-  // Get all unique folders
-  const allFolders = Array.from(new Set(
-    images.map(image => image.folder)
   )).sort();
 
   // Toggle favorite
@@ -149,43 +188,26 @@ const Index = () => {
 
   // Update image tags
   const updateImageTags = (imageId: string, newTags: string[]) => {
+    const normalizedTags = newTags.map(tag => normalizeTag(tag));
     setImages(prev => prev.map(img => 
-      img.id === imageId ? { ...img, tags: newTags } : img
+      img.id === imageId ? { ...img, tags: normalizedTags } : img
     ));
   };
 
-  // Navigate images
-  const navigateImage = (direction: 'prev' | 'next') => {
-    if (direction === 'prev') {
-      setCurrentImageIndex(currentImageIndex > 0 ? currentImageIndex - 1 : filteredImages.length - 1);
-    } else {
-      setCurrentImageIndex(currentImageIndex < filteredImages.length - 1 ? currentImageIndex + 1 : 0);
-    }
-  };
-
-  // Handle tag click
+  // Handle tag click - single tag selection only
   const handleTagClick = (tag: string) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(prev => prev.filter(t => t !== tag));
-    } else {
-      setSelectedTags(prev => [...prev, tag]);
-    }
+    setSelectedTag(selectedTag === tag ? '' : tag);
   };
-
-  // Reset to first image when filters change
-  useEffect(() => {
-    setCurrentImageIndex(0);
-  }, [selectedTags, searchTerm, selectedFolders]);
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen bg-background">
+      <div className={`min-h-screen theme-${currentTheme}`}>
         {/* Header */}
-        <header className="border-b bg-card p-4">
+        <header className="border-b bg-card p-4 sticky top-0 z-10">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">Image Gallery</h1>
             <div className="flex items-center gap-4">
-              <ThemeToggle />
+              <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
               <Button
                 variant="outline"
                 size="icon"
@@ -198,9 +220,19 @@ const Index = () => {
         </header>
 
         <div className="flex">
+          {/* Tag Sidebar */}
+          {isTagSidebarOpen && (
+            <TagSidebar
+              allTags={allTags}
+              selectedTag={selectedTag}
+              onTagClick={handleTagClick}
+              onClose={() => setIsTagSidebarOpen(false)}
+            />
+          )}
+
           {/* Main Content */}
           <main className="flex-1 p-6">
-            <div className="space-y-6">
+            <div className="space-y-6 max-w-4xl mx-auto">
               {/* Folder Selector */}
               <FolderSelector onFolderSelect={handleFolderSelect} />
               
@@ -208,31 +240,22 @@ const Index = () => {
               <SearchBar 
                 searchTerm={searchTerm}
                 onSearchChange={setSearchTerm}
-                sortBy={sortBy}
-                onSortChange={setSortBy}
               />
 
-              {/* Folder Filter */}
-              {allFolders.length > 1 && (
-                <div className="space-y-2">
-                  <h3 className="text-sm font-medium">Folders</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {allFolders.map(folder => (
-                      <Button
-                        key={folder}
-                        variant={selectedFolders.includes(folder) ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => {
-                          if (selectedFolders.includes(folder)) {
-                            setSelectedFolders(prev => prev.filter(f => f !== folder));
-                          } else {
-                            setSelectedFolders(prev => [...prev, folder]);
-                          }
-                        }}
-                      >
-                        {folder}
-                      </Button>
-                    ))}
+              {/* Selected Tag Display */}
+              {selectedTag && (
+                <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">
+                      Filtered by tag: <span className="font-bold text-primary">{selectedTag}</span>
+                    </span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setSelectedTag('')}
+                    >
+                      Clear Filter
+                    </Button>
                   </div>
                 </div>
               )}
@@ -240,27 +263,13 @@ const Index = () => {
               {/* Image Gallery */}
               <ImageGallery 
                 images={filteredImages}
-                currentIndex={currentImageIndex}
-                onNavigate={navigateImage}
                 onToggleFavorite={toggleFavorite}
                 onUpdateTags={updateImageTags}
                 onTagClick={handleTagClick}
-                selectedTags={selectedTags}
-                availableTags={PREDEFINED_TAGS}
-                sortBy={sortBy}
+                selectedTag={selectedTag}
               />
             </div>
           </main>
-
-          {/* Tag Sidebar */}
-          {isTagSidebarOpen && (
-            <TagSidebar
-              allTags={allTags}
-              selectedTags={selectedTags}
-              onTagsChange={setSelectedTags}
-              onClose={() => setIsTagSidebarOpen(false)}
-            />
-          )}
         </div>
       </div>
     </SidebarProvider>

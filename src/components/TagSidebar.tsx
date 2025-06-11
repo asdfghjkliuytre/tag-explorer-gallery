@@ -8,15 +8,15 @@ import { X, Search } from 'lucide-react';
 
 interface TagSidebarProps {
   allTags: string[];
-  selectedTags: string[];
-  onTagsChange: (tags: string[]) => void;
+  selectedTag: string;
+  onTagClick: (tag: string) => void;
   onClose: () => void;
 }
 
 export const TagSidebar = ({ 
   allTags, 
-  selectedTags, 
-  onTagsChange, 
+  selectedTag, 
+  onTagClick, 
   onClose 
 }: TagSidebarProps) => {
   const [tagSearch, setTagSearch] = useState('');
@@ -25,20 +25,12 @@ export const TagSidebar = ({
     tag.toLowerCase().includes(tagSearch.toLowerCase())
   );
 
-  const toggleTag = (tag: string) => {
-    if (selectedTags.includes(tag)) {
-      onTagsChange(selectedTags.filter(t => t !== tag));
-    } else {
-      onTagsChange([...selectedTags, tag]);
-    }
-  };
-
-  const clearAllTags = () => {
-    onTagsChange([]);
+  const clearSelectedTag = () => {
+    onTagClick('');
   };
 
   return (
-    <div className="w-80 border-l bg-card h-screen">
+    <div className="w-80 border-r bg-card h-screen sticky top-0">
       <div className="p-4 border-b">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold">Filter by Tags</h3>
@@ -57,26 +49,21 @@ export const TagSidebar = ({
           />
         </div>
 
-        {selectedTags.length > 0 && (
-          <div className="space-y-2">
+        {selectedTag && (
+          <div className="space-y-2 mb-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Selected Tags ({selectedTags.length})</span>
-              <Button variant="ghost" size="sm" onClick={clearAllTags}>
-                Clear All
+              <span className="text-sm font-medium">Selected Tag</span>
+              <Button variant="ghost" size="sm" onClick={clearSelectedTag}>
+                Clear
               </Button>
             </div>
-            <div className="flex flex-wrap gap-1">
-              {selectedTags.map(tag => (
-                <Badge 
-                  key={tag}
-                  variant="default"
-                  className="cursor-pointer"
-                  onClick={() => toggleTag(tag)}
-                >
-                  {tag} <X className="h-3 w-3 ml-1" />
-                </Badge>
-              ))}
-            </div>
+            <Badge 
+              variant="default"
+              className="cursor-pointer w-full justify-center"
+              onClick={() => onTagClick(selectedTag)}
+            >
+              {selectedTag} <X className="h-3 w-3 ml-1" />
+            </Badge>
           </div>
         )}
       </div>
@@ -89,14 +76,14 @@ export const TagSidebar = ({
           {filteredTags.map(tag => (
             <div
               key={tag}
-              className={`p-2 rounded cursor-pointer transition-colors ${
-                selectedTags.includes(tag)
-                  ? 'bg-primary text-primary-foreground'
-                  : 'hover:bg-muted'
+              className={`p-3 rounded cursor-pointer transition-all duration-200 border ${
+                selectedTag === tag
+                  ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                  : 'hover:bg-muted border-transparent hover:border-border'
               }`}
-              onClick={() => toggleTag(tag)}
+              onClick={() => onTagClick(tag)}
             >
-              <span className="text-sm">{tag}</span>
+              <span className="text-sm font-medium">{tag}</span>
             </div>
           ))}
           
