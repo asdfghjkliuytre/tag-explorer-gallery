@@ -120,20 +120,20 @@
     --accent-foreground: 330 30% 20%;
   }
 
-  /* Cyberpunk Theme */
+  /* Enhanced Cyberpunk Theme */
   .theme-cyberpunk {
-    --background: 260 100% 5%;
+    --background: 260 100% 2%;
     --foreground: 60 100% 95%;
-    --card: 260 100% 8%;
+    --card: 260 100% 4%;
     --card-foreground: 60 100% 95%;
-    --primary: 60 100% 50%;
+    --primary: 60 100% 60%;
     --primary-foreground: 260 100% 5%;
-    --secondary: 260 50% 15%;
+    --secondary: 260 80% 8%;
     --secondary-foreground: 60 100% 95%;
-    --muted: 260 50% 15%;
-    --muted-foreground: 60 50% 70%;
+    --muted: 260 60% 10%;
+    --muted-foreground: 60 60% 70%;
     --border: 60 100% 30%;
-    --accent: 60 100% 50%;
+    --accent: 300 100% 60%;
     --accent-foreground: 260 100% 5%;
   }
 
@@ -143,7 +143,7 @@
   .theme-preview-neon { background: linear-gradient(to right, hsl(315 100% 50%), hsl(0 0% 3.9%)); }
   .theme-preview-glass { background: linear-gradient(to right, hsl(200 100% 70%), hsl(220 26% 14%)); }
   .theme-preview-pastel { background: linear-gradient(to right, hsl(290 100% 80%), hsl(330 100% 98%)); }
-  .theme-preview-cyberpunk { background: linear-gradient(to right, hsl(60 100% 50%), hsl(260 100% 5%)); }
+  .theme-preview-cyberpunk { background: linear-gradient(to right, hsl(60 100% 60%), hsl(260 100% 2%)); }
 
   * {
     @apply border-border;
@@ -175,6 +175,28 @@
     border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
+  /* Cyberpunk theme effects */
+  .theme-cyberpunk {
+    background: radial-gradient(ellipse at center, hsl(260 100% 4%), hsl(260 100% 1%));
+  }
+
+  .theme-cyberpunk .bg-card,
+  .theme-cyberpunk .bg-card\/50,
+  .theme-cyberpunk .bg-card\/60,
+  .theme-cyberpunk .bg-card\/95 {
+    background: linear-gradient(135deg, hsl(260 80% 8%), hsl(260 60% 6%));
+    border: 1px solid hsl(60 100% 30%);
+    box-shadow: 0 0 20px hsl(60 100% 30% / 0.2), inset 0 1px 0 hsl(60 100% 60% / 0.1);
+  }
+
+  .theme-cyberpunk button {
+    box-shadow: 0 0 10px hsl(60 100% 60% / 0.3);
+  }
+
+  .theme-cyberpunk .border-primary {
+    box-shadow: 0 0 15px hsl(60 100% 60% / 0.4);
+  }
+
   /* Professional shadows and animations */
   .card-hover {
     transition: all 0.2s ease;
@@ -185,10 +207,20 @@
     box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.1);
   }
 
+  .theme-cyberpunk .card-hover:hover {
+    box-shadow: 0 8px 25px -8px hsl(60 100% 60% / 0.3);
+  }
+
   /* Typography improvements */
   h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     letter-spacing: -0.025em;
+  }
+
+  .theme-cyberpunk h1,
+  .theme-cyberpunk h2,
+  .theme-cyberpunk h3 {
+    text-shadow: 0 0 10px hsl(60 100% 60% / 0.5);
   }
 
   /* Enhanced focus states */

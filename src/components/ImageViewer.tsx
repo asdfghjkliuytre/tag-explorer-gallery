@@ -45,14 +45,14 @@ export const ImageViewer = ({
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 overflow-hidden bg-black/95 border-0">
-        <div className="relative h-full flex flex-col">
+      <DialogContent className="max-w-[100vw] max-h-[100vh] p-0 overflow-hidden bg-black border-0 rounded-none">
+        <div className="relative h-screen flex flex-col">
           {/* Close Button */}
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 bg-black/50 text-white hover:bg-black/70 border-0"
+            className="absolute top-4 right-4 z-20 bg-black/70 text-white hover:bg-black/90 border border-primary/30 rounded-lg backdrop-blur-sm"
           >
             <X className="h-5 w-5" />
           </Button>
@@ -62,7 +62,7 @@ export const ImageViewer = ({
             <Button
               variant="ghost"
               size="icon"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 text-white hover:bg-black/70 w-12 h-12"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-black/70 text-white hover:bg-black/90 w-12 h-12 border border-primary/30 rounded-lg backdrop-blur-sm"
               onClick={onPrevious}
             >
               <ChevronLeft className="h-6 w-6" />
@@ -73,58 +73,64 @@ export const ImageViewer = ({
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 text-white hover:bg-black/70 w-12 h-12"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-black/70 text-white hover:bg-black/90 w-12 h-12 border border-primary/30 rounded-lg backdrop-blur-sm"
               onClick={onNext}
             >
               <ChevronRight className="h-6 w-6" />
             </Button>
           )}
 
-          {/* Image Container - Takes most of the space */}
-          <div className="flex-1 flex items-center justify-center bg-black min-h-0">
+          {/* Image Container - Full screen with perfect fit */}
+          <div className="flex-1 flex items-center justify-center bg-black p-4">
             <img
               src={image.src}
               alt={image.title}
-              className="max-w-full max-h-full object-contain"
+              className="w-full h-full object-contain"
+              style={{ maxWidth: '100%', maxHeight: '100%' }}
             />
           </div>
 
-          {/* Bottom Info Panel - Fixed height */}
-          <div className="bg-gradient-to-t from-black/95 via-black/80 to-transparent p-6 pt-8">
-            <div className="max-w-4xl mx-auto">
-              {/* Title and Favorite */}
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-semibold text-xl mb-1">
+          {/* Bottom Info Panel - Compact and sleek */}
+          <div className="bg-gradient-to-t from-black via-black/95 to-transparent border-t border-primary/20">
+            <div className="max-w-6xl mx-auto p-4">
+              {/* Title and Favorite - Single line */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <h3 className="text-white font-semibold text-lg truncate">
                     {image.title}
                   </h3>
                   {image.folder !== 'root' && (
-                    <p className="text-white/60 text-sm">
+                    <span className="text-primary/80 text-sm">
                       📁 {image.folder}
-                    </p>
+                    </span>
                   )}
                 </div>
                 
                 {image.favorite && (
-                  <Heart className="h-6 w-6 fill-red-500 text-red-500 ml-4 flex-shrink-0" />
+                  <Heart className="h-5 w-5 fill-red-500 text-red-500 flex-shrink-0" />
                 )}
               </div>
 
-              {/* Tags */}
+              {/* Tags - Compact display */}
               {image.tags.length > 0 && (
-                <div className="space-y-2">
-                  <h4 className="text-white/80 text-sm font-medium">Tags:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {image.tags.map((tag, index) => (
-                      <Badge 
-                        key={index} 
-                        variant="secondary" 
-                        className="bg-white/20 text-white hover:bg-white/30 border-white/30"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {image.tags.slice(0, 5).map((tag, index) => (
+                    <Badge 
+                      key={index} 
+                      variant="secondary" 
+                      className="bg-primary/20 text-primary hover:bg-primary/30 border-primary/30 text-xs px-2 py-0.5"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                  {image.tags.length > 5 && (
+                    <Badge 
+                      variant="secondary" 
+                      className="bg-muted/20 text-muted-foreground border-muted/30 text-xs px-2 py-0.5"
+                    >
+                      +{image.tags.length - 5} more
+                    </Badge>
+                  )}
                 </div>
               )}
             </div>

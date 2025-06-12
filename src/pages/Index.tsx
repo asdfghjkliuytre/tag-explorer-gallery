@@ -25,7 +25,7 @@ const Index = () => {
   const [selectedTag, setSelectedTag] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isTagSidebarOpen, setIsTagSidebarOpen] = useState(true);
-  const [currentTheme, setCurrentTheme] = useState('light');
+  const [currentTheme, setCurrentTheme] = useState('cyberpunk');
   const [tagStats, setTagStats] = useState<TagStats[]>([]);
   const [selectedFolderName, setSelectedFolderName] = useState<string>('');
 
@@ -34,6 +34,8 @@ const Index = () => {
     const savedTheme = localStorage.getItem('gallery-theme');
     if (savedTheme) {
       setCurrentTheme(savedTheme);
+    } else {
+      setCurrentTheme('cyberpunk'); // Default to cyberpunk
     }
   }, []);
 
