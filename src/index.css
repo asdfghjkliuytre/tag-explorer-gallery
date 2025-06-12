@@ -3,40 +3,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
-
 @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
+    --radius: 0.75rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -47,55 +35,75 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Theme Variants */
+  /* Light Theme */
   .theme-light {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 221.2 83.2% 53.3%;
     --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --border: 214.3 31.8% 91.4%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
   }
 
+  /* Dark Theme */
   .theme-dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --border: 217.2 32.6% 17.5%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
   }
 
+  /* Neon Theme */
   .theme-neon {
-    --background: 0 0% 5%;
+    --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 8%;
+    --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --primary: 315 100% 50%;
-    --primary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
-    --border: 315 100% 30%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --border: 315 50% 25%;
+    --accent: 315 100% 50%;
+    --accent-foreground: 0 0% 98%;
   }
 
-  .theme-glassmorphism {
+  /* Glass Theme */
+  .theme-glass {
     --background: 220 26% 14%;
     --foreground: 0 0% 95%;
-    --card: 220 26% 14% / 0.8;
+    --card: 220 26% 14% / 0.6;
     --card-foreground: 0 0% 95%;
     --primary: 200 100% 70%;
     --primary-foreground: 220 26% 14%;
+    --secondary: 220 26% 20% / 0.5;
+    --secondary-foreground: 0 0% 95%;
     --muted: 220 26% 20% / 0.5;
     --muted-foreground: 0 0% 80%;
-    --border: 200 100% 70% / 0.3;
+    --border: 200 100% 70% / 0.2;
+    --accent: 200 100% 70% / 0.3;
+    --accent-foreground: 0 0% 95%;
   }
 
+  /* Pastel Theme */
   .theme-pastel {
     --background: 330 100% 98%;
     --foreground: 330 30% 20%;
@@ -103,11 +111,16 @@
     --card-foreground: 330 30% 20%;
     --primary: 290 100% 80%;
     --primary-foreground: 330 30% 20%;
+    --secondary: 330 50% 90%;
+    --secondary-foreground: 330 30% 40%;
     --muted: 330 50% 90%;
     --muted-foreground: 330 30% 50%;
     --border: 290 50% 85%;
+    --accent: 290 100% 80%;
+    --accent-foreground: 330 30% 20%;
   }
 
+  /* Cyberpunk Theme */
   .theme-cyberpunk {
     --background: 260 100% 5%;
     --foreground: 60 100% 95%;
@@ -115,96 +128,22 @@
     --card-foreground: 60 100% 95%;
     --primary: 60 100% 50%;
     --primary-foreground: 260 100% 5%;
+    --secondary: 260 50% 15%;
+    --secondary-foreground: 60 100% 95%;
     --muted: 260 50% 15%;
     --muted-foreground: 60 50% 70%;
     --border: 60 100% 30%;
-  }
-
-  .theme-ocean {
-    --background: 220 100% 95%;
-    --foreground: 220 100% 10%;
-    --card: 220 100% 98%;
-    --card-foreground: 220 100% 10%;
-    --primary: 200 100% 40%;
-    --primary-foreground: 220 100% 95%;
-    --muted: 220 50% 85%;
-    --muted-foreground: 220 50% 40%;
-    --border: 200 50% 70%;
-  }
-
-  .theme-forest {
-    --background: 120 25% 95%;
-    --foreground: 120 100% 10%;
-    --card: 120 25% 98%;
-    --card-foreground: 120 100% 10%;
-    --primary: 120 100% 25%;
-    --primary-foreground: 120 25% 95%;
-    --muted: 120 20% 85%;
-    --muted-foreground: 120 50% 40%;
-    --border: 120 30% 70%;
-  }
-
-  .theme-sunset {
-    --background: 30 100% 96%;
-    --foreground: 30 50% 10%;
-    --card: 30 100% 98%;
-    --card-foreground: 30 50% 10%;
-    --primary: 15 100% 50%;
-    --primary-foreground: 30 100% 96%;
-    --muted: 30 30% 85%;
-    --muted-foreground: 30 50% 40%;
-    --border: 15 50% 70%;
-  }
-
-  .theme-monochrome {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --muted: 0 0% 90%;
-    --muted-foreground: 0 0% 40%;
-    --border: 0 0% 80%;
-  }
-
-  .theme-vintage {
-    --background: 40 50% 95%;
-    --foreground: 40 100% 10%;
-    --card: 40 50% 98%;
-    --card-foreground: 40 100% 10%;
-    --primary: 25 100% 40%;
-    --primary-foreground: 40 50% 95%;
-    --muted: 40 30% 85%;
-    --muted-foreground: 40 50% 40%;
-    --border: 25 50% 70%;
-  }
-
-  .theme-cosmic {
-    --background: 260 100% 5%;
-    --foreground: 280 100% 90%;
-    --card: 260 100% 8%;
-    --card-foreground: 280 100% 90%;
-    --primary: 280 100% 60%;
-    --primary-foreground: 260 100% 5%;
-    --muted: 260 50% 15%;
-    --muted-foreground: 280 50% 70%;
-    --border: 280 50% 40%;
+    --accent: 60 100% 50%;
+    --accent-foreground: 260 100% 5%;
   }
 
   /* Theme Previews */
-  .theme-preview-light { background: linear-gradient(to right, hsl(222.2 47.4% 11.2%), hsl(210 40% 96.1%)); }
-  .theme-preview-dark { background: linear-gradient(to right, hsl(210 40% 98%), hsl(217.2 32.6% 17.5%)); }
-  .theme-preview-neon { background: linear-gradient(to right, hsl(315 100% 50%), hsl(0 0% 5%)); }
-  .theme-preview-glassmorphism { background: linear-gradient(to right, hsl(200 100% 70%), hsl(220 26% 14%)); }
+  .theme-preview-light { background: linear-gradient(to right, hsl(221.2 83.2% 53.3%), hsl(210 40% 96.1%)); }
+  .theme-preview-dark { background: linear-gradient(to right, hsl(217.2 91.2% 59.8%), hsl(217.2 32.6% 17.5%)); }
+  .theme-preview-neon { background: linear-gradient(to right, hsl(315 100% 50%), hsl(0 0% 3.9%)); }
+  .theme-preview-glass { background: linear-gradient(to right, hsl(200 100% 70%), hsl(220 26% 14%)); }
   .theme-preview-pastel { background: linear-gradient(to right, hsl(290 100% 80%), hsl(330 100% 98%)); }
   .theme-preview-cyberpunk { background: linear-gradient(to right, hsl(60 100% 50%), hsl(260 100% 5%)); }
-  .theme-preview-ocean { background: linear-gradient(to right, hsl(200 100% 40%), hsl(220 100% 95%)); }
-  .theme-preview-forest { background: linear-gradient(to right, hsl(120 100% 25%), hsl(120 25% 95%)); }
-  .theme-preview-sunset { background: linear-gradient(to right, hsl(15 100% 50%), hsl(30 100% 96%)); }
-  .theme-preview-monochrome { background: linear-gradient(to right, hsl(0 0% 0%), hsl(0 0% 100%)); }
-  .theme-preview-vintage { background: linear-gradient(to right, hsl(25 100% 40%), hsl(40 50% 95%)); }
-  .theme-preview-cosmic { background: linear-gradient(to right, hsl(280 100% 60%), hsl(260 100% 5%)); }
 
   * {
     @apply border-border;
@@ -213,6 +152,7 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   }
 
   /* Smooth transitions for theme changes */
@@ -220,10 +160,40 @@
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Glassmorphism effect for the glassmorphism theme */
-  .theme-glassmorphism .bg-card {
-    backdrop-filter: blur(10px);
+  /* Glass theme effects */
+  .theme-glass .bg-card {
+    backdrop-filter: blur(12px);
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .theme-glass .bg-card\/50,
+  .theme-glass .bg-card\/60,
+  .theme-glass .bg-card\/95 {
+    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Professional shadows and animations */
+  .card-hover {
+    transition: all 0.2s ease;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Typography improvements */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  /* Enhanced focus states */
+  .focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
   }
 }

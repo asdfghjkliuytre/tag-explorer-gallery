@@ -136,28 +136,32 @@ const Index = () => {
   };
 
   // Get all available tags for autocomplete
-  const availableTags = tagStats.map(stat => stat.tag);
+  const availableTags = tagStats.map(stat => stat.name);
 
   return (
     <SidebarProvider>
       <div className={`min-h-screen theme-${currentTheme} bg-background transition-colors duration-300`}>
         {/* Header */}
-        <header className="border-b bg-card/95 backdrop-blur-sm p-4 sticky top-0 z-10 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Images className="h-8 w-8 text-primary" />
-              <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                  Professional Image Gallery
-                </h1>
-                {selectedFolderName && (
-                  <p className="text-sm text-muted-foreground">
-                    📁 {selectedFolderName}
-                  </p>
-                )}
+        <header className="border-b bg-card/95 backdrop-blur-sm p-6 sticky top-0 z-10 shadow-sm">
+          <div className="flex items-center justify-between max-w-7xl mx-auto">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Images className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-foreground">
+                    Professional Gallery
+                  </h1>
+                  {selectedFolderName && (
+                    <p className="text-sm text-muted-foreground">
+                      📁 {selectedFolderName}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
               {images.length > 0 && (
                 <Button
@@ -197,15 +201,15 @@ const Index = () => {
           )}
 
           {/* Main Content */}
-          <main className="flex-1 p-6 min-h-screen bg-gradient-to-br from-background to-muted/20">
-            <div className="space-y-6 max-w-7xl mx-auto">
+          <main className="flex-1 min-h-screen bg-gradient-to-br from-background to-muted/10">
+            <div className="p-6 max-w-7xl mx-auto">
               {images.length === 0 ? (
                 /* Folder Selector */
-                <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-sm">
+                <div className="bg-card/60 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg">
                   <FolderSelector onFolderSelect={handleFolderSelect} />
                 </div>
               ) : (
-                <>
+                <div className="space-y-6">
                   {/* Search Bar */}
                   <SearchBar 
                     searchTerm={searchTerm}
@@ -219,12 +223,12 @@ const Index = () => {
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium text-foreground">Active filters:</span>
                           {selectedTag && (
-                            <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded-md border border-primary/20">
+                            <span className="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/20">
                               Tag: {selectedTag}
                             </span>
                           )}
                           {searchTerm && (
-                            <span className="text-sm bg-secondary/50 text-secondary-foreground px-2 py-1 rounded-md border border-border">
+                            <span className="text-sm bg-secondary/50 text-secondary-foreground px-3 py-1 rounded-full border border-border">
                               Search: {searchTerm}
                             </span>
                           )}
@@ -238,7 +242,7 @@ const Index = () => {
                           }}
                           className="text-muted-foreground hover:text-foreground"
                         >
-                          Clear All Filters
+                          Clear All
                         </Button>
                       </div>
                     </div>
@@ -254,7 +258,7 @@ const Index = () => {
                     onUpdateTags={updateImageTags}
                     availableTags={availableTags}
                   />
-                </>
+                </div>
               )}
             </div>
           </main>

@@ -45,38 +45,24 @@ export const ImageViewer = ({
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 overflow-hidden">
-        <div className="relative">
-          {/* Header */}
-          <div className="absolute top-0 left-0 right-0 z-10 bg-black/80 text-white p-4 flex items-center justify-between">
-            <div className="flex-1 min-w-0">
-              <h3 className="font-medium truncate">{image.filename}</h3>
-              {image.folder !== 'root' && (
-                <p className="text-xs text-white/70">📁 {image.folder}</p>
-              )}
-            </div>
-            
-            <div className="flex items-center gap-2 ml-4">
-              {image.favorite && (
-                <Heart className="h-4 w-4 fill-red-500 text-red-500" />
-              )}
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={onClose}
-                className="text-white hover:bg-white/20"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+      <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 overflow-hidden bg-black/95 border-0">
+        <div className="relative h-full">
+          {/* Close Button */}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={onClose}
+            className="absolute top-4 right-4 z-20 bg-black/50 text-white hover:bg-black/70 border-0"
+          >
+            <X className="h-5 w-5" />
+          </Button>
 
           {/* Navigation buttons */}
           {hasPrevious && (
             <Button
               variant="ghost"
               size="icon"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/50 text-white hover:bg-black/70"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 text-white hover:bg-black/70 w-12 h-12"
               onClick={onPrevious}
             >
               <ChevronLeft className="h-6 w-6" />
@@ -87,7 +73,7 @@ export const ImageViewer = ({
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-black/50 text-white hover:bg-black/70"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 text-white hover:bg-black/70 w-12 h-12"
               onClick={onNext}
             >
               <ChevronRight className="h-6 w-6" />
@@ -95,33 +81,54 @@ export const ImageViewer = ({
           )}
 
           {/* Image */}
-          <div className="flex items-center justify-center min-h-[50vh] max-h-[80vh] bg-black">
+          <div className="flex items-center justify-center h-full bg-black">
             <img
               src={image.src}
-              alt={image.filename}
+              alt={image.title}
               className="max-w-full max-h-full object-contain"
             />
           </div>
 
-          {/* Footer with tags */}
-          {image.tags.length > 0 && (
-            <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white p-4">
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium">Tags:</h4>
-                <div className="flex flex-wrap gap-1">
-                  {image.tags.map((tag, index) => (
-                    <Badge 
-                      key={index} 
-                      variant="secondary" 
-                      className="text-xs bg-white/20 text-white hover:bg-white/30"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
+          {/* Bottom Info Panel */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6 pt-12">
+            <div className="max-w-4xl mx-auto">
+              {/* Title and Favorite */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-white font-semibold text-lg mb-1 truncate">
+                    {image.title}
+                  </h3>
+                  {image.folder !== 'root' && (
+                    <p className="text-white/60 text-sm">
+                      📁 {image.folder}
+                    </p>
+                  )}
                 </div>
+                
+                {image.favorite && (
+                  <Heart className="h-5 w-5 fill-red-500 text-red-500 ml-4 flex-shrink-0" />
+                )}
               </div>
+
+              {/* Tags */}
+              {image.tags.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="text-white/80 text-sm font-medium">Tags:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {image.tags.map((tag, index) => (
+                      <Badge 
+                        key={index} 
+                        variant="secondary" 
+                        className="bg-white/20 text-white hover:bg-white/30 border-white/30"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
