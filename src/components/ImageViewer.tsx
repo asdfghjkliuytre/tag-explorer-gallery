@@ -46,7 +46,7 @@ export const ImageViewer = ({
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 overflow-hidden bg-black/95 border-0">
-        <div className="relative h-full">
+        <div className="relative h-full flex flex-col">
           {/* Close Button */}
           <Button 
             variant="ghost" 
@@ -80,8 +80,8 @@ export const ImageViewer = ({
             </Button>
           )}
 
-          {/* Image */}
-          <div className="flex items-center justify-center h-full bg-black">
+          {/* Image Container - Takes most of the space */}
+          <div className="flex-1 flex items-center justify-center bg-black min-h-0">
             <img
               src={image.src}
               alt={image.title}
@@ -89,13 +89,13 @@ export const ImageViewer = ({
             />
           </div>
 
-          {/* Bottom Info Panel */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6 pt-12">
+          {/* Bottom Info Panel - Fixed height */}
+          <div className="bg-gradient-to-t from-black/95 via-black/80 to-transparent p-6 pt-8">
             <div className="max-w-4xl mx-auto">
               {/* Title and Favorite */}
-              <div className="flex items-start justify-between mb-4">
+              <div className="flex items-start justify-between mb-3">
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-semibold text-lg mb-1 truncate">
+                  <h3 className="text-white font-semibold text-xl mb-1">
                     {image.title}
                   </h3>
                   {image.folder !== 'root' && (
@@ -106,7 +106,7 @@ export const ImageViewer = ({
                 </div>
                 
                 {image.favorite && (
-                  <Heart className="h-5 w-5 fill-red-500 text-red-500 ml-4 flex-shrink-0" />
+                  <Heart className="h-6 w-6 fill-red-500 text-red-500 ml-4 flex-shrink-0" />
                 )}
               </div>
 

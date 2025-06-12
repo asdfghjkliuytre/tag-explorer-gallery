@@ -8,6 +8,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Filter, Images, FolderOpen } from 'lucide-react';
 import { extractTagsFromFilename, createTagStats, TagStats } from '@/utils/tagProcessor';
+import { extractMainTitle } from '@/utils/titleExtractor';
 
 export interface ImageData {
   id: string;
@@ -54,7 +55,8 @@ const Index = () => {
           file.webkitRelativePath.split('/').slice(0, -1).join('/') : 
           'root';
         
-        const { title, tags } = extractTagsFromFilename(file.name);
+        const { tags } = extractTagsFromFilename(file.name);
+        const title = extractMainTitle(file.name);
         
         return {
           id: `${Date.now()}-${index}`,
