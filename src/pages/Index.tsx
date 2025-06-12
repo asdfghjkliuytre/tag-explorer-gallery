@@ -7,7 +7,7 @@ import { FolderSelector } from '@/components/FolderSelector';
 import { ThemeSelector } from '@/components/ThemeSelector';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Filter, Images } from 'lucide-react';
+import { Filter, Images, FolderOpen } from 'lucide-react';
 import { extractTagsFromFilename, createTagStats, TagStats } from '@/utils/tagProcessor';
 
 export interface ImageData {
@@ -27,6 +27,20 @@ const Index = () => {
   const [isTagSidebarOpen, setIsTagSidebarOpen] = useState(true);
   const [currentTheme, setCurrentTheme] = useState('light');
   const [tagStats, setTagStats] = useState<TagStats[]>([]);
+  const [selectedFolderName, setSelectedFolderName] = useState<string>('');
+
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('gallery-theme');
+    if (savedTheme) {
+      setCurrentTheme(savedTheme);
+    }
+  }, []);
+
+  // Save theme to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('gallery-theme', currentTheme);
+  }, [currentTheme]);
 
   // Handle folder selection with enhanced tag processing
   const handleFolderSelect = async (files: FileList) => {
@@ -61,6 +75,15 @@ const Index = () => {
     const stats = createTagStats(loadedImages);
     setTagStats(stats);
     
+    // Set folder name for display
+    const firstFile = imageFiles[0];
+    if (firstFile && firstFile.webkitRelativePath) {
+      const folderName = firstFile.webkitRelativePath.split('/')[0];
+      setSelectedFolderName(folderName);
+    } else {
+      setSelectedFolderName('Selected Images');
+    }
+    
     setSelectedTag(''); // Clear any existing tag filter
     setSearchTerm(''); // Clear search
   };
@@ -84,10 +107,36 @@ const Index = () => {
     ));
   };
 
+  // Update image tags
+  const updateImageTags = (imageId: string, newTags: string[]) => {
+    setImages(prev => prev.map(img => 
+      img.id === imageId ? { ...img, tags: newTags } : img
+    ));
+    
+    // Regenerate tag stats
+    const updatedImages = images.map(img => 
+      img.id === imageId ? { ...img, tags: newTags } : img
+    );
+    const stats = createTagStats(updatedImages);
+    setTagStats(stats);
+  };
+
   // Handle tag click - single tag selection only
   const handleTagClick = (tag: string) => {
     setSelectedTag(selectedTag === tag ? '' : tag);
   };
+
+  // Clear folder selection
+  const handleClearFolder = () => {
+    setImages([]);
+    setTagStats([]);
+    setSelectedFolderName('');
+    setSelectedTag('');
+    setSearchTerm('');
+  };
+
+  // Get all available tags for autocomplete
+  const availableTags = tagStats.map(stat => stat.tag);
 
   return (
     <SidebarProvider>
@@ -97,12 +146,30 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Images className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                Professional Image Gallery
-              </h1>
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  Professional Image Gallery
+                </h1>
+                {selectedFolderName && (
+                  <p className="text-sm text-muted-foreground">
+                    📁 {selectedFolderName}
+                  </p>
+                )}
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
+              {images.length > 0 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleClearFolder}
+                  className="flex items-center gap-2"
+                >
+                  <FolderOpen className="h-4 w-4" />
+                  Change Folder
+                </Button>
+              )}
               <Button
                 variant="outline"
                 size="icon"
@@ -131,58 +198,64 @@ const Index = () => {
 
           {/* Main Content */}
           <main className="flex-1 p-6 min-h-screen bg-gradient-to-br from-background to-muted/20">
-            <div className="space-y-6 max-w-5xl mx-auto">
-              {/* Folder Selector */}
-              <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-sm">
-                <FolderSelector onFolderSelect={handleFolderSelect} />
-              </div>
-              
-              {/* Search Bar */}
-              <SearchBar 
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-              />
-
-              {/* Active Filters Display */}
-              {(selectedTag || searchTerm) && (
-                <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-foreground">Active filters:</span>
-                      {selectedTag && (
-                        <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded-md border border-primary/20">
-                          Tag: {selectedTag}
-                        </span>
-                      )}
-                      {searchTerm && (
-                        <span className="text-sm bg-secondary/50 text-secondary-foreground px-2 py-1 rounded-md border border-border">
-                          Search: {searchTerm}
-                        </span>
-                      )}
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        setSelectedTag('');
-                        setSearchTerm('');
-                      }}
-                      className="text-muted-foreground hover:text-foreground"
-                    >
-                      Clear All Filters
-                    </Button>
-                  </div>
+            <div className="space-y-6 max-w-7xl mx-auto">
+              {images.length === 0 ? (
+                /* Folder Selector */
+                <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border/50 shadow-sm">
+                  <FolderSelector onFolderSelect={handleFolderSelect} />
                 </div>
-              )}
+              ) : (
+                <>
+                  {/* Search Bar */}
+                  <SearchBar 
+                    searchTerm={searchTerm}
+                    onSearchChange={setSearchTerm}
+                  />
 
-              {/* Image Gallery */}
-              <ImageGallery 
-                images={filteredImages}
-                onToggleFavorite={toggleFavorite}
-                onTagClick={handleTagClick}
-                selectedTag={selectedTag}
-                searchTerm={searchTerm}
-              />
+                  {/* Active Filters Display */}
+                  {(selectedTag || searchTerm) && (
+                    <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium text-foreground">Active filters:</span>
+                          {selectedTag && (
+                            <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded-md border border-primary/20">
+                              Tag: {selectedTag}
+                            </span>
+                          )}
+                          {searchTerm && (
+                            <span className="text-sm bg-secondary/50 text-secondary-foreground px-2 py-1 rounded-md border border-border">
+                              Search: {searchTerm}
+                            </span>
+                          )}
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setSelectedTag('');
+                            setSearchTerm('');
+                          }}
+                          className="text-muted-foreground hover:text-foreground"
+                        >
+                          Clear All Filters
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Image Gallery */}
+                  <ImageGallery 
+                    images={filteredImages}
+                    onToggleFavorite={toggleFavorite}
+                    onTagClick={handleTagClick}
+                    selectedTag={selectedTag}
+                    searchTerm={searchTerm}
+                    onUpdateTags={updateImageTags}
+                    availableTags={availableTags}
+                  />
+                </>
+              )}
             </div>
           </main>
         </div>
