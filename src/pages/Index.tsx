@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ImageGallery } from '@/components/ImageGallery';
 import { TagSidebar } from '@/components/TagSidebar';
@@ -136,7 +135,7 @@ const Index = () => {
   };
 
   // Get all available tags for autocomplete
-  const availableTags = tagStats.map(stat => stat.name);
+  const availableTags = tagStats.map(stat => stat.canonical);
 
   return (
     <SidebarProvider>
