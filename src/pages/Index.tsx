@@ -144,9 +144,10 @@ const Index = () => {
 
   return (
     <SidebarProvider>
+      {/* Cleaned main wrapper: removed redundant min-w/min-h, ensure flex and bg class, and add professional layout */}
       <div
-        className={`min-h-screen w-full theme-${currentTheme} bg-background transition-colors duration-300 relative`}
-        style={{ minHeight: "100vh", minWidth: "100vw" }}
+        className={`flex flex-col min-h-screen theme-${currentTheme} bg-background transition-colors duration-300 relative`}
+        style={{ minHeight: "100vh" }}
       >
         {/* Header */}
         <header className="border-b bg-card/95 backdrop-blur-md py-6 px-0 sticky top-0 z-10 shadow-sm">

@@ -296,11 +296,9 @@
 .theme-cyberpunk,
 .theme-cyberpunk body,
 .theme-cyberpunk #root,
-.theme-cyberpunk .min-h-screen,
-.theme-cyberpunk .w-full,
-.theme-cyberpunk .h-screen,
 html,
 body {
+  /* Removed .w-full and .min-h-screen from this block to avoid layout collapse */
   background: radial-gradient(ellipse at center, hsl(260 100% 4%), hsl(260 100% 1%)) !important;
   background-attachment: fixed !important;
   min-height: 100vh !important;
@@ -308,6 +306,16 @@ body {
   color: #ffe359 !important;
   transition: background 0.3s, color 0.3s;
 }
+
+/* Remove background and color overrides for .w-full, .min-h-screen, .h-screen within .theme-cyberpunk,
+   as forcing backgrounds on containers may collapse content. Only apply to top-level wrappers. */
+.theme-cyberpunk .bg-background,
+.theme-cyberpunk .bg-card {
+  background: transparent !important;
+  color: #ffe359 !important;
+}
+
+/* Do NOT target .theme-cyberpunk .w-full, .h-screen, .min-h-screen for background - removed! */
 
 /* Typography tweaks for more professionalism */
 body {
