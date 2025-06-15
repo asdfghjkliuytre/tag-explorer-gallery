@@ -112,14 +112,14 @@ export const PasswordProtectedFolderButton = ({
           className="fixed bottom-6 right-6 w-10 h-10 z-20 flex items-center justify-center"
           style={{
             pointerEvents: "auto",
-            // For watermarked/behind effect, low opacity and lower z-index than modals/gallery overlays,
-            // but higher than main bg.
-            opacity: dotVisible ? 0.11 : 0.04,
+            /* For light themes, make sure it's visible enough */
+            opacity: dotVisible ? (document.body.classList.contains("theme-light") ? 0.15 : 0.11) : 0.045,
+            background: "transparent",
             transition: "opacity 0.2s",
             filter: "blur(0.5px) drop-shadow(0 0 14px #ffe35933)",
             userSelect: "none"
           }}
-          title={"Unlock protected folder"}
+          aria-label={"Unlock protected folder"}
           onClick={handleClickSecretArea}
         >
           <div
