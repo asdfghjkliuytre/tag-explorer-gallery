@@ -291,3 +291,72 @@
     outline-offset: 2px;
   }
 }
+
+/* --- CYBERPUNK Theme: Ensure background covers whole page --- */
+.theme-cyberpunk,
+.theme-cyberpunk body,
+.theme-cyberpunk #root,
+.theme-cyberpunk .min-h-screen,
+.theme-cyberpunk .w-full,
+.theme-cyberpunk .h-screen,
+html,
+body {
+  background: radial-gradient(ellipse at center, hsl(260 100% 4%), hsl(260 100% 1%)) !important;
+  background-attachment: fixed !important;
+  min-height: 100vh !important;
+  min-width: 100vw !important;
+  color: #ffe359 !important;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Typography tweaks for more professionalism */
+body {
+  font-family: 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 1.07rem;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.theme-cyberpunk .bg-card,
+.theme-cyberpunk .bg-card\/50,
+.theme-cyberpunk .bg-card\/60,
+.theme-cyberpunk .bg-card\/95 {
+  background: linear-gradient(135deg, hsl(260 80% 8%), hsl(260 70% 4%));
+  border: 1.2px solid hsl(60 100% 30%);
+  box-shadow: 0 2px 24px hsl(60 100% 60% / 0.20), inset 0 1px 0 hsl(60 100% 60% / 0.10);
+  /* softer shadow for professional effect */
+}
+
+.theme-cyberpunk .border-primary {
+  box-shadow: 0 0 16px hsl(60 100% 60% / 0.27);
+}
+
+/* Smoother card and button hovers */
+.card-hover,
+button,
+a,
+input,
+.bg-card {
+  transition: all 0.17s cubic-bezier(.4,2,.3,1);
+}
+
+/* Scrollbar styling for professional look */
+::-webkit-scrollbar {
+  width: 8px;
+  background: hsl(260, 50%, 5%);
+}
+::-webkit-scrollbar-thumb {
+  background: #ffe35933;
+  border-radius: 4px;
+}
+/* Fallback for firefox */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #ffe35933 hsl(260, 50%, 5%);
+}

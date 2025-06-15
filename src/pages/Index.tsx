@@ -144,23 +144,24 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className={`min-h-screen theme-${currentTheme} bg-background transition-colors duration-300 relative`}>
+      <div
+        className={`min-h-screen w-full theme-${currentTheme} bg-background transition-colors duration-300 relative`}
+        style={{ minHeight: "100vh", minWidth: "100vw" }}
+      >
         {/* Header */}
-        <header className="border-b bg-card/95 backdrop-blur-sm p-6 sticky top-0 z-10 shadow-sm">
-          <div className="flex items-center justify-between max-w-7xl mx-auto">
+        <header className="border-b bg-card/95 backdrop-blur-md py-6 px-0 sticky top-0 z-10 shadow-sm">
+          <div className="flex items-center justify-between max-w-6xl mx-auto px-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Images className="h-6 w-6 text-primary" />
+                <div className="p-2 bg-primary/10 rounded-xl shadow-sm">
+                  <Images className="h-7 w-7 text-primary" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-foreground">
+                  <h1 className="text-2xl font-black tracking-tight text-cyberpunk-accent drop-shadow-md">
                     Professional Gallery
                   </h1>
                   {selectedFolderName && (
-                    <p className="text-sm text-muted-foreground">
-                      📁 {selectedFolderName}
-                    </p>
+                    <p className="text-base font-medium text-cyberpunk-foreground/90">{`📁 ${selectedFolderName}`}</p>
                   )}
                 </div>
               </div>
@@ -172,7 +173,7 @@ const Index = () => {
                   variant="outline"
                   size="sm"
                   onClick={handleClearFolder}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 text-cyberpunk-accent shadow"
                 >
                   <FolderOpen className="h-4 w-4" />
                   Change Folder
@@ -182,7 +183,7 @@ const Index = () => {
                 variant="outline"
                 size="icon"
                 onClick={() => setIsTagSidebarOpen(!isTagSidebarOpen)}
-                className="relative"
+                className="relative shadow"
               >
                 <Filter className="h-4 w-4" />
                 {selectedTag && (
@@ -193,7 +194,7 @@ const Index = () => {
           </div>
         </header>
 
-        <div className="flex">
+        <div className="flex w-full">
           {/* Tag Sidebar */}
           {isTagSidebarOpen && (
             <TagSidebar
@@ -205,15 +206,17 @@ const Index = () => {
           )}
 
           {/* Main Content */}
-          <main className="flex-1 min-h-screen bg-gradient-to-br from-background to-muted/10">
-            <div className="p-6 max-w-7xl mx-auto">
+          <main className="flex-1 min-h-screen bg-background bg-opacity-70">
+            <div className="py-10 px-2 md:px-8 lg:px-12 max-w-6xl mx-auto">
               {images.length === 0 ? (
-                /* Folder Selector */
-                <div className="bg-card/60 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg">
+                <div className="bg-card/60 backdrop-blur-md rounded-3xl py-14 px-6 border border-border/50 shadow-2xl flex flex-col items-center justify-center">
                   <FolderSelector onFolderSelect={handleFolderSelect} />
+                  <div className="mt-6 text-cyberpunk-accent text-sm opacity-80">
+                    Tip: Try the cyberpunk/neon theme for an immersive experience!
+                  </div>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {/* Search Bar */}
                   <SearchBar 
                     searchTerm={searchTerm}
@@ -222,17 +225,17 @@ const Index = () => {
 
                   {/* Active Filters Display */}
                   {(selectedTag || searchTerm) && (
-                    <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                    <div className="bg-primary/10 border border-primary/30 rounded-2xl p-4">
                       <div className="flex items-center justify-between flex-wrap gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-foreground">Active filters:</span>
+                        <div className="flex items-center gap-2 text-cyberpunk-accent">
+                          <span className="text-sm font-semibold">Active filters:</span>
                           {selectedTag && (
-                            <span className="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/20">
+                            <span className="text-sm bg-primary/20 text-primary px-3 py-1 rounded-full border border-primary/30">
                               Tag: {selectedTag}
                             </span>
                           )}
                           {searchTerm && (
-                            <span className="text-sm bg-secondary/50 text-secondary-foreground px-3 py-1 rounded-full border border-border">
+                            <span className="text-sm bg-secondary/30 text-secondary-foreground px-3 py-1 rounded-full border border-border">
                               Search: {searchTerm}
                             </span>
                           )}
@@ -267,7 +270,7 @@ const Index = () => {
             </div>
           </main>
         </div>
-        {/* Password-protected folder button at bottom (hidden UI) */}
+        {/* Password-protected folder button at bottom right (now customizable) */}
         <PasswordProtectedFolderButton onFolderSelect={handleFolderSelect} />
       </div>
     </SidebarProvider>
