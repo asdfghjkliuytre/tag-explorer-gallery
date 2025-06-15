@@ -10,9 +10,10 @@ export const OnboardingBanner: FC<{ theme: string }> = ({ theme }) => {
         Welcome to <span className="gradient-text">Your Gallery</span>
       </div>
       <div className="font-normal text-base md:text-lg mt-2 text-muted-foreground">
-        Organize, search &amp; enjoy your images with lightning speed.
+        Organize, search & enjoy your images with lightning speed.
       </div>
-      <style jsx>{`
+      {/* Only for SSR-friendly: use inline style, don't use jsx/prop */}
+      <style>{`
         .gradient-text {
           background: linear-gradient(90deg, #c471f5 0%, #fa71cd 100%);
           -webkit-background-clip: text;
