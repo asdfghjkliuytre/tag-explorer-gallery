@@ -1,4 +1,3 @@
-
 @tailwind base;
 
 /* Root variables and shared theme tokens */
@@ -155,3 +154,73 @@
 .bg-accent { background: hsl(var(--accent)); }
 .border-accent { border-color: hsl(var(--accent)); }
 .focus\:ring-accent:focus { box-shadow: 0 0 0 2px hsl(var(--accent)); }
+
+/* new "Tight" (compact/dense) theme */
+.theme-tight {
+  --background: 240 2% 98%;
+  --foreground: 222 70% 12%;
+  --card: 240 4% 94%;
+  --card-foreground: 222 70% 12%;
+  --primary: 222 70% 38%;
+  --primary-foreground: 240 2% 98%;
+  --secondary: 222 16% 86%;
+  --secondary-foreground: 222 70% 38%;
+  --muted: 210 12% 90%;
+  --muted-foreground: 222 30% 56%;
+  --border: 222 22% 82%;
+  --accent: 180 80% 45%;
+  --accent-foreground: 0 0% 100%;
+  --radius: 0.4rem;
+
+  /* Tighter spacing utilities for "tight" theme */
+  --tight-padding: 0.4rem;
+  --tight-gap: 0.45rem;
+  --tight-border-radius: 0.4rem;
+}
+
+.theme-tight .container,
+.theme-tight .card, 
+.theme-tight .bg-card,
+.theme-tight .rounded-xl, 
+.theme-tight .rounded-2xl, 
+.theme-tight .rounded-3xl, 
+.theme-tight .shadow, 
+.theme-tight .badge, 
+.theme-tight .Tag,
+.theme-tight input, 
+.theme-tight textarea, 
+.theme-tight select, 
+.theme-tight button,
+.theme-tight .shadcn-btn {
+  padding: var(--tight-padding) !important;
+  border-radius: var(--tight-border-radius) !important;
+  margin: 0;
+}
+
+.theme-tight .card,
+.theme-tight .bg-card,
+.theme-tight .shadow {
+  box-shadow: 0 2.5px 9px 0 rgba(30,34,77,0.09), 0 1px 4px 0 rgba(49,53,110,0.05) !important;
+}
+
+.theme-tight .container {
+  max-width: 100vw !important;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+.theme-tight h1, 
+.theme-tight h2,
+.theme-tight h3, 
+.theme-tight h4, 
+.theme-tight h5, 
+.theme-tight h6 {
+  margin-bottom: 0.45em;
+  letter-spacing: -0.01em;
+}
+
+.theme-tight [class*="flex"], 
+.theme-tight [class*="gap-"], 
+.theme-tight [class*="space-"] {
+  gap: var(--tight-gap) !important;
+}

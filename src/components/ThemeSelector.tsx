@@ -18,6 +18,8 @@ const THEMES = [
   { id: 'solar-flare', name: 'Solar Flare', description: 'Orange/blue cosmic energy' },
   { id: 'midnight-opal', name: 'Midnight Opal', description: 'Dark jewel tones, iridescence' },
   { id: 'forest-meadow', name: 'Forest Meadow', description: 'Green/brown natural calm' },
+  // Add Tight theme
+  { id: 'tight', name: 'Tight', description: 'Ultra-compact, dense and efficient UI' },
 ];
 
 interface ThemeSelectorProps {
