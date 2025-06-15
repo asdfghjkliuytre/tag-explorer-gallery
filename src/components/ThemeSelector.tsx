@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -27,18 +27,22 @@ interface ThemeSelectorProps {
 
 export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleThemeSelect = (themeId: string) => {
-    onThemeChange(themeId);
-    setIsOpen(false);
-  };
-
+  // Force a re-render on theme change for focus/visibility
+  useEffect(() => {
+    // When theme changes, ensure popover is still visible if open
+    if (isOpen) {
+      setIsOpen(false); // close then open to trigger DOM update & z-index
+      setTimeout(() => setIsOpen(true), 30);
+    }
+  }, [currentTheme]);
+  
+  // Try to always bring into foreground (z-50)
   return (
     <div className="relative z-[99]">
       <Button
         variant="outline"
         size="icon"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(o => !o)}
         className="bg-card/60 backdrop-blur-3xl border border-border/70 shadow-md hover:scale-105 transition-transform"
         aria-label="Theme selector"
       >
@@ -46,7 +50,7 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 top-12 w-72 bg-card/98 backdrop-blur-2xl border border-border/70 rounded-2xl shadow-2xl z-[99] animate-fade-in">
+        <div className="absolute right-0 top-12 w-72 bg-card/98 backdrop-blur-2xl border border-border/70 rounded-2xl shadow-2xl z-50 animate-fade-in">
           <div className="p-4 border-b border-border/40">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-foreground tracking-normal">Choose Theme</h3>
@@ -67,7 +71,10 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
                       : 'border-border/60 hover:border-primary/70 hover:bg-muted/60'
                     }`
                   }
-                  onClick={() => handleThemeSelect(theme.id)}
+                  onClick={() => {
+                    onThemeChange(theme.id);
+                    setIsOpen(false);
+                  }}
                   role="button"
                   aria-label={`Switch to ${theme.name}`}
                 >

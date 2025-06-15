@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 
 const DEFAULT_PASSWORD = "qazwsx";
@@ -22,8 +21,13 @@ export function usePasswordProtectedFolder(onFolderSelect: (files: FileList) => 
   const [newPassword, setNewPassword] = useState("");
   const [newFolderPath, setNewFolderPath] = useState(folderPath);
 
+  // Fix: Safely parse dotVisible from string
   const [dotVisible, setDotVisible] = useState(
-    localStorage.getItem("ppfb-dot-visible") !== "false"
+    () => {
+      // If key is absent, default to true
+      const val = localStorage.getItem("ppfb-dot-visible");
+      return val === null ? true : val === "true";
+    }
   );
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -31,15 +35,24 @@ export function usePasswordProtectedFolder(onFolderSelect: (files: FileList) => 
   // Triple-tap/click logic for secret area (resets after 2s)
   const clickAreaTimeout = useRef<NodeJS.Timeout | null>(null);
   function handleClickSecretArea() {
-    if (!dotVisible) return;
+    if (!dotVisible) {
+      console.log("[SecretDot] dotVisible===false, click ignored");
+      return;
+    }
     if (clickAreaTimeout.current) clearTimeout(clickAreaTimeout.current);
     setClickCount((c) => {
-      if (c === 2) {
+      const next = c + 1;
+      console.log(`[SecretDot] clickCount: ${next}`);
+      if (next === 3) {
         setShowPasswordPrompt(true);
+        setTimeout(() => setClickCount(0), 100); // reset counter sooner
         return 0;
       }
-      clickAreaTimeout.current = setTimeout(() => setClickCount(0), 2000);
-      return c + 1;
+      clickAreaTimeout.current = setTimeout(() => {
+        setClickCount(0);
+        console.log("[SecretDot] clickCount reset (2s)");
+      }, 2000);
+      return next;
     });
   }
 
