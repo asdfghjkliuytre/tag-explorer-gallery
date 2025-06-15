@@ -86,13 +86,12 @@ export const PasswordProtectedFolderButton = ({
     const files = e.target.files;
     if (files) {
       onFolderSelect(files);
-      // HIDE (lock) after folder is selected!
-      if (isUnlocked) {
-        setIsUnlocked(false);
-        setShowPasswordPrompt(false);
-        setSettingsMode(false);
-        setInputPwd("");
-      }
+      // After folder selection, relock and close, but ALWAYS allow secret dot access again
+      setIsUnlocked(false);
+      setShowPasswordPrompt(false);
+      setSettingsMode(false);
+      setInputPwd("");
+      // Do not hide the dot or block secret area!
     }
   }
 
