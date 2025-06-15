@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ImageGallery } from '@/components/ImageGallery';
 import { TagSidebar } from '@/components/TagSidebar';
@@ -11,6 +10,9 @@ import { Filter, Images, FolderOpen } from 'lucide-react';
 import { extractTagsFromFilename, createTagStats, TagStats } from '@/utils/tagProcessor';
 import { extractMainTitle } from '@/utils/titleExtractor';
 import { PasswordProtectedFolderButton } from "@/components/PasswordProtectedFolderButton";
+import { FolderOnboardingSidebar } from '@/components/FolderOnboardingSidebar';
+import { FolderOnboardingSteps } from '@/components/FolderOnboardingSteps';
+import { OnboardingBanner } from '@/components/OnboardingBanner';
 
 export interface ImageData {
   id: string;
@@ -205,67 +207,76 @@ const Index = () => {
 
           {/* Main Content */}
           <main className="flex-1 min-h-screen bg-background bg-opacity-70">
-            <div className="py-10 px-2 md:px-8 lg:px-12 max-w-6xl mx-auto">
-              {images.length === 0 ? (
-                <div className="bg-card/60 backdrop-blur-md rounded-3xl py-14 px-6 border border-border/50 shadow-2xl flex flex-col items-center justify-center">
-                  <FolderSelector onFolderSelect={handleFolderSelect} />
-                  <div className={`mt-6 ${accentText} text-sm opacity-80`}>
-                    Tip: Try the cyberpunk/neon theme for an immersive experience!
+            {images.length === 0 ? (
+              <div className="relative w-full min-h-screen bg-background flex items-stretch justify-center overflow-hidden">
+                {/* BANNER */}
+                <div className="absolute top-0 left-0 w-full flex justify-center pointer-events-none z-10">
+                  <OnboardingBanner theme={currentTheme} />
+                </div>
+                {/* MAIN FOLDER CARD + STEPS */}
+                <div className="flex flex-1 flex-col items-center justify-center z-20 py-24 md:py-36 px-4">
+                  <div className="mx-auto w-full max-w-lg">
+                    <FolderSelector onFolderSelect={handleFolderSelect} />
+                    <FolderOnboardingSteps className="mt-8" />
                   </div>
                 </div>
-              ) : (
-                <div className="space-y-8">
-                  {/* Search Bar */}
-                  <SearchBar 
-                    searchTerm={searchTerm}
-                    onSearchChange={setSearchTerm}
-                  />
-
-                  {/* Active Filters Display */}
-                  {(selectedTag || searchTerm) && (
-                    <div className="bg-primary/10 border border-primary/30 rounded-2xl p-4">
-                      <div className="flex items-center justify-between flex-wrap gap-2">
-                        <div className={`flex items-center gap-2 ${accentText}`}>
-                          <span className="text-sm font-semibold">Active filters:</span>
-                          {selectedTag && (
-                            <span className="text-sm bg-primary/20 text-primary px-3 py-1 rounded-full border border-primary/30">
-                              Tag: {selectedTag}
-                            </span>
-                          )}
-                          {searchTerm && (
-                            <span className="text-sm bg-secondary/30 text-secondary-foreground px-3 py-1 rounded-full border border-border">
-                              Search: {searchTerm}
-                            </span>
-                          )}
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => {
-                            setSelectedTag('');
-                            setSearchTerm('');
-                          }}
-                          className="text-muted-foreground hover:text-foreground"
-                        >
-                          Clear All
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Image Gallery */}
-                  <ImageGallery 
-                    images={filteredImages}
-                    onToggleFavorite={toggleFavorite}
-                    onTagClick={handleTagClick}
-                    selectedTag={selectedTag}
-                    searchTerm={searchTerm}
-                    onUpdateTags={updateImageTags}
-                    availableTags={availableTags}
-                  />
+                {/* TIPS SIDEBAR (right) - only visible on lg+ screens */}
+                <div className="hidden lg:block w-1/3 min-w-[320px] max-w-xs py-24 md:py-36 pr-12 z-20">
+                  <FolderOnboardingSidebar />
                 </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {/* Search Bar */}
+                <SearchBar 
+                  searchTerm={searchTerm}
+                  onSearchChange={setSearchTerm}
+                />
+
+                {/* Active Filters Display */}
+                {(selectedTag || searchTerm) && (
+                  <div className="bg-primary/10 border border-primary/30 rounded-2xl p-4">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className={`flex items-center gap-2 ${accentText}`}>
+                        <span className="text-sm font-semibold">Active filters:</span>
+                        {selectedTag && (
+                          <span className="text-sm bg-primary/20 text-primary px-3 py-1 rounded-full border border-primary/30">
+                            Tag: {selectedTag}
+                          </span>
+                        )}
+                        {searchTerm && (
+                          <span className="text-sm bg-secondary/30 text-secondary-foreground px-3 py-1 rounded-full border border-border">
+                            Search: {searchTerm}
+                          </span>
+                        )}
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setSelectedTag('');
+                          setSearchTerm('');
+                        }}
+                        className="text-muted-foreground hover:text-foreground"
+                      >
+                        Clear All
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Image Gallery */}
+                <ImageGallery 
+                  images={filteredImages}
+                  onToggleFavorite={toggleFavorite}
+                  onTagClick={handleTagClick}
+                  selectedTag={selectedTag}
+                  searchTerm={searchTerm}
+                  onUpdateTags={updateImageTags}
+                  availableTags={availableTags}
+                />
+              </div>
+            )}
           </main>
         </div>
         {/* Password-protected folder button at bottom right (now customizable) */}
@@ -276,4 +287,3 @@ const Index = () => {
 };
 
 export default Index;
-
