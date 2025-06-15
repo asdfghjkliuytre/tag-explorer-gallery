@@ -149,15 +149,15 @@ const Index = () => {
         style={{ minHeight: "100vh" }}
       >
         {/* Header */}
-        <header className="border-b bg-card/95 backdrop-blur-md py-6 px-0 sticky top-0 z-10 shadow-sm">
-          <div className="flex items-center justify-between max-w-6xl mx-auto px-4">
+        <header className="border-b bg-card/95 backdrop-blur-md py-5 px-0 sticky top-0 z-10 shadow-md">
+          <div className="flex items-center justify-between container">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-xl shadow-sm">
+                <div className="p-2 bg-primary/10 rounded-xl shadow">
                   <Images className="h-7 w-7 text-primary" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-black tracking-tight text-foreground drop-shadow-md">
+                  <h1 className="text-2xl md:text-3xl font-black tracking-tight text-foreground drop-shadow-md">
                     Professional Gallery
                   </h1>
                   {selectedFolderName && (
@@ -173,7 +173,7 @@ const Index = () => {
                   variant="outline"
                   size="sm"
                   onClick={handleClearFolder}
-                  className={`flex items-center gap-2 ${accentText} shadow`}
+                  className={`flex items-center gap-2 ${accentText} shadow-sm px-4`}
                 >
                   <FolderOpen className="h-4 w-4" />
                   Change Folder
@@ -183,19 +183,18 @@ const Index = () => {
                 variant="outline"
                 size="icon"
                 onClick={() => setIsTagSidebarOpen(!isTagSidebarOpen)}
-                className="relative shadow"
+                className="relative shadow-sm"
               >
                 <Filter className="h-4 w-4" />
                 {selectedTag && (
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"></div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full border border-background"></div>
                 )}
               </Button>
             </div>
           </div>
         </header>
 
-        <div className="flex w-full">
-          {/* Tag Sidebar */}
+        <main className="flex w-full min-h-screen bg-background bg-opacity-80">
           {isTagSidebarOpen && (
             <TagSidebar
               tagStats={tagStats}
@@ -206,7 +205,7 @@ const Index = () => {
           )}
 
           {/* Main Content */}
-          <main className="flex-1 min-h-screen bg-background bg-opacity-70">
+          <section className="flex-1 min-h-screen flex flex-col px-2 md:px-6 py-8 md:py-14">
             {images.length === 0 ? (
               // Onboarding/Folder Selection Page
               currentTheme === "light" ? (
@@ -219,7 +218,6 @@ const Index = () => {
                   </div>
                 </div>
               ) : (
-                // ... keep existing code (non-light onboarding: banner, steps, sidebar) ...
                 <div className="relative w-full min-h-screen bg-background flex items-stretch justify-center overflow-hidden">
                   {/* BANNER */}
                   <div className="absolute top-0 left-0 w-full flex justify-center pointer-events-none z-10">
@@ -239,7 +237,6 @@ const Index = () => {
                 </div>
               )
             ) : (
-              // ... keep existing code (gallery/grid/search/list) the same ...
               <div className="space-y-8">
                 {/* Search Bar */}
                 <SearchBar 
@@ -291,8 +288,8 @@ const Index = () => {
                 />
               </div>
             )}
-          </main>
-        </div>
+          </section>
+        </main>
         {/* Password-protected folder button at bottom right (now customizable) */}
         <PasswordProtectedFolderButton onFolderSelect={handleFolderSelect} />
       </div>

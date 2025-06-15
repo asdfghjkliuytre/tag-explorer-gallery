@@ -28,51 +28,52 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
   };
 
   return (
-    <div className="relative">
+    <div className="relative z-[99]">
       <Button
         variant="outline"
         size="icon"
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/80"
+        className="bg-card/60 backdrop-blur-3xl border border-border/70 shadow-md hover:scale-105 transition-transform"
+        aria-label="Theme selector"
       >
         <Palette className="h-4 w-4" />
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 top-12 w-72 bg-card/95 backdrop-blur-sm border border-border/50 rounded-xl shadow-lg z-50">
-          <div className="p-4 border-b border-border/50">
+        <div className="absolute right-0 top-12 w-72 bg-card/98 backdrop-blur-2xl border border-border/70 rounded-2xl shadow-2xl z-[99] animate-fade-in">
+          <div className="p-4 border-b border-border/40">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-foreground">Choose Theme</h3>
-              <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
+              <h3 className="font-semibold text-foreground tracking-normal">Choose Theme</h3>
+              <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="hover:bg-muted/60">
                 <X className="h-4 w-4" />
               </Button>
             </div>
           </div>
-
           <div className="p-4">
             <div className="grid grid-cols-2 gap-3">
               {THEMES.map((theme) => (
                 <div
                   key={theme.id}
-                  className={`p-3 rounded-lg cursor-pointer transition-all duration-200 border-2 ${
-                    currentTheme === theme.id
-                      ? 'border-primary bg-primary/10'
-                      : 'border-border/50 hover:border-primary/50 hover:bg-muted/50'
-                  }`}
+                  className={
+                    `p-3 rounded-xl cursor-pointer card-hover transition-all duration-200 border-2 flex flex-col space-y-2 group
+                    ${currentTheme === theme.id
+                      ? 'border-primary bg-primary/10 scale-[1.03] shadow-lg'
+                      : 'border-border/60 hover:border-primary/70 hover:bg-muted/60'
+                    }`
+                  }
                   onClick={() => handleThemeSelect(theme.id)}
+                  role="button"
+                  aria-label={`Switch to ${theme.name}`}
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium text-sm text-foreground">{theme.name}</span>
-                      {currentTheme === theme.id && (
-                        <Badge variant="default" className="text-xs">Active</Badge>
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground">{theme.description}</p>
-                    
-                    {/* Theme Preview */}
-                    <div className={`h-6 rounded theme-preview-${theme.id} border border-border/30`}></div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-sm text-foreground">{theme.name}</span>
+                    {currentTheme === theme.id && (
+                      <Badge variant="default" className="text-xs">Active</Badge>
+                    )}
                   </div>
+                  <p className="text-xs text-muted-foreground">{theme.description}</p>
+                  {/* Theme Preview Bar */}
+                  <div className={`h-6 rounded-lg theme-preview-${theme.id} border border-border/30`}></div>
                 </div>
               ))}
             </div>
