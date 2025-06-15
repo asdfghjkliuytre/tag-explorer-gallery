@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { FolderOpen, Lock, Settings, Eye, EyeOff } from "lucide-react";
@@ -85,7 +84,16 @@ export const PasswordProtectedFolderButton = ({
   // Folder select handler
   function handleFolderSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
-    if (files) onFolderSelect(files);
+    if (files) {
+      onFolderSelect(files);
+      // HIDE (lock) after folder is selected!
+      if (isUnlocked) {
+        setIsUnlocked(false);
+        setShowPasswordPrompt(false);
+        setSettingsMode(false);
+        setInputPwd("");
+      }
+    }
   }
 
   // Toggle secret dot visibility when unlocked
