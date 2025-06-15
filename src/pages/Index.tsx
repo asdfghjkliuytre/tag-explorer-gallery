@@ -254,7 +254,7 @@ const Index = () => {
             {images.length === 0 ? (
               // Onboarding/Folder Selection Page
               currentTheme === "light" ? (
-                <div className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-[#fafbfe] via-[#f6f3ff] to-[#fdeff5]">
+                <div className="relative w-full min-h-screen flex items-center justify-center bg-white bg-gradient-to-br from-[#fafbfe] via-[#f6f3ff] to-[#fdeff5]">
                   <div className="absolute top-0 left-0 w-full flex justify-center pointer-events-none z-10">
                     <OnboardingBanner theme={currentTheme} />
                   </div>
