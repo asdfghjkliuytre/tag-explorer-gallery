@@ -206,8 +206,9 @@ const Index = () => {
   return (
     <SidebarProvider>
       <div
-        className={`flex flex-col min-h-screen theme-${currentTheme} bg-background transition-colors duration-300 relative`}
-        style={{ minHeight: "100vh" }}
+        className={`
+          flex flex-col min-h-screen theme-${currentTheme} bg-background transition-colors duration-300 relative
+        `}
       >
         {/* Header */}
         <header className="border-b bg-card/95 backdrop-blur-md py-6 px-0 sticky top-0 z-20 shadow-md">

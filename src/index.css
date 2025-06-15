@@ -36,6 +36,9 @@
   /* Unified font family for premium look */
   html,
   body {
+    min-width: 0 !important;
+    min-height: 100vh !important;
+    width: auto !important;
     font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
     font-feature-settings: "ss01" 1, "cv01" 1, "cv02" 1, "liga" 1;
     font-size: 1.06rem;
@@ -119,6 +122,10 @@
 
   /* Responsive container margins for modern SaaS */
   .container {
+    max-width: 100vw;
+    min-width: 0;
+    width: 100%;
+    overflow-x: auto;
     @apply max-w-7xl mx-auto px-5 sm:px-8;
   }
 
@@ -299,65 +306,23 @@
     --border: 60 100% 30%;
     --accent: 300 100% 60%;
     --accent-foreground: 260 100% 5%;
-    --cyberpunk-accent: #ffe359;
     color: #ffe359;
     background: radial-gradient(ellipse at center, hsl(var(--cyberpunk-bg)), hsl(260 100% 5%) 100%) !important;
-    min-height: 100vh;
-    min-width: 100vw;
-    box-shadow: 0 0 32px 4px hsl(var(--cyberpunk-shadow)/0.3) inset;
   }
 
-  .theme-cyberpunk body,
-  .theme-cyberpunk,
-  .theme-cyberpunk .bg-background,
-  .theme-cyberpunk .bg-card {
-    background: transparent !important;
-    color: #ffe359 !important;
+  .theme-cyberpunk, .theme-cyberpunk body, .theme-cyberpunk #root, html, body {
+    min-width: 0 !important;
+    min-height: 100vh !important;
+    width: auto !important;
   }
 
-  .theme-cyberpunk h1,
-  .theme-cyberpunk h2,
-  .theme-cyberpunk h3,
-  .theme-cyberpunk .text-foreground,
-  .theme-cyberpunk [class*="text-"] {
-    color: #ffe359 !important;
-    text-shadow: 0 0 6px #ffe35980, 0 0 32px #50e6ff30;
+  /* Prevent main wrapper squish/collapse on zoom: */
+  .min-h-screen, .h-screen, .w-full {
+    min-width: 0;
+    width: 100%;
   }
-
-  .theme-cyberpunk #root,
-  .theme-cyberpunk .min-h-screen,
-  .theme-cyberpunk .w-full,
-  .theme-cyberpunk .h-screen {
-    background: none !important;
-    background-color: transparent !important;
-  }
-
-  .theme-cyberpunk .border-primary,
-  .theme-cyberpunk .border {
-    border-color: #ffe35988 !important;
-  }
-
-  .theme-cyberpunk a,
-  .theme-cyberpunk .link,
-  .theme-cyberpunk .hover\:text-primary:hover,
-  .theme-cyberpunk .hover\:text-foreground:hover {
-    color: #50e6ff !important;
-    text-shadow: 0 0 6px #50e6ff80;
-  }
-
-  .theme-cyberpunk button,
-  .theme-cyberpunk .btn,
-  .theme-cyberpunk .shadcn-btn {
-    background: linear-gradient(90deg, transparent, #ffe35911 60%, transparent 100%) !important;
-    color: #ffe359 !important;
-    border-color: #ffe35955 !important;
-    box-shadow: 0 0 4px #ffe359, 0 0 18px #50e6ff55;
-  }
-  .theme-cyberpunk input, 
-  .theme-cyberpunk textarea {
-    background: #311d5188;
-    color: #ffe359;
-    border-color: #ffe35955 !important;
+  .flex, .flex-col, .flex-1 {
+    min-width: 0;
   }
 
   /* Theme Previews */
@@ -368,443 +333,102 @@
   .theme-preview-pastel { background: linear-gradient(to right, hsl(290 100% 80%), hsl(330 100% 98%)); }
   .theme-preview-cyberpunk { background: linear-gradient(to right, hsl(60 100% 60%), hsl(260 100% 2%)); }
 
-  * {
-    @apply border-border;
+  /* Accent color for all modern CTAs */
+  .accent {
+    color: hsl(var(--accent));
+  }
+  .bg-accent {
+    background: hsl(var(--accent));
+  }
+  .border-accent {
+    border-color: hsl(var(--accent));
+  }
+  .text-accent {
+    color: hsl(var(--accent));
+  }
+  .focus\:ring-accent:focus {
+    box-shadow: 0 0 0 2px hsl(var(--accent));
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  /* Card, hero, footer, and illustration upgrades */
+  .card,
+  .bg-card,
+  .shadow {
+    box-shadow: 0 8px 36px 0 rgba(30,34,77,0.11),
+                0 2.5px 20px 0 rgba(49,53,110,0.08) !important;
+    border-radius: 1.25rem !important;
+    border: 1.3px solid hsl(var(--border));
+    transition: box-shadow 0.18s, transform 0.16s, border-radius 0.18s;
   }
 
-  /* Smooth transitions for theme changes */
-  * {
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  .rounded-xl, .rounded-2xl, .rounded-3xl {
+    border-radius: 1.25rem !important;
   }
 
-  /* Glass theme effects */
-  .theme-glass .bg-card {
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+  .shadow-lg, .shadow-xl {
+    box-shadow: 0 14px 48px 0 rgba(30,34,77,0.13) !important;
   }
 
-  .theme-glass .bg-card\/50,
-  .theme-glass .bg-card\/60,
-  .theme-glass .bg-card\/95 {
-    backdrop-filter: blur(16px);
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  /* Cyberpunk theme effects */
-  .theme-cyberpunk {
-    background: radial-gradient(ellipse at center, hsl(260 100% 4%), hsl(260 100% 1%));
-  }
-
-  .theme-cyberpunk .bg-card,
-  .theme-cyberpunk .bg-card\/50,
-  .theme-cyberpunk .bg-card\/60,
-  .theme-cyberpunk .bg-card\/95 {
-    background: linear-gradient(135deg, hsl(260 80% 8%), hsl(260 70% 4%));
-    border: 1px solid hsl(60 100% 30%);
-    box-shadow: 0 0 20px hsl(60 100% 60% / 0.2), inset 0 1px 0 hsl(60 100% 60% / 0.1);
-  }
-
-  .theme-cyberpunk button {
-    box-shadow: 0 0 10px hsl(60 100% 60% / 0.3);
-  }
-
-  .theme-cyberpunk .border-primary {
-    box-shadow: 0 0 15px hsl(60 100% 60% / 0.4);
-  }
-
-  /* Professional shadows and animations */
-  .card-hover {
-    transition: all 0.2s ease;
-  }
-  
-  .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.1);
-  }
-
-  .theme-cyberpunk .card-hover:hover {
-    box-shadow: 0 8px 25px -8px hsl(60 100% 60% / 0.3);
-  }
-
-  /* Typography improvements */
-  h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
-    letter-spacing: -0.025em;
-  }
-
-  .theme-cyberpunk h1,
-  .theme-cyberpunk h2,
-  .theme-cyberpunk h3 {
-    text-shadow: 0 0 10px hsl(60 100% 60% / 0.5);
-  }
-
-  /* Enhanced focus states */
-  .focus-visible {
-    outline: 2px solid hsl(var(--primary));
-    outline-offset: 2px;
-  }
-}
-
-/* --- CYBERPUNK Theme: Ensure background covers whole page --- */
-.theme-cyberpunk,
-.theme-cyberpunk body,
-.theme-cyberpunk #root,
-html,
-body {
-  /* Removed .w-full and .min-h-screen from this block to avoid layout collapse */
-  background: radial-gradient(ellipse at center, hsl(260 100% 4%), hsl(260 100% 1%)) !important;
-  background-attachment: fixed !important;
-  min-height: 100vh !important;
-  min-width: 100vw !important;
-  color: #ffe359 !important;
-  transition: background 0.3s, color 0.3s;
-}
-
-/* Remove background and color overrides for .w-full, .min-h-screen, .h-screen within .theme-cyberpunk,
-   as forcing backgrounds on containers may collapse content. Only apply to top-level wrappers. */
-.theme-cyberpunk .bg-background,
-.theme-cyberpunk .bg-card {
-  background: transparent !important;
-  color: #ffe359 !important;
-}
-
-/* Do NOT target .theme-cyberpunk .w-full, .h-screen, .min-h-screen for background - removed! */
-
-/* Typography tweaks for more professionalism */
-body {
-  font-family: 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
-  font-size: 1.07rem;
-  letter-spacing: -0.01em;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, h4 {
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.theme-cyberpunk .bg-card,
-.theme-cyberpunk .bg-card\/50,
-.theme-cyberpunk .bg-card\/60,
-.theme-cyberpunk .bg-card\/95 {
-  background: linear-gradient(135deg, hsl(260 80% 8%), hsl(260 70% 4%));
-  border: 1.2px solid hsl(60 100% 30%);
-  box-shadow: 0 2px 24px hsl(60 100% 60% / 0.20), inset 0 1px 0 hsl(60 100% 60% / 0.10);
-  /* softer shadow for professional effect */
-}
-
-.theme-cyberpunk .border-primary {
-  box-shadow: 0 0 16px hsl(60 100% 60% / 0.27);
-}
-
-/* Smoother card and button hovers */
-.card-hover,
-button,
-a,
-input,
-.bg-card {
-  transition: all 0.17s cubic-bezier(.4,2,.3,1);
-}
-
-/* Scrollbar styling for professional look */
-::-webkit-scrollbar {
-  width: 8px;
-  background: hsl(260, 50%, 5%);
-}
-::-webkit-scrollbar-thumb {
-  background: #ffe35933;
-  border-radius: 4px;
-}
-/* Fallback for firefox */
-body {
-  scrollbar-width: thin;
-  scrollbar-color: #ffe35933 hsl(260, 50%, 5%);
-}
-
-/* Aurora Theme — ethereal gradients, teal/purple accents */
-.theme-aurora {
-  --background: 223 100% 95%;
-  --foreground: 245 65% 22%;
-  --card: 245 50% 98%;
-  --card-foreground: 245 65% 22%;
-  --primary: 305 59% 69%;
-  --primary-foreground: 223 100% 98%;
-  --secondary: 173 76% 57%;
-  --secondary-foreground: 245 65% 22%;
-  --muted: 220 70% 85%;
-  --muted-foreground: 245 65% 32%;
-  --border: 245 60% 85%;
-  --accent: 281 65% 82%;
-  --accent-foreground: 223 100% 23%;
-  --radius: 1.1rem;
-  --aurora-gradient: linear-gradient(135deg, #c0ffe5 0%, #a7b9ff 54%, #ecacfa 100%);
-  font-family: 'Inter', 'Montserrat', system-ui, sans-serif;
-  background: var(--aurora-gradient) !important;
-}
-
-.theme-aurora .bg-card,
-.theme-aurora .bg-background {
-  background: rgba(255,255,255,0.95) !important;
-  backdrop-filter: blur(12px);
-}
-
-.theme-aurora h1, .theme-aurora h2, .theme-aurora h3 {
-  color: #7b45dc;
-  font-weight: 800;
-}
-
-.theme-aurora .theme-preview-aurora {
-  background: linear-gradient(90deg,#c0ffe5,#a7b9ff,#ecacfa);
-}
-
-/* Vintage Paper Theme — warm off-whites, muted reds/browns */
-.theme-vintage-paper {
-  --background: 37 39% 90%;
-  --foreground: 14 45% 27%;
-  --card: 37 39% 96%;
-  --card-foreground: 14 45% 27%;
-  --primary: 0 63% 42%;
-  --primary-foreground: 37 39% 95%;
-  --secondary: 24 31% 78%;
-  --secondary-foreground: 14 45% 39%;
-  --muted: 33 18% 80%;
-  --muted-foreground: 14 35% 40%;
-  --border: 27 30% 75%;
-  --accent: 6 46% 81%;
-  --accent-foreground: 0 63% 32%;
-  --radius: 1rem;
-  font-family: 'EB Garamond','Georgia',serif;
-  background: #f4ecd8 !important;
-}
-
-.theme-vintage-paper .bg-card,
-.theme-vintage-paper .bg-background {
-  background: #f7f2e3 !important;
-}
-
-.theme-vintage-paper h1, .theme-vintage-paper h2, .theme-vintage-paper h3 {
-  color: #7e2626;
-  font-weight: 700;
-}
-
-.theme-vintage-paper .theme-preview-vintage-paper {
-  background: linear-gradient(90deg,#f7f2e3,#f4ecd8,#b68b6a,#c25d5d);
-}
-
-/* Solar Flare Theme — orange/blue energy */
-.theme-solar-flare {
-  --background: 220 78% 15%;
-  --foreground: 49 100% 95%;
-  --card: 228 40% 18%;
-  --card-foreground: 49 100% 95%;
-  --primary: 32 97% 57%;
-  --primary-foreground: 220 78% 15%;
-  --secondary: 223 70% 44%;
-  --secondary-foreground: 49 100% 95%;
-  --muted: 225 42% 34%;
-  --muted-foreground: 49 80% 90%;
-  --border: 222 43% 27%;
-  --accent: 40 100% 55%;
-  --accent-foreground: 220 78% 18%;
-  --radius: 1.15rem;
-  font-family: 'Rubik','Inter',sans-serif;
-  background: radial-gradient(ellipse at top left,#273064 0%,#e68819 90%) !important;
-}
-
-.theme-solar-flare .bg-card,
-.theme-solar-flare .bg-background {
-  background: rgba(35,43,78,0.96) !important;
-}
-
-.theme-solar-flare h1, .theme-solar-flare h2, .theme-solar-flare h3 {
-  color: #ffae42;
-  font-weight: 800;
-}
-
-.theme-solar-flare .theme-preview-solar-flare {
-  background: linear-gradient(90deg,#ffae42,#223a5e,#e74e13);
-}
-
-/* Midnight Opal Theme — dark jewel tones, iridescent accent */
-.theme-midnight-opal {
-  --background: 256 40% 12%;
-  --foreground: 288 53% 93%;
-  --card: 256 35% 18%;
-  --card-foreground: 288 53% 93%;
-  --primary: 315 93% 68%;
-  --primary-foreground: 256 40% 12%;
-  --secondary: 256 43% 37%;
-  --secondary-foreground: 288 53% 96%;
-  --muted: 288 33% 22%;
-  --muted-foreground: 288 53% 84%;
-  --border: 256 33% 23%;
-  --accent: 180 98% 76%;
-  --accent-foreground: 256 40% 12%;
-  --radius: 1.06rem;
-  font-family: 'Poppins','Inter',sans-serif;
-  background: linear-gradient(135deg,#232342,#6e2c79 42%,#baf0f8 100%) !important;
-}
-
-.theme-midnight-opal .bg-card,
-.theme-midnight-opal .bg-background {
-  background: #201a32e9 !important;
-}
-
-.theme-midnight-opal h1, .theme-midnight-opal h2, .theme-midnight-opal h3 {
-  color: #ba74e6;
-  font-family: 'Poppins',sans-serif;
-  font-weight: 800;
-}
-
-.theme-midnight-opal .theme-preview-midnight-opal {
-  background: linear-gradient(90deg,#baf0f8,#542e7e,#42195b);
-}
-
-/* Forest Meadow Theme — earthy greens and browns */
-.theme-forest-meadow {
-  --background: 103 46% 92%;
-  --foreground: 128 22% 22%;
-  --card: 103 40% 97%;
-  --card-foreground: 128 22% 22%;
-  --primary: 138 61% 47%;
-  --primary-foreground: 103 56% 95%;
-  --secondary: 28 34% 72%;
-  --secondary-foreground: 128 22% 22%;
-  --muted: 95 16% 78%;
-  --muted-foreground: 128 22% 32%;
-  --border: 102 30% 73%;
-  --accent: 47 67% 62%;
-  --accent-foreground: 128 22% 22%;
-  --radius: 1.17rem;
-  font-family: 'Inter','Assistant',sans-serif;
-  background: linear-gradient(120deg,#d6ecd8 0%,#e1c89f 90%) !important;
-}
-
-.theme-forest-meadow .bg-card,
-.theme-forest-meadow .bg-background {
-  background: rgba(222,230,210,0.9) !important;
-}
-
-.theme-forest-meadow h1, .theme-forest-meadow h2, .theme-forest-meadow h3 {
-  color: #34693e;
-  font-weight: 800;
-}
-
-.theme-forest-meadow .theme-preview-forest-meadow {
-  background: linear-gradient(90deg,#34693e,#e1c89f,#a5d4b1);
-}
-
-/* Preview bars for all new themes (for ThemeSelector UI) */
-.theme-preview-aurora { background: linear-gradient(90deg,#c0ffe5,#a7b9ff,#ecacfa); }
-.theme-preview-vintage-paper { background: linear-gradient(90deg,#f7f2e3,#f4ecd8,#b68b6a,#c25d5d); }
-.theme-preview-solar-flare { background: linear-gradient(90deg,#ffae42,#223a5e,#e74e13); }
-.theme-preview-midnight-opal { background: linear-gradient(90deg,#baf0f8,#542e7e,#42195b); }
-.theme-preview-forest-meadow { background: linear-gradient(90deg,#34693e,#e1c89f,#a5d4b1); }
-
-/* Accent color for all modern CTAs */
-.accent {
-  color: hsl(var(--accent));
-}
-.bg-accent {
-  background: hsl(var(--accent));
-}
-.border-accent {
-  border-color: hsl(var(--accent));
-}
-.text-accent {
-  color: hsl(var(--accent));
-}
-.focus\:ring-accent:focus {
-  box-shadow: 0 0 0 2px hsl(var(--accent));
-}
-
-/* Card, hero, footer, and illustration upgrades */
-.card,
-.bg-card,
-.shadow {
-  box-shadow: 0 8px 36px 0 rgba(30,34,77,0.11),
-              0 2.5px 20px 0 rgba(49,53,110,0.08) !important;
-  border-radius: 1.25rem !important;
-  border: 1.3px solid hsl(var(--border));
-  transition: box-shadow 0.18s, transform 0.16s, border-radius 0.18s;
-}
-
-.rounded-xl, .rounded-2xl, .rounded-3xl {
-  border-radius: 1.25rem !important;
-}
-
-.shadow-lg, .shadow-xl {
-  box-shadow: 0 14px 48px 0 rgba(30,34,77,0.13) !important;
-}
-
-.hero-illustration, .onboarding-graphic {
-  border-radius: 1.25rem;
-  background: linear-gradient(115deg, hsl(var(--primary)/0.09), hsl(var(--accent)/0.07) 60%, transparent 100%);
-  box-shadow: 0 8px 24px 0 rgba(52,74,120,0.13) !important;
-}
-
-/* Soft hover/active states for all buttons and cards */
-.btn, button, [role="button"], .card-hover, .hover-scale {
-  transition: box-shadow 0.19s cubic-bezier(.4,2,.3,1), background 0.19s, color 0.19s, border-color 0.18s;
-  border-radius: 1.1rem !important;
-}
-.btn:hover, button:hover, [role="button"]:hover {
-  box-shadow: 0 16px 48px 0 hsl(var(--accent)/0.19);
-  background: hsl(var(--accent)/0.14);
-}
-button:active {
-  box-shadow: 0 6px 26px 0 hsl(var(--accent)/0.19);
-}
-
-/* Inputs, search, and shadow polish */
-input, textarea, .input, .search-bar {
-  border-radius: 0.95rem !important;
-  box-shadow: 0 1px 6px 0 hsl(var(--primary)/0.07);
-  font-size: 1rem;
-}
-input:focus, textarea:focus, .input:focus, .search-bar:focus {
-  outline: none;
-  border-color: hsl(var(--accent)) !important;
-  box-shadow: 0 0 0 2px hsl(var(--accent)/0.16);
-}
-
-/* Footer color polish */
-footer {
-  background: hsl(var(--background), 0.97);
-  border-radius: 0 0 1.1rem 1.1rem;
-  font-size: 1rem;
-  color: hsl(var(--muted-foreground));
-  box-shadow: 0 -2px 14px 0 rgba(41,54,99,0.08);
-}
-
-/* Responsiveness: sidebar] show/hide, onboarding illustration show/hide, header layout shifts */
-@media (max-width: 1023px) {
-  .lg\\:flex, .lg\\:block {
-    display: none !important;
-  }
   .hero-illustration, .onboarding-graphic {
-    display: none !important;
+    border-radius: 1.25rem;
+    background: linear-gradient(115deg, hsl(var(--primary)/0.09), hsl(var(--accent)/0.07) 60%, transparent 100%);
+    box-shadow: 0 8px 24px 0 rgba(52,74,120,0.13) !important;
   }
-}
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    padding-bottom: 0.5rem !important;
+
+  /* Soft hover/active states for all buttons and cards */
+  .btn, button, [role="button"], .card-hover, .hover-scale {
+    transition: box-shadow 0.19s cubic-bezier(.4,2,.3,1), background 0.19s, color 0.19s, border-color 0.18s;
+    border-radius: 1.1rem !important;
   }
-  .footer {
-    font-size: 0.95rem !important;
+  .btn:hover, button:hover, [role="button"]:hover {
+    box-shadow: 0 16px 48px 0 hsl(var(--accent)/0.19);
+    background: hsl(var(--accent)/0.14);
   }
-  .logo {
-    font-size: 1.6rem !important;
+  button:active {
+    box-shadow: 0 6px 26px 0 hsl(var(--accent)/0.19);
+  }
+
+  /* Inputs, search, and shadow polish */
+  input, textarea, .input, .search-bar {
+    border-radius: 0.95rem !important;
+    box-shadow: 0 1px 6px 0 hsl(var(--primary)/0.07);
+    font-size: 1rem;
+  }
+  input:focus, textarea:focus, .input:focus, .search-bar:focus {
+    outline: none;
+    border-color: hsl(var(--accent)) !important;
+    box-shadow: 0 0 0 2px hsl(var(--accent)/0.16);
+  }
+
+  /* Footer color polish */
+  footer {
+    background: hsl(var(--background), 0.97);
+    border-radius: 0 0 1.1rem 1.1rem;
+    font-size: 1rem;
+    color: hsl(var(--muted-foreground));
+    box-shadow: 0 -2px 14px 0 rgba(41,54,99,0.08);
+  }
+
+  /* Responsiveness: sidebar] show/hide, onboarding illustration show/hide, header layout shifts */
+  @media (max-width: 1023px) {
+    .lg\\:flex, .lg\\:block {
+      display: none !important;
+    }
+    .hero-illustration, .onboarding-graphic {
+      display: none !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      padding-bottom: 0.5rem !important;
+    }
+    .footer {
+      font-size: 0.95rem !important;
+    }
+    .logo {
+      font-size: 1.6rem !important;
+    }
   }
 }
