@@ -49,12 +49,12 @@ export const FolderSelector = ({
     setIsDragOver(false);
   };
 
-  // Professional, clean onboarding card
+  // Improved for no-overlap and professional onboarding
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <Card
         className={`
-          w-full max-w-lg p-8 border-none rounded-3xl bg-card shadow-2xl
+          w-full max-w-lg sm:mx-auto px-6 py-8 border-none rounded-3xl bg-card shadow-2xl
           transition-all
           ${isDragOver ? "ring-4 ring-primary/60 scale-[1.015]" : ""}
           animate-fade-in
@@ -67,20 +67,20 @@ export const FolderSelector = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
       >
-        <CardHeader className="flex flex-col items-center space-y-3 pb-4 pt-2">
+        <CardHeader className="flex flex-col items-center space-y-4 pb-4 pt-2">
           <Sparkles className="h-11 w-11 text-primary mb-2 animate-pulse" />
           <CardTitle className="font-extrabold text-center text-2xl tracking-tight leading-tight">
             Select Your Image Folder
           </CardTitle>
-          <CardDescription className="text-base text-center text-muted-foreground mt-0 mb-2 leading-normal">
+          <CardDescription className="text-base text-center text-muted-foreground mt-0 mb-1 leading-normal">
             <span className="font-semibold text-primary">Browse a folder or drag & drop images here.</span>
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col items-center justify-center space-y-4">
-          <div className="w-full flex flex-col sm:flex-row items-center gap-3 justify-center mb-2">
+        <CardContent className="flex flex-col items-center justify-center space-y-6">
+          <div className="w-full flex flex-col sm:flex-row gap-3 justify-center items-center mb-2">
             <Button
               asChild
-              className="px-7 py-3 font-bold text-base bg-primary text-primary-foreground shadow focus-visible:ring-primary transition"
+              className="px-7 py-3 font-bold text-base bg-primary text-primary-foreground shadow focus-visible:ring-primary transition whitespace-nowrap"
             >
               <label htmlFor="folder-input" className="cursor-pointer flex items-center gap-2">
                 <Upload className="h-5 w-5 mr-1" />
@@ -96,13 +96,13 @@ export const FolderSelector = ({
               onChange={handleFolderSelect}
               className="hidden"
             />
-            <span className="text-base text-primary font-semibold opacity-80">
+            <span className="text-base text-primary font-semibold opacity-80 whitespace-nowrap">
               or drag here
             </span>
           </div>
-          <div className="w-full bg-muted/80 dark:bg-muted/70 px-4 py-3 rounded-xl border border-border/30 flex gap-3 items-start shadow-sm">
-            <Info className="h-5 w-5 text-primary mt-[2px]" />
-            <ul className="text-xs sm:text-sm text-primary/90 font-mono space-y-1 pt-[2px]">
+          <div className="w-full bg-muted/80 dark:bg-muted/70 px-4 py-3 rounded-xl border border-border/30 flex flex-row gap-3 items-start shadow-sm mt-1">
+            <Info className="h-5 w-5 text-primary flex-shrink-0 mt-[2px]" />
+            <ul className="text-xs sm:text-sm text-primary/90 font-mono space-y-1 pt-0">
               <li>
                 <span className="font-bold">Supported:</span> JPG, PNG, GIF, WebP, SVG
               </li>
