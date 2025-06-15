@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { ImageGallery } from '@/components/ImageGallery';
 import { TagSidebar } from '@/components/TagSidebar';
@@ -74,12 +75,9 @@ const Index = () => {
     );
 
     setImages(loadedImages);
-    
-    // Generate tag statistics
     const stats = createTagStats(loadedImages);
     setTagStats(stats);
-    
-    // Set folder name for display
+
     const firstFile = imageFiles[0];
     if (firstFile && firstFile.webkitRelativePath) {
       const folderName = firstFile.webkitRelativePath.split('/')[0];
@@ -87,37 +85,29 @@ const Index = () => {
     } else {
       setSelectedFolderName('Selected Images');
     }
-    
-    setSelectedTag(''); // Clear any existing tag filter
-    setSearchTerm(''); // Clear search
+    setSelectedTag('');
+    setSearchTerm('');
   };
 
-  // Filter images based on selected tag and search with performance optimization
   const filteredImages = images.filter(image => {
     const matchesTag = selectedTag === '' || 
       image.tags.some(tag => tag.toLowerCase().includes(selectedTag.toLowerCase()));
-    
     const matchesSearch = searchTerm === '' || 
       image.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       image.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-
     return matchesTag && matchesSearch;
   });
 
-  // Toggle favorite
   const toggleFavorite = (imageId: string) => {
     setImages(prev => prev.map(img => 
       img.id === imageId ? { ...img, favorite: !img.favorite } : img
     ));
   };
 
-  // Update image tags
   const updateImageTags = (imageId: string, newTags: string[]) => {
     setImages(prev => prev.map(img => 
       img.id === imageId ? { ...img, tags: newTags } : img
     ));
-    
-    // Regenerate tag stats
     const updatedImages = images.map(img => 
       img.id === imageId ? { ...img, tags: newTags } : img
     );
@@ -125,12 +115,10 @@ const Index = () => {
     setTagStats(stats);
   };
 
-  // Handle tag click - single tag selection only
   const handleTagClick = (tag: string) => {
     setSelectedTag(selectedTag === tag ? '' : tag);
   };
 
-  // Clear folder selection
   const handleClearFolder = () => {
     setImages([]);
     setTagStats([]);
@@ -139,12 +127,21 @@ const Index = () => {
     setSearchTerm('');
   };
 
-  // Get all available tags for autocomplete
   const availableTags = tagStats.map(stat => stat.canonical);
+
+  // Helper for light theme: choose accent color
+  const accentText =
+    currentTheme === 'cyberpunk'
+      ? 'text-cyberpunk-accent'
+      : 'text-primary';
+
+  const borderClass =
+    currentTheme === 'cyberpunk'
+      ? 'border-cyberpunk-accent'
+      : 'border-border';
 
   return (
     <SidebarProvider>
-      {/* Cleaned main wrapper: removed redundant min-w/min-h, ensure flex and bg class, and add professional layout */}
       <div
         className={`flex flex-col min-h-screen theme-${currentTheme} bg-background transition-colors duration-300 relative`}
         style={{ minHeight: "100vh" }}
@@ -158,11 +155,11 @@ const Index = () => {
                   <Images className="h-7 w-7 text-primary" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-black tracking-tight text-cyberpunk-accent drop-shadow-md">
+                  <h1 className="text-2xl font-black tracking-tight text-foreground drop-shadow-md">
                     Professional Gallery
                   </h1>
                   {selectedFolderName && (
-                    <p className="text-base font-medium text-cyberpunk-foreground/90">{`📁 ${selectedFolderName}`}</p>
+                    <p className="text-base font-medium text-foreground/90">{`📁 ${selectedFolderName}`}</p>
                   )}
                 </div>
               </div>
@@ -174,7 +171,7 @@ const Index = () => {
                   variant="outline"
                   size="sm"
                   onClick={handleClearFolder}
-                  className="flex items-center gap-2 text-cyberpunk-accent shadow"
+                  className={`flex items-center gap-2 ${accentText} shadow`}
                 >
                   <FolderOpen className="h-4 w-4" />
                   Change Folder
@@ -212,7 +209,7 @@ const Index = () => {
               {images.length === 0 ? (
                 <div className="bg-card/60 backdrop-blur-md rounded-3xl py-14 px-6 border border-border/50 shadow-2xl flex flex-col items-center justify-center">
                   <FolderSelector onFolderSelect={handleFolderSelect} />
-                  <div className="mt-6 text-cyberpunk-accent text-sm opacity-80">
+                  <div className={`mt-6 ${accentText} text-sm opacity-80`}>
                     Tip: Try the cyberpunk/neon theme for an immersive experience!
                   </div>
                 </div>
@@ -228,7 +225,7 @@ const Index = () => {
                   {(selectedTag || searchTerm) && (
                     <div className="bg-primary/10 border border-primary/30 rounded-2xl p-4">
                       <div className="flex items-center justify-between flex-wrap gap-2">
-                        <div className="flex items-center gap-2 text-cyberpunk-accent">
+                        <div className={`flex items-center gap-2 ${accentText}`}>
                           <span className="text-sm font-semibold">Active filters:</span>
                           {selectedTag && (
                             <span className="text-sm bg-primary/20 text-primary px-3 py-1 rounded-full border border-primary/30">
@@ -279,3 +276,4 @@ const Index = () => {
 };
 
 export default Index;
+
