@@ -106,14 +106,32 @@ export const PasswordProtectedFolderButton = ({
   // UI
   return (
     <>
-      {/* Secret dot: bottom right, visible only if enabled */}
-      {dotVisible && !isUnlocked && (
+      {/* Secret dot: bottom right, always visible (even when dotVisible is false), styled as watermark */}
+      {!isUnlocked && (
         <div
-          className="fixed bottom-4 right-4 w-6 h-6 z-[60] opacity-10 hover:opacity-30 transition rounded-full cursor-pointer bg-cyberpunk-accent shadow-cyberpunk"
-          style={{ pointerEvents: isUnlocked ? "none" : "auto" }}
-          title={isUnlocked ? undefined : "Secret"}
+          className="fixed bottom-6 right-6 w-10 h-10 z-20 flex items-center justify-center"
+          style={{
+            pointerEvents: "auto",
+            // For watermarked/behind effect, low opacity and lower z-index than modals/gallery overlays,
+            // but higher than main bg.
+            opacity: dotVisible ? 0.11 : 0.04,
+            transition: "opacity 0.2s",
+            filter: "blur(0.5px) drop-shadow(0 0 14px #ffe35933)",
+            userSelect: "none"
+          }}
+          title={"Unlock protected folder"}
           onClick={handleClickSecretArea}
-        />
+        >
+          <div
+            className="w-7 h-7 rounded-full bg-cyberpunk-accent border-2 border-cyberpunk-accent/50 shadow-cyberpunk"
+            style={{
+              boxShadow: "0 0 18px #ffe359, 0 0 30px #50e6ff77",
+              opacity: 1,
+              pointerEvents: "auto",
+              transition: "background 0.2s, box-shadow 0.2s"
+            }}
+          />
+        </div>
       )}
       {/* Password Dialog */}
       {showPasswordPrompt && !isUnlocked && (
