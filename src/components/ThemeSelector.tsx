@@ -11,7 +11,13 @@ const THEMES = [
   { id: 'neon', name: 'Neon', description: 'Vibrant and electric' },
   { id: 'glass', name: 'Glass', description: 'Translucent elegance' },
   { id: 'pastel', name: 'Pastel', description: 'Soft and dreamy' },
-  { id: 'cyberpunk', name: 'Cyberpunk', description: 'Futuristic vibes' }
+  { id: 'cyberpunk', name: 'Cyberpunk', description: 'Futuristic vibes' },
+  // New custom themes:
+  { id: 'aurora', name: 'Aurora', description: 'Ethereal gradient blues & purples' },
+  { id: 'vintage-paper', name: 'Vintage Paper', description: 'Warm off-whites & muted reds' },
+  { id: 'solar-flare', name: 'Solar Flare', description: 'Orange/blue cosmic energy' },
+  { id: 'midnight-opal', name: 'Midnight Opal', description: 'Dark jewel tones, iridescence' },
+  { id: 'forest-meadow', name: 'Forest Meadow', description: 'Green/brown natural calm' },
 ];
 
 interface ThemeSelectorProps {
@@ -49,7 +55,7 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
               </Button>
             </div>
           </div>
-          <div className="p-4">
+          <ScrollArea className="p-4 max-h-96">
             <div className="grid grid-cols-2 gap-3">
               {THEMES.map((theme) => (
                 <div
@@ -73,11 +79,13 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
                   </div>
                   <p className="text-xs text-muted-foreground">{theme.description}</p>
                   {/* Theme Preview Bar */}
-                  <div className={`h-6 rounded-lg theme-preview-${theme.id} border border-border/30`}></div>
+                  <div
+                    className={`h-6 rounded-lg theme-preview-${theme.id} border border-border/30`}
+                  ></div>
                 </div>
               ))}
             </div>
-          </div>
+          </ScrollArea>
         </div>
       )}
     </div>

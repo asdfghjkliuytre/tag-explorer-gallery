@@ -526,3 +526,183 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #ffe35933 hsl(260, 50%, 5%);
 }
+
+/* Aurora Theme — ethereal gradients, teal/purple accents */
+.theme-aurora {
+  --background: 223 100% 95%;
+  --foreground: 245 65% 22%;
+  --card: 245 50% 98%;
+  --card-foreground: 245 65% 22%;
+  --primary: 305 59% 69%;
+  --primary-foreground: 223 100% 98%;
+  --secondary: 173 76% 57%;
+  --secondary-foreground: 245 65% 22%;
+  --muted: 220 70% 85%;
+  --muted-foreground: 245 65% 32%;
+  --border: 245 60% 85%;
+  --accent: 281 65% 82%;
+  --accent-foreground: 223 100% 23%;
+  --radius: 1.1rem;
+  --aurora-gradient: linear-gradient(135deg, #c0ffe5 0%, #a7b9ff 54%, #ecacfa 100%);
+  font-family: 'Inter', 'Montserrat', system-ui, sans-serif;
+  background: var(--aurora-gradient) !important;
+}
+
+.theme-aurora .bg-card,
+.theme-aurora .bg-background {
+  background: rgba(255,255,255,0.95) !important;
+  backdrop-filter: blur(12px);
+}
+
+.theme-aurora h1, .theme-aurora h2, .theme-aurora h3 {
+  color: #7b45dc;
+  font-weight: 800;
+}
+
+.theme-aurora .theme-preview-aurora {
+  background: linear-gradient(90deg,#c0ffe5,#a7b9ff,#ecacfa);
+}
+
+/* Vintage Paper Theme — warm off-whites, muted reds/browns */
+.theme-vintage-paper {
+  --background: 37 39% 90%;
+  --foreground: 14 45% 27%;
+  --card: 37 39% 96%;
+  --card-foreground: 14 45% 27%;
+  --primary: 0 63% 42%;
+  --primary-foreground: 37 39% 95%;
+  --secondary: 24 31% 78%;
+  --secondary-foreground: 14 45% 39%;
+  --muted: 33 18% 80%;
+  --muted-foreground: 14 35% 40%;
+  --border: 27 30% 75%;
+  --accent: 6 46% 81%;
+  --accent-foreground: 0 63% 32%;
+  --radius: 1rem;
+  font-family: 'EB Garamond','Georgia',serif;
+  background: #f4ecd8 !important;
+}
+
+.theme-vintage-paper .bg-card,
+.theme-vintage-paper .bg-background {
+  background: #f7f2e3 !important;
+}
+
+.theme-vintage-paper h1, .theme-vintage-paper h2, .theme-vintage-paper h3 {
+  color: #7e2626;
+  font-weight: 700;
+}
+
+.theme-vintage-paper .theme-preview-vintage-paper {
+  background: linear-gradient(90deg,#f7f2e3,#f4ecd8,#b68b6a,#c25d5d);
+}
+
+/* Solar Flare Theme — orange/blue energy */
+.theme-solar-flare {
+  --background: 220 78% 15%;
+  --foreground: 49 100% 95%;
+  --card: 228 40% 18%;
+  --card-foreground: 49 100% 95%;
+  --primary: 32 97% 57%;
+  --primary-foreground: 220 78% 15%;
+  --secondary: 223 70% 44%;
+  --secondary-foreground: 49 100% 95%;
+  --muted: 225 42% 34%;
+  --muted-foreground: 49 80% 90%;
+  --border: 222 43% 27%;
+  --accent: 40 100% 55%;
+  --accent-foreground: 220 78% 18%;
+  --radius: 1.15rem;
+  font-family: 'Rubik','Inter',sans-serif;
+  background: radial-gradient(ellipse at top left,#273064 0%,#e68819 90%) !important;
+}
+
+.theme-solar-flare .bg-card,
+.theme-solar-flare .bg-background {
+  background: rgba(35,43,78,0.96) !important;
+}
+
+.theme-solar-flare h1, .theme-solar-flare h2, .theme-solar-flare h3 {
+  color: #ffae42;
+  font-weight: 800;
+}
+
+.theme-solar-flare .theme-preview-solar-flare {
+  background: linear-gradient(90deg,#ffae42,#223a5e,#e74e13);
+}
+
+/* Midnight Opal Theme — dark jewel tones, iridescent accent */
+.theme-midnight-opal {
+  --background: 256 40% 12%;
+  --foreground: 288 53% 93%;
+  --card: 256 35% 18%;
+  --card-foreground: 288 53% 93%;
+  --primary: 315 93% 68%;
+  --primary-foreground: 256 40% 12%;
+  --secondary: 256 43% 37%;
+  --secondary-foreground: 288 53% 96%;
+  --muted: 288 33% 22%;
+  --muted-foreground: 288 53% 84%;
+  --border: 256 33% 23%;
+  --accent: 180 98% 76%;
+  --accent-foreground: 256 40% 12%;
+  --radius: 1.06rem;
+  font-family: 'Poppins','Inter',sans-serif;
+  background: linear-gradient(135deg,#232342,#6e2c79 42%,#baf0f8 100%) !important;
+}
+
+.theme-midnight-opal .bg-card,
+.theme-midnight-opal .bg-background {
+  background: #201a32e9 !important;
+}
+
+.theme-midnight-opal h1, .theme-midnight-opal h2, .theme-midnight-opal h3 {
+  color: #ba74e6;
+  font-family: 'Poppins',sans-serif;
+  font-weight: 800;
+}
+
+.theme-midnight-opal .theme-preview-midnight-opal {
+  background: linear-gradient(90deg,#baf0f8,#542e7e,#42195b);
+}
+
+/* Forest Meadow Theme — earthy greens and browns */
+.theme-forest-meadow {
+  --background: 103 46% 92%;
+  --foreground: 128 22% 22%;
+  --card: 103 40% 97%;
+  --card-foreground: 128 22% 22%;
+  --primary: 138 61% 47%;
+  --primary-foreground: 103 56% 95%;
+  --secondary: 28 34% 72%;
+  --secondary-foreground: 128 22% 22%;
+  --muted: 95 16% 78%;
+  --muted-foreground: 128 22% 32%;
+  --border: 102 30% 73%;
+  --accent: 47 67% 62%;
+  --accent-foreground: 128 22% 22%;
+  --radius: 1.17rem;
+  font-family: 'Inter','Assistant',sans-serif;
+  background: linear-gradient(120deg,#d6ecd8 0%,#e1c89f 90%) !important;
+}
+
+.theme-forest-meadow .bg-card,
+.theme-forest-meadow .bg-background {
+  background: rgba(222,230,210,0.9) !important;
+}
+
+.theme-forest-meadow h1, .theme-forest-meadow h2, .theme-forest-meadow h3 {
+  color: #34693e;
+  font-weight: 800;
+}
+
+.theme-forest-meadow .theme-preview-forest-meadow {
+  background: linear-gradient(90deg,#34693e,#e1c89f,#a5d4b1);
+}
+
+/* Preview bars for all new themes (for ThemeSelector UI) */
+.theme-preview-aurora { background: linear-gradient(90deg,#c0ffe5,#a7b9ff,#ecacfa); }
+.theme-preview-vintage-paper { background: linear-gradient(90deg,#f7f2e3,#f4ecd8,#b68b6a,#c25d5d); }
+.theme-preview-solar-flare { background: linear-gradient(90deg,#ffae42,#223a5e,#e74e13); }
+.theme-preview-midnight-opal { background: linear-gradient(90deg,#baf0f8,#542e7e,#42195b); }
+.theme-preview-forest-meadow { background: linear-gradient(90deg,#34693e,#e1c89f,#a5d4b1); }
