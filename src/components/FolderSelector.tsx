@@ -1,7 +1,8 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Upload } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Upload, Sparkles } from 'lucide-react';
 
 interface FolderSelectorProps {
   onFolderSelect: (files: FileList) => void;
