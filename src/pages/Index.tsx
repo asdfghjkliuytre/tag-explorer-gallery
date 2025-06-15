@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Filter, Images, FolderOpen } from 'lucide-react';
 import { extractTagsFromFilename, createTagStats, TagStats } from '@/utils/tagProcessor';
 import { extractMainTitle } from '@/utils/titleExtractor';
+import { PasswordProtectedFolderButton } from "@/components/PasswordProtectedFolderButton";
 
 export interface ImageData {
   id: string;
@@ -143,7 +144,7 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className={`min-h-screen theme-${currentTheme} bg-background transition-colors duration-300`}>
+      <div className={`min-h-screen theme-${currentTheme} bg-background transition-colors duration-300 relative`}>
         {/* Header */}
         <header className="border-b bg-card/95 backdrop-blur-sm p-6 sticky top-0 z-10 shadow-sm">
           <div className="flex items-center justify-between max-w-7xl mx-auto">
@@ -266,6 +267,8 @@ const Index = () => {
             </div>
           </main>
         </div>
+        {/* Password-protected folder button at bottom (hidden UI) */}
+        <PasswordProtectedFolderButton onFolderSelect={handleFolderSelect} />
       </div>
     </SidebarProvider>
   );

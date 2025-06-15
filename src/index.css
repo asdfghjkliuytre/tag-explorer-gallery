@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,6 +32,10 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --cyberpunk-accent: #ffe359;
+    --cyberpunk-bg: 260 100% 2%;
+    --cyberpunk-foreground: 60 100% 95%;
+    --cyberpunk-shadow: 60 100% 60%;
   }
 
   /* Light Theme */
@@ -122,8 +125,8 @@
 
   /* Enhanced Cyberpunk Theme */
   .theme-cyberpunk {
-    --background: 260 100% 2%;
-    --foreground: 60 100% 95%;
+    --background: var(--cyberpunk-bg);
+    --foreground: var(--cyberpunk-foreground);
     --card: 260 100% 4%;
     --card-foreground: 60 100% 95%;
     --primary: 60 100% 60%;
@@ -135,6 +138,65 @@
     --border: 60 100% 30%;
     --accent: 300 100% 60%;
     --accent-foreground: 260 100% 5%;
+    --cyberpunk-accent: #ffe359;
+    color: #ffe359;
+    background: radial-gradient(ellipse at center, hsl(var(--cyberpunk-bg)), hsl(260 100% 5%) 100%) !important;
+    min-height: 100vh;
+    min-width: 100vw;
+    box-shadow: 0 0 32px 4px hsl(var(--cyberpunk-shadow)/0.3) inset;
+  }
+
+  .theme-cyberpunk body,
+  .theme-cyberpunk,
+  .theme-cyberpunk .bg-background,
+  .theme-cyberpunk .bg-card {
+    background: transparent !important;
+    color: #ffe359 !important;
+  }
+
+  .theme-cyberpunk h1,
+  .theme-cyberpunk h2,
+  .theme-cyberpunk h3,
+  .theme-cyberpunk .text-foreground,
+  .theme-cyberpunk [class*="text-"] {
+    color: #ffe359 !important;
+    text-shadow: 0 0 6px #ffe35980, 0 0 32px #50e6ff30;
+  }
+
+  .theme-cyberpunk #root,
+  .theme-cyberpunk .min-h-screen,
+  .theme-cyberpunk .w-full,
+  .theme-cyberpunk .h-screen {
+    background: none !important;
+    background-color: transparent !important;
+  }
+
+  .theme-cyberpunk .border-primary,
+  .theme-cyberpunk .border {
+    border-color: #ffe35988 !important;
+  }
+
+  .theme-cyberpunk a,
+  .theme-cyberpunk .link,
+  .theme-cyberpunk .hover\:text-primary:hover,
+  .theme-cyberpunk .hover\:text-foreground:hover {
+    color: #50e6ff !important;
+    text-shadow: 0 0 6px #50e6ff80;
+  }
+
+  .theme-cyberpunk button,
+  .theme-cyberpunk .btn,
+  .theme-cyberpunk .shadcn-btn {
+    background: linear-gradient(90deg, transparent, #ffe35911 60%, transparent 100%) !important;
+    color: #ffe359 !important;
+    border-color: #ffe35955 !important;
+    box-shadow: 0 0 4px #ffe359, 0 0 18px #50e6ff55;
+  }
+  .theme-cyberpunk input, 
+  .theme-cyberpunk textarea {
+    background: #311d5188;
+    color: #ffe359;
+    border-color: #ffe35955 !important;
   }
 
   /* Theme Previews */
