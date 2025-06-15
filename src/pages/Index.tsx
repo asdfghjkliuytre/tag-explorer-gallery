@@ -13,6 +13,12 @@ import { PasswordProtectedFolderButton } from "@/components/PasswordProtectedFol
 import { FolderOnboardingSidebar } from '@/components/FolderOnboardingSidebar';
 import { FolderOnboardingSteps } from '@/components/FolderOnboardingSteps';
 import { OnboardingBanner } from '@/components/OnboardingBanner';
+import { Logo } from "@/components/Logo";
+import HeroFolderIcon from "@/components/HeroFolderIcon";
+import EmptyGalleryIllustration from "@/components/EmptyGalleryIllustration";
+import { RecentFoldersPanel } from "@/components/RecentFoldersPanel";
+import SampleGalleryButton from "@/components/SampleGalleryButton";
+import Footer from "@/components/Footer";
 
 export interface ImageData {
   id: string;
@@ -32,6 +38,7 @@ const Index = () => {
   const [currentTheme, setCurrentTheme] = useState('cyberpunk');
   const [tagStats, setTagStats] = useState<TagStats[]>([]);
   const [selectedFolderName, setSelectedFolderName] = useState<string>('');
+  const [recentFolders, setRecentFolders] = useState<string[]>([]);
 
   // Load theme from localStorage on mount
   useEffect(() => {
@@ -47,6 +54,60 @@ const Index = () => {
   useEffect(() => {
     localStorage.setItem('gallery-theme', currentTheme);
   }, [currentTheme]);
+
+  // Add to recent folders logic:
+  useEffect(() => {
+    if (selectedFolderName && !recentFolders.includes(selectedFolderName)) {
+      setRecentFolders([selectedFolderName, ...recentFolders.slice(0, 3)]);
+    }
+    // eslint-disable-next-line
+  }, [selectedFolderName]);
+
+  // Handler for selecting recent folder (optional: restore images/tags for recent folders if persisted)
+  const handleRecentFolderSelect = (folderName: string) => {
+    // Not implemented: would require persisting folder data for full restore.
+    setSelectedFolderName(folderName);
+    // Optionally show a toast: "Restoring recent folder is not supported yet."
+    // To keep functionality unchanged.
+  };
+
+  // Handler for loading sample gallery
+  const handleSampleGallery = () => {
+    const sampleImages: ImageData[] = [
+      {
+        id: "demo1",
+        filename: "aurora_landscape.jpg",
+        src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80",
+        title: "Northern Lights",
+        tags: ["aurora", "sky", "nature"],
+        favorite: false,
+        folder: "Sample",
+      },
+      {
+        id: "demo2",
+        filename: "forest_meadow.jpg",
+        src: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=600&q=80",
+        title: "Forest Meadow",
+        tags: ["forest", "meadow", "nature"],
+        favorite: false,
+        folder: "Sample",
+      },
+      {
+        id: "demo3",
+        filename: "old_paper.jpg",
+        src: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&q=80",
+        title: "Vintage Paper",
+        tags: ["vintage", "paper", "classic"],
+        favorite: false,
+        folder: "Sample",
+      },
+    ];
+    setImages(sampleImages);
+    setTagStats(createTagStats(sampleImages));
+    setSelectedFolderName("Sample Gallery");
+    setSelectedTag("");
+    setSearchTerm("");
+  };
 
   // Handle folder selection with enhanced tag processing
   const handleFolderSelect = async (files: FileList) => {
@@ -149,36 +210,19 @@ const Index = () => {
         style={{ minHeight: "100vh" }}
       >
         {/* Header */}
-        <header className="border-b bg-card/95 backdrop-blur-md py-5 px-0 sticky top-0 z-10 shadow-md">
-          <div className="flex items-center justify-between container">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-xl shadow">
-                  <Images className="h-7 w-7 text-primary" />
-                </div>
-                <div>
-                  <h1 className="text-2xl md:text-3xl font-black tracking-tight text-foreground drop-shadow-md">
-                    Professional Gallery
-                  </h1>
-                  {selectedFolderName && (
-                    <p className="text-base font-medium text-foreground/90">{`📁 ${selectedFolderName}`}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
-              {images.length > 0 && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleClearFolder}
-                  className={`flex items-center gap-2 ${accentText} shadow-sm px-4`}
-                >
-                  <FolderOpen className="h-4 w-4" />
-                  Change Folder
-                </Button>
+        <header className="border-b bg-card/95 backdrop-blur-md py-6 px-0 sticky top-0 z-20 shadow-md">
+          <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0">
+            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <Logo />
+              <span className="text-base md:ml-3 text-muted-foreground font-normal">
+                Organize, tag, and explore your images with ease.
+              </span>
+              {selectedFolderName && (
+                <span className="text-base font-medium text-primary/90 ml-1">{`📁 ${selectedFolderName}`}</span>
               )}
+            </div>
+            <div className="flex items-center gap-2 mt-2 md:mt-0">
+              <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
               <Button
                 variant="outline"
                 size="icon"
@@ -205,7 +249,7 @@ const Index = () => {
           )}
 
           {/* Main Content */}
-          <section className="flex-1 min-h-screen flex flex-col px-2 md:px-6 py-8 md:py-14">
+          <section className="flex-1 min-h-screen flex flex-col px-2 md:px-6 py-8 md:py-14 justify-between">
             {images.length === 0 ? (
               // Onboarding/Folder Selection Page
               currentTheme === "light" ? (
@@ -292,6 +336,7 @@ const Index = () => {
         </main>
         {/* Password-protected folder button at bottom right (now customizable) */}
         <PasswordProtectedFolderButton onFolderSelect={handleFolderSelect} />
+        <Footer />
       </div>
     </SidebarProvider>
   );

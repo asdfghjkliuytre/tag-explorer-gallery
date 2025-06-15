@@ -1,11 +1,11 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
-import { X, Search, Filter } from 'lucide-react';
+import { X, Search, Filter, Info } from 'lucide-react';
 import { TagStats } from '@/utils/tagProcessor';
+import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 interface TagSidebarProps {
   tagStats: TagStats[];
@@ -32,13 +32,28 @@ export const TagSidebar = ({
 
   const totalImages = tagStats.reduce((sum, tag) => sum + tag.count, 0);
 
+  const hasTags = tagStats.length > 0;
+
   return (
-    <div className="w-80 border-r bg-card/95 backdrop-blur-sm h-screen sticky top-0 shadow-lg">
+    <div className="w-80 border-r bg-card/95 backdrop-blur-sm h-screen sticky top-0 shadow-xl hidden lg:flex flex-col">
       <div className="p-4 border-b border-border/50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Filter className="h-5 w-5 text-primary" />
-            <h3 className="font-semibold text-foreground">Filter by Tags</h3>
+            <h3 className="font-semibold text-foreground flex items-center gap-1">
+              Filter by Tags
+              <TooltipProvider delayDuration={130}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 text-accent cursor-help animate-pulse" />
+                  </TooltipTrigger>
+                  <TooltipContent className="text-xs max-w-xs">
+                    Smart tags are auto-extracted from each image's filename.<br />
+                    Select a tag to filter your gallery!
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </h3>
           </div>
           <Button variant="ghost" size="icon" onClick={onClose} className="hover:bg-destructive/10">
             <X className="h-4 w-4" />
@@ -125,6 +140,13 @@ export const TagSidebar = ({
           )}
         </div>
       </ScrollArea>
+
+      {!hasTags && (
+        <div className="mt-6 text-sm text-muted-foreground/70 bg-muted/60 p-4 rounded-lg shadow-inner flex flex-col items-center gap-2">
+          <Info className="h-6 w-6 text-accent" />
+          <span className="font-medium text-center">No tags yet — select a folder to generate smart tags from filenames.</span>
+        </div>
+      )}
     </div>
   );
 };

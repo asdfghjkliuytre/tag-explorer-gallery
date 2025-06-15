@@ -56,8 +56,11 @@
   .card,
   .bg-card,
   .shadow {
-    box-shadow: 0 4px 28px 0 rgba(41,54,99,0.09), 0 1.5px 12px 0 rgba(49,53,110,0.05);
-    border-radius: var(--radius);
+    box-shadow: 0 8px 36px 0 rgba(30,34,77,0.11),
+                0 2.5px 20px 0 rgba(49,53,110,0.08) !important;
+    border-radius: 1.25rem !important;
+    border: 1.3px solid hsl(var(--border));
+    transition: box-shadow 0.18s, transform 0.16s, border-radius 0.18s;
   }
 
   /* Buttons */
@@ -404,7 +407,7 @@
   .theme-cyberpunk .bg-card\/50,
   .theme-cyberpunk .bg-card\/60,
   .theme-cyberpunk .bg-card\/95 {
-    background: linear-gradient(135deg, hsl(260 80% 8%), hsl(260 60% 6%));
+    background: linear-gradient(135deg, hsl(260 80% 8%), hsl(260 70% 4%));
     border: 1px solid hsl(60 100% 30%);
     box-shadow: 0 0 20px hsl(60 100% 60% / 0.2), inset 0 1px 0 hsl(60 100% 60% / 0.1);
   }
@@ -706,3 +709,102 @@ body {
 .theme-preview-solar-flare { background: linear-gradient(90deg,#ffae42,#223a5e,#e74e13); }
 .theme-preview-midnight-opal { background: linear-gradient(90deg,#baf0f8,#542e7e,#42195b); }
 .theme-preview-forest-meadow { background: linear-gradient(90deg,#34693e,#e1c89f,#a5d4b1); }
+
+/* Accent color for all modern CTAs */
+.accent {
+  color: hsl(var(--accent));
+}
+.bg-accent {
+  background: hsl(var(--accent));
+}
+.border-accent {
+  border-color: hsl(var(--accent));
+}
+.text-accent {
+  color: hsl(var(--accent));
+}
+.focus\:ring-accent:focus {
+  box-shadow: 0 0 0 2px hsl(var(--accent));
+}
+
+/* Card, hero, footer, and illustration upgrades */
+.card,
+.bg-card,
+.shadow {
+  box-shadow: 0 8px 36px 0 rgba(30,34,77,0.11),
+              0 2.5px 20px 0 rgba(49,53,110,0.08) !important;
+  border-radius: 1.25rem !important;
+  border: 1.3px solid hsl(var(--border));
+  transition: box-shadow 0.18s, transform 0.16s, border-radius 0.18s;
+}
+
+.rounded-xl, .rounded-2xl, .rounded-3xl {
+  border-radius: 1.25rem !important;
+}
+
+.shadow-lg, .shadow-xl {
+  box-shadow: 0 14px 48px 0 rgba(30,34,77,0.13) !important;
+}
+
+.hero-illustration, .onboarding-graphic {
+  border-radius: 1.25rem;
+  background: linear-gradient(115deg, hsl(var(--primary)/0.09), hsl(var(--accent)/0.07) 60%, transparent 100%);
+  box-shadow: 0 8px 24px 0 rgba(52,74,120,0.13) !important;
+}
+
+/* Soft hover/active states for all buttons and cards */
+.btn, button, [role="button"], .card-hover, .hover-scale {
+  transition: box-shadow 0.19s cubic-bezier(.4,2,.3,1), background 0.19s, color 0.19s, border-color 0.18s;
+  border-radius: 1.1rem !important;
+}
+.btn:hover, button:hover, [role="button"]:hover {
+  box-shadow: 0 16px 48px 0 hsl(var(--accent)/0.19);
+  background: hsl(var(--accent)/0.14);
+}
+button:active {
+  box-shadow: 0 6px 26px 0 hsl(var(--accent)/0.19);
+}
+
+/* Inputs, search, and shadow polish */
+input, textarea, .input, .search-bar {
+  border-radius: 0.95rem !important;
+  box-shadow: 0 1px 6px 0 hsl(var(--primary)/0.07);
+  font-size: 1rem;
+}
+input:focus, textarea:focus, .input:focus, .search-bar:focus {
+  outline: none;
+  border-color: hsl(var(--accent)) !important;
+  box-shadow: 0 0 0 2px hsl(var(--accent)/0.16);
+}
+
+/* Footer color polish */
+footer {
+  background: hsl(var(--background), 0.97);
+  border-radius: 0 0 1.1rem 1.1rem;
+  font-size: 1rem;
+  color: hsl(var(--muted-foreground));
+  box-shadow: 0 -2px 14px 0 rgba(41,54,99,0.08);
+}
+
+/* Responsiveness: sidebar] show/hide, onboarding illustration show/hide, header layout shifts */
+@media (max-width: 1023px) {
+  .lg\\:flex, .lg\\:block {
+    display: none !important;
+  }
+  .hero-illustration, .onboarding-graphic {
+    display: none !important;
+  }
+}
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .footer {
+    font-size: 0.95rem !important;
+  }
+  .logo {
+    font-size: 1.6rem !important;
+  }
+}
