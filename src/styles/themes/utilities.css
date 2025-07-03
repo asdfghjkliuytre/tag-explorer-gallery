@@ -1,0 +1,5 @@
+/* Accent utility classes */
+.accent, .text-accent { color: hsl(var(--accent)); }
+.bg-accent { background: hsl(var(--accent)); }
+.border-accent { border-color: hsl(var(--accent)); }
+.focus\:ring-accent:focus { box-shadow: 0 0 0 2px hsl(var(--accent)); }

@@ -1,0 +1,16 @@
+/* Pastel Theme */
+.theme-pastel {
+  --background: 330 100% 98%;
+  --foreground: 330 30% 20%;
+  --card: 330 100% 96%;
+  --card-foreground: 330 30% 20%;
+  --primary: 290 100% 80%;
+  --primary-foreground: 330 30% 20%;
+  --secondary: 330 50% 90%;
+  --secondary-foreground: 330 30% 40%;
+  --muted: 330 50% 90%;
+  --muted-foreground: 330 30% 50%;
+  --border: 290 50% 85%;
+  --accent: 290 100% 80%;
+  --accent-foreground: 330 30% 20%;
+}

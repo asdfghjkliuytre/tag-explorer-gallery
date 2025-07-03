@@ -1,0 +1,27 @@
+/* Cyberpunk Theme */
+.theme-cyberpunk {
+  --background: 260 15% 8%;
+  --foreground: 50 90% 88%;
+  --card: 260 20% 12%;
+  --card-foreground: 50 90% 88%;
+  --primary: 50 95% 65%;
+  --primary-foreground: 260 15% 8%;
+  --secondary: 260 25% 15%;
+  --secondary-foreground: 50 80% 82%;
+  --muted: 260 20% 18%;
+  --muted-foreground: 50 40% 65%;
+  --border: 260 30% 22%;
+  --accent: 280 70% 68%;
+  --accent-foreground: 260 15% 8%;
+  --cyberpunk-glow: 50 95% 65%;
+}
+
+.theme-cyberpunk, .theme-cyberpunk body, .theme-cyberpunk #root, html, body {
+  min-width: 0 !important;
+  min-height: 100vh !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  overflow-x: auto !important;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}

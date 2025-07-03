@@ -1,0 +1,16 @@
+/* Glass Theme */
+.theme-glass {
+  --background: 220 26% 14%;
+  --foreground: 0 0% 95%;
+  --card: 220 26% 14% / 0.6;
+  --card-foreground: 0 0% 95%;
+  --primary: 200 100% 70%;
+  --primary-foreground: 220 26% 14%;
+  --secondary: 220 26% 20% / 0.5;
+  --secondary-foreground: 0 0% 95%;
+  --muted: 220 26% 20% / 0.5;
+  --muted-foreground: 0 0% 80%;
+  --border: 200 100% 70% / 0.2;
+  --accent: 200 100% 70% / 0.3;
+  --accent-foreground: 0 0% 95%;
+}
