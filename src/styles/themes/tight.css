@@ -4,16 +4,31 @@
   --foreground: 222 70% 12%;
   --card: 240 4% 94%;
   --card-foreground: 222 70% 12%;
+  --popover: 240 4% 94%;
+  --popover-foreground: 222 70% 12%;
   --primary: 222 70% 38%;
   --primary-foreground: 240 2% 98%;
   --secondary: 222 16% 86%;
   --secondary-foreground: 222 70% 38%;
   --muted: 210 12% 90%;
   --muted-foreground: 222 30% 56%;
-  --border: 222 22% 82%;
   --accent: 180 80% 45%;
   --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 240 2% 98%;
+  --border: 222 22% 82%;
+  --input: 222 22% 82%;
+  --ring: 222 70% 38%;
   --radius: 0.4rem;
+  
+  --sidebar-background: 240 4% 95%;
+  --sidebar-foreground: 222 70% 12%;
+  --sidebar-primary: 222 70% 38%;
+  --sidebar-primary-foreground: 240 2% 98%;
+  --sidebar-accent: 180 80% 45%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 222 22% 82%;
+  --sidebar-ring: 222 70% 38%;
 
   /* Tighter spacing utilities for "tight" theme */
   --tight-padding: 0.4rem;

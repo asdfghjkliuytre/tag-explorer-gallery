@@ -4,15 +4,32 @@
   --foreground: 50 90% 88%;
   --card: 260 20% 12%;
   --card-foreground: 50 90% 88%;
+  --popover: 260 20% 12%;
+  --popover-foreground: 50 90% 88%;
   --primary: 50 95% 65%;
   --primary-foreground: 260 15% 8%;
   --secondary: 260 25% 15%;
   --secondary-foreground: 50 80% 82%;
   --muted: 260 20% 18%;
   --muted-foreground: 50 40% 65%;
-  --border: 260 30% 22%;
   --accent: 280 70% 68%;
   --accent-foreground: 260 15% 8%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 50 90% 88%;
+  --border: 260 30% 22%;
+  --input: 260 30% 22%;
+  --ring: 50 95% 65%;
+  --radius: 0.8rem;
+  
+  --sidebar-background: 260 20% 10%;
+  --sidebar-foreground: 50 90% 88%;
+  --sidebar-primary: 50 95% 65%;
+  --sidebar-primary-foreground: 260 15% 8%;
+  --sidebar-accent: 280 70% 68%;
+  --sidebar-accent-foreground: 260 15% 8%;
+  --sidebar-border: 260 30% 22%;
+  --sidebar-ring: 50 95% 65%;
+  
   --cyberpunk-glow: 50 95% 65%;
 }
 
