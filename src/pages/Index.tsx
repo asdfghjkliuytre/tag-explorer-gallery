@@ -95,8 +95,8 @@ const Index = () => {
           </div>
         </header>
 
-        <main className="flex w-full min-h-screen bg-background bg-opacity-80">
-          {isTagSidebarOpen && (
+        <main className="flex w-full min-h-screen bg-background">
+          {isTagSidebarOpen && images.length > 0 && (
             <TagSidebar
               tagStats={tagStats}
               selectedTag={selectedTag}
@@ -105,7 +105,7 @@ const Index = () => {
             />
           )}
 
-          <section className="flex-1 min-h-screen flex flex-col px-2 md:px-6 py-8 md:py-14 justify-between">
+          <section className="flex-1 min-h-screen flex flex-col justify-between">
             {images.length === 0 ? (
               <GalleryOnboarding
                 currentTheme={currentTheme}

@@ -114,21 +114,20 @@
 
 /* Enhanced Cyberpunk Theme */
 .theme-cyberpunk {
-  --background: var(--cyberpunk-bg);
-  --foreground: var(--cyberpunk-foreground);
-  --card: 260 100% 4%;
-  --card-foreground: 60 100% 95%;
-  --primary: 60 100% 60%;
-  --primary-foreground: 260 100% 5%;
-  --secondary: 260 80% 8%;
-  --secondary-foreground: 60 100% 95%;
-  --muted: 260 60% 10%;
-  --muted-foreground: 60 60% 70%;
-  --border: 60 100% 30%;
-  --accent: 300 100% 60%;
-  --accent-foreground: 260 100% 5%;
-  color: #ffe359;
-  background: radial-gradient(ellipse at center, hsl(var(--cyberpunk-bg)), hsl(260 100% 5%) 100%) !important;
+  --background: 260 15% 8%;
+  --foreground: 50 90% 88%;
+  --card: 260 20% 12%;
+  --card-foreground: 50 90% 88%;
+  --primary: 50 95% 65%;
+  --primary-foreground: 260 15% 8%;
+  --secondary: 260 25% 15%;
+  --secondary-foreground: 50 80% 82%;
+  --muted: 260 20% 18%;
+  --muted-foreground: 50 40% 65%;
+  --border: 260 30% 22%;
+  --accent: 280 70% 68%;
+  --accent-foreground: 260 15% 8%;
+  --cyberpunk-glow: 50 95% 65%;
 }
 
 .theme-cyberpunk, .theme-cyberpunk body, .theme-cyberpunk #root, html, body {
@@ -147,7 +146,13 @@
 .theme-preview-neon { background: linear-gradient(to right, hsl(315 100% 50%), hsl(0 0% 3.9%)); }
 .theme-preview-glass { background: linear-gradient(to right, hsl(200 100% 70%), hsl(220 26% 14%)); }
 .theme-preview-pastel { background: linear-gradient(to right, hsl(290 100% 80%), hsl(330 100% 98%)); }
-.theme-preview-cyberpunk { background: linear-gradient(to right, hsl(60 100% 60%), hsl(260 100% 2%)); }
+.theme-preview-cyberpunk { background: linear-gradient(to right, hsl(50 95% 65%), hsl(260 15% 8%)); }
+.theme-preview-aurora { background: linear-gradient(to right, hsl(220 100% 70%), hsl(280 100% 80%)); }
+.theme-preview-vintage-paper { background: linear-gradient(to right, hsl(30 50% 88%), hsl(15 60% 75%)); }
+.theme-preview-solar-flare { background: linear-gradient(to right, hsl(30 100% 60%), hsl(210 100% 60%)); }
+.theme-preview-midnight-opal { background: linear-gradient(to right, hsl(260 60% 30%), hsl(180 60% 40%)); }
+.theme-preview-forest-meadow { background: linear-gradient(to right, hsl(120 40% 50%), hsl(60 30% 60%)); }
+.theme-preview-tight { background: linear-gradient(to right, hsl(222 70% 38%), hsl(180 80% 45%)); }
 
 /* Accent utility */
 .accent, .text-accent { color: hsl(var(--accent)); }

@@ -73,7 +73,7 @@ input:focus, textarea:focus, select:focus {
   min-width: 0 !important;
   width: 100% !important;
   overflow-x: auto;
-  @apply max-w-7xl mx-auto px-5 sm:px-8;
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
 /* Shadows, scaling, hover */

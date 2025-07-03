@@ -53,28 +53,33 @@ export const FolderSelector = ({
     <div className="w-full flex flex-col items-center justify-center">
       <div
         className={`
-          w-full max-w-lg sm:mx-auto px-6 py-10 border-none rounded-3xl bg-card shadow-2xl
-          transition-all
-          ${isDragOver ? "ring-4 ring-primary/60 scale-[1.012]" : ""}
-          animate-fade-in
+          w-full max-w-md mx-auto p-8 border border-border/20 rounded-2xl bg-card/95 backdrop-blur-sm
+          transition-all duration-300 ease-out
+          ${isDragOver ? "ring-2 ring-primary/40 scale-[1.02] bg-primary/5" : ""}
+          hover:shadow-xl animate-fade-in
         `}
-        style={{
-          boxShadow:
-            "0 6px 38px 0 rgba(41,54,99,0.16), 0 1.5px 12px 0 rgba(49,53,110,0.09)",
-        }}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
       >
-        <div className="w-full flex flex-col items-center gap-1">
-          <HeroFolderIcon />
-          <div className="flex flex-col items-center w-full">
+        <div className="w-full flex flex-col items-center space-y-6">
+          <div className="relative">
+            <HeroFolderIcon />
+          </div>
+          
+          <div className="text-center space-y-3">
+            <h2 className="text-xl font-semibold text-foreground">Select Your Images</h2>
+            <p className="text-sm text-muted-foreground">Choose a folder or drag images to get started</p>
+          </div>
+
+          <div className="w-full space-y-4">
             <Button
               asChild
-              className="w-full md:w-auto px-8 py-4 font-bold text-base rounded-xl bg-primary text-primary-foreground shadow-lg hover:scale-[1.04] focus-visible:ring-primary transition whitespace-nowrap mb-3"
+              size="lg"
+              className="w-full font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
             >
-              <label htmlFor="folder-input" className="cursor-pointer flex items-center gap-2">
-                📂
+              <label htmlFor="folder-input" className="cursor-pointer flex items-center justify-center gap-2">
+                <Upload className="w-4 h-4" />
                 <span>Browse Folder</span>
               </label>
             </Button>
@@ -87,27 +92,41 @@ export const FolderSelector = ({
               onChange={handleFolderSelect}
               className="hidden"
             />
-            <span className="block text-base text-primary font-semibold opacity-80 whitespace-nowrap mt-2 mb-4">
-              or drag & drop images here
-            </span>
+            
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-border/30" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">or</span>
+              </div>
+            </div>
+
             <div 
-              className={`w-full border-2 border-dashed border-primary/50 bg-card/60 py-6 flex flex-col items-center justify-center rounded-2xl mb-5 transition-all ${
-                isDragOver ? "bg-accent/20 shadow-lg" : ""
-              }`}
+              className={`
+                w-full border-2 border-dashed border-border/40 bg-muted/20 
+                py-8 flex flex-col items-center justify-center rounded-xl 
+                transition-all duration-300
+                ${isDragOver ? "border-primary/60 bg-primary/10" : "hover:border-border/60 hover:bg-muted/30"}
+              `}
             >
-              <span className="text-2xl">🖼️</span>
-              <span className="mt-2 text-sm text-muted-foreground">
-                Drop your folder here to get started!
+              <Upload className="w-8 h-8 text-muted-foreground/60 mb-3" />
+              <span className="text-sm text-muted-foreground font-medium">
+                Drop images here
               </span>
             </div>
           </div>
         </div>
-        <div className="w-full bg-muted/80 dark:bg-muted/70 px-4 py-3 rounded-xl border border-border/30 flex flex-row gap-3 items-start shadow-sm mt-0">
-          <ul className="text-xs sm:text-sm text-muted-foreground/90 font-mono space-y-0.5 pt-0 list-disc ml-3">
-            <li><span className="font-bold">Supported:</span> JPG, PNG, GIF, WebP, SVG</li>
-            <li><span className="font-bold">Tags:</span> Extracted from filenames for easy search</li>
-            <li><span className="font-bold">Privacy:</span> All data stays local to your browser</li>
-          </ul>
+        
+        <div className="mt-6 p-4 bg-muted/30 rounded-lg border border-border/20">
+          <div className="flex items-start gap-2">
+            <Info className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+            <div className="text-xs text-muted-foreground space-y-1">
+              <div><strong>Supported:</strong> JPG, PNG, GIF, WebP, SVG</div>
+              <div><strong>Privacy:</strong> All data stays local in your browser</div>
+              <div><strong>Tags:</strong> Auto-generated from filenames</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
