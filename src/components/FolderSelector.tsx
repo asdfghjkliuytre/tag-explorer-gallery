@@ -53,9 +53,9 @@ export const FolderSelector = ({
     <div className="w-full flex justify-center">
       <div
         className={`
-          w-full max-w-2xl mx-auto p-6 border border-border/20 rounded-2xl 
+          w-full max-w-xl mx-auto p-4 border border-border/20 rounded-xl 
           bg-card/90 backdrop-blur-xl
-          transition-all duration-300 ease-out shadow-lg hover:shadow-xl
+          transition-all duration-300 ease-out shadow-md hover:shadow-lg
           ${isDragOver ? "ring-2 ring-primary/40 scale-[1.01] bg-primary/5" : ""}
           animate-fade-in
         `}
@@ -63,28 +63,27 @@ export const FolderSelector = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
       >
-        <div className="w-full flex flex-col items-center space-y-6">
+        <div className="w-full flex flex-col items-center space-y-4">
           {/* Folder icon */}
           <div className="relative">
-            <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-sm">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shadow-sm">
               <HeroFolderIcon />
             </div>
           </div>
           
           {/* Title and description */}
-          <div className="text-center space-y-2">
-            <h2 className="text-xl font-bold text-foreground">Select Your Images</h2>
-            <p className="text-sm text-muted-foreground max-w-sm">
+          <div className="text-center space-y-1">
+            <h2 className="text-lg font-bold text-foreground">Select Your Images</h2>
+            <p className="text-xs text-muted-foreground max-w-xs">
               Choose a folder or drag images to get started
             </p>
           </div>
 
           {/* Action buttons */}
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-3">
             <Button
               asChild
-              size="lg"
-              className="w-full h-12 font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
+              className="w-full h-10 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
             >
               <label htmlFor="folder-input" className="cursor-pointer flex items-center justify-center gap-2">
                 <Upload className="w-4 h-4" />
@@ -107,7 +106,7 @@ export const FolderSelector = ({
                 <span className="w-full border-t border-border/30" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-card px-3 text-xs text-muted-foreground font-medium uppercase tracking-wider">
+                <span className="bg-card px-2 text-xs text-muted-foreground font-medium uppercase tracking-wider">
                   or
                 </span>
               </div>
@@ -116,8 +115,8 @@ export const FolderSelector = ({
             {/* Drop zone */}
             <div 
               className={`
-                w-full border-2 border-dashed rounded-xl 
-                py-8 flex flex-col items-center justify-center 
+                w-full border-2 border-dashed rounded-lg 
+                py-6 flex flex-col items-center justify-center 
                 transition-all duration-300
                 ${isDragOver 
                   ? "border-primary/60 bg-primary/10" 
@@ -125,8 +124,8 @@ export const FolderSelector = ({
                 }
               `}
             >
-              <Upload className={`w-8 h-8 mb-2 transition-colors ${isDragOver ? 'text-primary' : 'text-muted-foreground/60'}`} />
-              <span className="text-sm text-muted-foreground font-medium">
+              <Upload className={`w-6 h-6 mb-1 transition-colors ${isDragOver ? 'text-primary' : 'text-muted-foreground/60'}`} />
+              <span className="text-xs text-muted-foreground font-medium">
                 Drop images here
               </span>
             </div>
@@ -134,10 +133,10 @@ export const FolderSelector = ({
         </div>
         
         {/* Info panel */}
-        <div className="mt-6 p-4 bg-muted/20 rounded-xl border border-border/20">
+        <div className="mt-4 p-3 bg-muted/20 rounded-lg border border-border/20">
           <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-            <div className="text-xs text-muted-foreground space-y-1">
+            <Info className="w-3 h-3 text-muted-foreground mt-0.5 flex-shrink-0" />
+            <div className="text-xs text-muted-foreground space-y-0.5">
               <div><strong>Supported:</strong> JPG, PNG, GIF, WebP, SVG</div>
               <div><strong>Privacy:</strong> All data stays local in your browser</div>
               <div><strong>Tags:</strong> Auto-generated from filenames</div>

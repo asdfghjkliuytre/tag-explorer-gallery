@@ -67,17 +67,17 @@ const Index = () => {
         `}
       >
         {/* Header */}
-        <header className="border-b border-border/20 bg-card/70 backdrop-blur-2xl py-3 sticky top-0 z-30 shadow-sm">
+        <header className="border-b border-border/20 bg-card/70 backdrop-blur-2xl py-2 sticky top-0 z-30 shadow-sm">
           <div className="container flex items-center justify-between gap-4">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
               <Logo />
-              <div className="hidden md:flex items-center gap-4">
-                <span className="text-sm text-muted-foreground font-medium">
+              <div className="hidden md:flex items-center gap-3">
+                <span className="text-xs text-muted-foreground font-medium">
                   Organize, tag, and explore your images with ease.
                 </span>
                 {selectedFolderName && (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full border border-primary/20">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                  <div className="flex items-center gap-1.5 px-2 py-1 bg-primary/10 rounded-full border border-primary/20">
+                    <div className="w-1 h-1 rounded-full bg-primary animate-pulse"></div>
                     <span className="text-xs font-medium text-primary">{selectedFolderName}</span>
                   </div>
                 )}
@@ -92,9 +92,9 @@ const Index = () => {
                   onClick={() => setIsTagSidebarOpen(!isTagSidebarOpen)}
                   className="relative shadow-sm hover:shadow-md transition-all duration-200"
                 >
-                  <Filter className="h-4 w-4" />
+                  <Filter className="h-3 w-3" />
                   {selectedTag && (
-                    <div className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                    <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></div>
                   )}
                 </Button>
               )}

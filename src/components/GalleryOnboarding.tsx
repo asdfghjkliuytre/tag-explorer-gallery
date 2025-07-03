@@ -23,22 +23,22 @@ export function GalleryOnboarding({ currentTheme, onFolderSelect }: GalleryOnboa
     );
   }
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-background via-background to-muted/10 flex flex-col">
+    <div className="relative w-full h-screen bg-gradient-to-br from-background via-background to-muted/10 flex flex-col overflow-hidden">
       {/* Header Section */}
-      <div className="w-full pt-6 pb-4 flex justify-center">
+      <div className="w-full pt-2 pb-2 flex justify-center">
         <OnboardingBanner theme={currentTheme} />
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center px-4 pb-8">
-        <div className="w-full max-w-6xl">
+      <div className="flex-1 flex items-center justify-center px-3 pb-4">
+        <div className="w-full max-w-5xl">
           {/* File Selection Card */}
-          <div className="mb-8">
+          <div className="mb-3">
             <FolderSelector onFolderSelect={onFolderSelect} />
           </div>
           
           {/* Steps and Tips Grid */}
-          <div className="grid lg:grid-cols-4 gap-6">
+          <div className="grid lg:grid-cols-4 gap-3">
             {/* Steps take 3 columns */}
             <div className="lg:col-span-3">
               <FolderOnboardingSteps />
