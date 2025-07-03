@@ -52,7 +52,7 @@ export const ImageCard = ({
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <CardTitle className="text-base font-medium break-all">
-            {image.filename}
+            {image.title}
           </CardTitle>
           <div className="flex items-center gap-2 ml-2">
             <Button
