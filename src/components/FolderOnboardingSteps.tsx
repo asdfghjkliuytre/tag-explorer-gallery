@@ -32,35 +32,40 @@ const STEPS = [
 
 export const FolderOnboardingSteps: FC<FolderOnboardingStepsProps> = ({ className }) => (
   <div className={clsx("w-full", className)}>
-    <div className="text-center mb-3">
-      <h3 className="text-sm font-bold text-foreground mb-1">How it works</h3>
-      <p className="text-xs text-muted-foreground">Four simple steps to organize your collection</p>
+    <div className="text-center mb-6">
+      <h3 className="text-lg font-bold text-foreground mb-2">How it works</h3>
+      <p className="text-sm text-muted-foreground">Four simple steps to organize your collection</p>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {STEPS.map((step, idx) => (
         <div 
           key={step.title} 
-          className="relative flex flex-col items-center text-center p-3 rounded-lg bg-card/60 border border-border/30 shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in"
+          className="relative flex flex-col items-center text-center p-5 rounded-xl bg-card/60 border border-border/30 shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in group"
           style={{ animationDelay: `${idx * 100}ms` }}
         >
           {/* Step number */}
-          <div className="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center shadow-md">
+          <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center shadow-md">
             {idx + 1}
           </div>
           
           {/* Icon */}
-          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mb-2 border border-primary/20">
-            <step.icon className="h-4 w-4 text-primary" />
+          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 border border-primary/20 group-hover:scale-110 transition-transform duration-300">
+            <step.icon className="h-6 w-6 text-primary" />
           </div>
           
-          <div className="space-y-1">
-            <h4 className="font-semibold text-xs text-foreground">
+          <div className="space-y-2">
+            <h4 className="font-bold text-sm text-foreground">
               {step.title}
             </h4>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {step.desc}
             </p>
           </div>
+          
+          {/* Connecting line for desktop */}
+          {idx < STEPS.length - 1 && (
+            <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-gradient-to-r from-border to-transparent"></div>
+          )}
         </div>
       ))}
     </div>
