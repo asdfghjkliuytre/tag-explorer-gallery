@@ -67,35 +67,37 @@ const Index = () => {
         `}
       >
         {/* Header */}
-        <header className="border-b border-border/30 bg-card/80 backdrop-blur-xl py-4 px-0 sticky top-0 z-30 shadow-sm">
-          <div className="container flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+        <header className="border-b border-border/20 bg-card/70 backdrop-blur-2xl py-3 sticky top-0 z-30 shadow-sm">
+          <div className="container flex items-center justify-between gap-4">
+            <div className="flex items-center gap-6">
               <Logo />
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+              <div className="hidden md:flex items-center gap-4">
                 <span className="text-sm text-muted-foreground font-medium">
                   Organize, tag, and explore your images with ease.
                 </span>
                 {selectedFolderName && (
-                  <div className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
-                    <div className="w-2 h-2 rounded-full bg-primary"></div>
-                    <span className="text-sm font-medium text-primary">{selectedFolderName}</span>
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full border border-primary/20">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                    <span className="text-xs font-medium text-primary">{selectedFolderName}</span>
                   </div>
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setIsTagSidebarOpen(!isTagSidebarOpen)}
-                className="relative shadow-sm hover:shadow-md transition-all duration-200"
-              >
-                <Filter className="h-4 w-4" />
-                {selectedTag && (
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full border-2 border-background animate-pulse"></div>
-                )}
-              </Button>
+              {images.length > 0 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsTagSidebarOpen(!isTagSidebarOpen)}
+                  className="relative shadow-sm hover:shadow-md transition-all duration-200"
+                >
+                  <Filter className="h-4 w-4" />
+                  {selectedTag && (
+                    <div className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                  )}
+                </Button>
+              )}
             </div>
           </div>
         </header>

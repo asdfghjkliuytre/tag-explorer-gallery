@@ -53,47 +53,41 @@ export const FolderSelector = ({
     <div className="w-full flex justify-center">
       <div
         className={`
-          w-full max-w-3xl mx-auto p-10 border border-border/20 rounded-3xl 
-          bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-xl
-          transition-all duration-500 ease-out shadow-xl hover:shadow-2xl
-          ${isDragOver ? "ring-4 ring-primary/30 scale-[1.02] bg-gradient-to-br from-primary/10 to-accent/10" : ""}
-          animate-fade-in relative overflow-hidden
+          w-full max-w-2xl mx-auto p-6 border border-border/20 rounded-2xl 
+          bg-card/90 backdrop-blur-xl
+          transition-all duration-300 ease-out shadow-lg hover:shadow-xl
+          ${isDragOver ? "ring-2 ring-primary/40 scale-[1.01] bg-primary/5" : ""}
+          animate-fade-in
         `}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
       >
-        {/* Background decoration */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none"></div>
-        
-        <div className="relative w-full flex flex-col items-center space-y-8">
-          {/* Folder icon with enhanced styling */}
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30 flex items-center justify-center shadow-lg">
+        <div className="w-full flex flex-col items-center space-y-6">
+          {/* Folder icon */}
+          <div className="relative">
+            <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-sm">
               <HeroFolderIcon />
             </div>
           </div>
           
           {/* Title and description */}
-          <div className="text-center space-y-4">
-            <h2 className="text-2xl lg:text-3xl font-bold text-foreground tracking-tight">
-              Select Your Images
-            </h2>
-            <p className="text-muted-foreground max-w-md leading-relaxed">
-              Choose a folder or drag images to get started with your personal gallery
+          <div className="text-center space-y-2">
+            <h2 className="text-xl font-bold text-foreground">Select Your Images</h2>
+            <p className="text-sm text-muted-foreground max-w-sm">
+              Choose a folder or drag images to get started
             </p>
           </div>
 
           {/* Action buttons */}
-          <div className="w-full space-y-8">
+          <div className="w-full space-y-4">
             <Button
               asChild
               size="lg"
-              className="w-full h-14 font-semibold text-lg rounded-2xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 border-0"
+              className="w-full h-12 font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
             >
-              <label htmlFor="folder-input" className="cursor-pointer flex items-center justify-center gap-3">
-                <Upload className="w-5 h-5" />
+              <label htmlFor="folder-input" className="cursor-pointer flex items-center justify-center gap-2">
+                <Upload className="w-4 h-4" />
                 <span>Browse Folder</span>
               </label>
             </Button>
@@ -107,64 +101,46 @@ export const FolderSelector = ({
               className="hidden"
             />
             
-            {/* Enhanced divider */}
+            {/* Divider */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-gradient-to-r from-transparent via-border to-transparent" />
+                <span className="w-full border-t border-border/30" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-gradient-to-r from-card to-card px-6 text-sm font-medium text-muted-foreground tracking-wider uppercase">
+                <span className="bg-card px-3 text-xs text-muted-foreground font-medium uppercase tracking-wider">
                   or
                 </span>
               </div>
             </div>
 
-            {/* Enhanced drop zone */}
+            {/* Drop zone */}
             <div 
               className={`
-                w-full border-2 border-dashed rounded-2xl 
-                py-12 flex flex-col items-center justify-center 
-                transition-all duration-500 ease-out relative overflow-hidden
+                w-full border-2 border-dashed rounded-xl 
+                py-8 flex flex-col items-center justify-center 
+                transition-all duration-300
                 ${isDragOver 
-                  ? "border-primary/70 bg-gradient-to-br from-primary/10 to-accent/10 scale-[1.01] shadow-lg" 
-                  : "border-border/40 bg-gradient-to-br from-muted/20 to-muted/10 hover:border-border/60 hover:bg-gradient-to-br hover:from-muted/30 hover:to-muted/20"
+                  ? "border-primary/60 bg-primary/10" 
+                  : "border-border/40 bg-muted/20 hover:border-border/60 hover:bg-muted/30"
                 }
               `}
             >
-              <div className={`flex flex-col items-center space-y-4 transition-all duration-300 ${isDragOver ? 'scale-110' : ''}`}>
-                <Upload className={`w-12 h-12 transition-all duration-300 ${isDragOver ? 'text-primary animate-bounce' : 'text-muted-foreground/60'}`} />
-                <div className="text-center space-y-2">
-                  <span className="text-lg font-medium text-muted-foreground">
-                    Drop images here
-                  </span>
-                  <span className="text-sm text-muted-foreground/70 block">
-                    Supports JPG, PNG, GIF, WebP, SVG
-                  </span>
-                </div>
-              </div>
+              <Upload className={`w-8 h-8 mb-2 transition-colors ${isDragOver ? 'text-primary' : 'text-muted-foreground/60'}`} />
+              <span className="text-sm text-muted-foreground font-medium">
+                Drop images here
+              </span>
             </div>
           </div>
         </div>
         
-        {/* Enhanced info panel */}
-        <div className="relative mt-10 p-6 bg-gradient-to-r from-muted/20 to-muted/10 rounded-2xl border border-border/20 backdrop-blur-sm">
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <Info className="w-5 h-5 text-primary" />
-            </div>
-            <div className="text-sm text-muted-foreground space-y-3 leading-relaxed">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <span><strong className="text-foreground">Privacy:</strong> All data stays local in your browser</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
-                <span><strong className="text-foreground">Organization:</strong> Subfolders included automatically</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
-                <span><strong className="text-foreground">Tags:</strong> Auto-generated from filenames</span>
-              </div>
+        {/* Info panel */}
+        <div className="mt-6 p-4 bg-muted/20 rounded-xl border border-border/20">
+          <div className="flex items-start gap-2">
+            <Info className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+            <div className="text-xs text-muted-foreground space-y-1">
+              <div><strong>Supported:</strong> JPG, PNG, GIF, WebP, SVG</div>
+              <div><strong>Privacy:</strong> All data stays local in your browser</div>
+              <div><strong>Tags:</strong> Auto-generated from filenames</div>
             </div>
           </div>
         </div>

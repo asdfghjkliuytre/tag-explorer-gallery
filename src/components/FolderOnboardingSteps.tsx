@@ -32,43 +32,35 @@ const STEPS = [
 
 export const FolderOnboardingSteps: FC<FolderOnboardingStepsProps> = ({ className }) => (
   <div className={clsx("w-full", className)}>
-    <div className="text-center mb-8">
-      <h3 className="text-xl font-bold text-foreground mb-2">How it works</h3>
-      <p className="text-sm text-muted-foreground">Four simple steps to organize your image collection</p>
+    <div className="text-center mb-6">
+      <h3 className="text-lg font-bold text-foreground mb-1">How it works</h3>
+      <p className="text-sm text-muted-foreground">Four simple steps to organize your collection</p>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {STEPS.map((step, idx) => (
         <div 
           key={step.title} 
-          className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-br from-card/90 to-card/60 border border-border/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] animate-fade-in"
+          className="relative flex flex-col items-center text-center p-4 rounded-xl bg-card/60 border border-border/30 shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in"
           style={{ animationDelay: `${idx * 100}ms` }}
         >
-          {/* Step number badge */}
-          <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center text-white text-sm font-bold shadow-lg">
+          {/* Step number */}
+          <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center shadow-md">
             {idx + 1}
           </div>
           
-          {/* Icon with enhanced styling */}
-          <div className="relative mb-6">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 border border-border/30 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-              <step.icon className="h-7 w-7 text-primary" />
-            </div>
+          {/* Icon */}
+          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3 border border-primary/20">
+            <step.icon className="h-5 w-5 text-primary" />
           </div>
           
-          <div className="space-y-3">
-            <h4 className="font-bold text-base text-foreground">
+          <div className="space-y-2">
+            <h4 className="font-semibold text-sm text-foreground">
               {step.title}
             </h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               {step.desc}
             </p>
           </div>
-          
-          {/* Connecting line for desktop */}
-          {idx < STEPS.length - 1 && (
-            <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-border to-transparent"></div>
-          )}
         </div>
       ))}
     </div>

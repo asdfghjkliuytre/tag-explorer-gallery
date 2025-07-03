@@ -2,11 +2,11 @@
 import { Folder } from "lucide-react";
 
 export const Logo = () => (
-  <div className="flex items-center gap-3 select-none">
-    <span className="inline-block rounded-xl shadow-lg bg-primary/20 p-2">
-      <Folder className="w-7 h-7 text-primary drop-shadow" />
-    </span>
-    <span className="font-extrabold text-2xl md:text-3xl tracking-tight text-foreground">
+  <div className="flex items-center gap-2 select-none">
+    <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shadow-sm">
+      <Folder className="w-4 h-4 text-primary" />
+    </div>
+    <span className="font-bold text-lg tracking-tight text-foreground">
       Professional Image Gallery
     </span>
   </div>
