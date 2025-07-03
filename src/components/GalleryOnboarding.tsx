@@ -23,20 +23,30 @@ export function GalleryOnboarding({ currentTheme, onFolderSelect }: GalleryOnboa
     );
   }
   return (
-    <div className="relative w-full min-h-screen bg-background flex items-center justify-center overflow-hidden">
-      <div className="absolute top-8 left-0 w-full flex justify-center pointer-events-none z-10">
+    <div className="relative w-full min-h-screen bg-background flex flex-col overflow-hidden">
+      {/* Header with title */}
+      <div className="w-full pt-8 pb-6 flex justify-center z-10">
         <OnboardingBanner theme={currentTheme} />
       </div>
-      <div className="flex flex-1 items-center justify-center z-20 px-6 py-16">
-        <div className="w-full max-w-4xl grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
-          <div className="lg:col-span-2 flex flex-col items-center">
-            <div className="w-full max-w-lg">
+      
+      {/* Main content area with file selection */}
+      <div className="flex-1 flex items-center justify-center px-6 pb-16">
+        <div className="w-full max-w-6xl grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+          {/* File selection - takes 2 columns */}
+          <div className="lg:col-span-2 flex flex-col items-center justify-center">
+            <div className="w-full max-w-2xl">
               <FolderSelector onFolderSelect={onFolderSelect} />
-              <FolderOnboardingSteps className="mt-8" />
+              <div className="mt-8 max-w-lg mx-auto">
+                <FolderOnboardingSteps />
+              </div>
             </div>
           </div>
+          
+          {/* Quick tips sidebar */}
           <div className="hidden lg:block">
-            <FolderOnboardingSidebar />
+            <div className="sticky top-24">
+              <FolderOnboardingSidebar />
+            </div>
           </div>
         </div>
       </div>

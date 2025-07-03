@@ -31,17 +31,27 @@ const STEPS = [
 ];
 
 export const FolderOnboardingSteps: FC<FolderOnboardingStepsProps> = ({ className }) => (
-  <div className={clsx("grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6", className)}>
-    {STEPS.map((step, idx) => (
-      <div key={step.title} className="flex items-start gap-4 rounded-xl bg-muted/60 border border-border px-4 py-4 shadow-sm">
-        <div className="flex-shrink-0">
-          <step.icon className="h-8 w-8 text-primary" />
+  <div className={clsx("space-y-4", className)}>
+    <h3 className="text-lg font-semibold text-center text-foreground mb-6">How it works</h3>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {STEPS.map((step, idx) => (
+        <div 
+          key={step.title} 
+          className="flex items-start gap-3 rounded-lg bg-card/60 border border-border/40 p-4 shadow-sm hover:shadow-md transition-shadow"
+        >
+          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+            <step.icon className="h-5 w-5 text-primary" />
+          </div>
+          <div className="min-w-0">
+            <div className="font-semibold text-sm text-foreground mb-1">
+              {`${idx + 1}. ${step.title}`}
+            </div>
+            <div className="text-xs text-muted-foreground leading-relaxed">
+              {step.desc}
+            </div>
+          </div>
         </div>
-        <div>
-          <div className="font-bold text-lg text-foreground mb-1">{`Step ${idx + 1}: ${step.title}`}</div>
-          <div className="text-sm text-muted-foreground">{step.desc}</div>
-        </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 );
