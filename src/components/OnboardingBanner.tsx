@@ -4,17 +4,19 @@ import { Images } from "lucide-react";
 
 export const OnboardingBanner: FC<{ theme: string }> = ({ theme }) => {
   return (
-    <div className="w-full max-w-2xl flex flex-col items-center text-center select-none pointer-events-none">
-      <div className="relative mb-3">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30 rounded-full blur-xl opacity-50"></div>
-        <Images className="relative w-14 h-14 text-primary drop-shadow-lg" />
+    <div className="w-full max-w-4xl flex flex-col items-center text-center select-none pointer-events-none">
+      <div className="relative mb-6">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-2xl opacity-60"></div>
+        <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 flex items-center justify-center">
+          <Images className="w-8 h-8 text-primary drop-shadow-sm" />
+        </div>
       </div>
-      <div className="space-y-2">
-        <h1 className="font-black text-2xl lg:text-3xl tracking-tight text-foreground">
-          Welcome to <span className="gradient-text">Your Gallery</span>
+      <div className="space-y-4">
+        <h1 className="font-bold text-4xl lg:text-5xl tracking-tight text-foreground leading-tight">
+          Welcome to <span className="gradient-text font-black">Your Gallery</span>
         </h1>
-        <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-          Organize, search & enjoy your images with lightning speed and powerful tagging.
+        <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed font-medium">
+          Organize, search & enjoy your images with lightning speed and powerful tagging
         </p>
       </div>
       <style>{`

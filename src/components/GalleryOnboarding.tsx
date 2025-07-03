@@ -12,46 +12,61 @@ interface GalleryOnboardingProps {
 export function GalleryOnboarding({ currentTheme, onFolderSelect }: GalleryOnboardingProps) {
   if (currentTheme === "light") {
     return (
-      <div className="relative w-full min-h-screen flex items-center justify-center bg-white bg-gradient-to-br from-[#fafbfe] via-[#f6f3ff] to-[#fdeff5]">
-        <div className="absolute top-0 left-0 w-full flex justify-center pointer-events-none z-10">
+      <div className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-50 via-neutral-100/50 to-neutral-200/30">
+        <div className="absolute top-8 left-0 w-full flex justify-center pointer-events-none z-10">
           <OnboardingBanner theme={currentTheme} />
         </div>
-        <div className="flex flex-1 flex-col items-center justify-center z-20 px-4 py-24">
+        <div className="flex flex-1 flex-col items-center justify-center z-20 px-6 py-20">
           <FolderSelector onFolderSelect={onFolderSelect} variant="light" />
         </div>
       </div>
     );
   }
+  
   return (
-    <div className="relative w-full h-screen bg-gradient-to-br from-background via-background to-muted/10 flex flex-col overflow-hidden">
+    <div className="relative w-full h-screen bg-gradient-to-br from-background via-background/95 to-muted/5 flex flex-col overflow-hidden">
       {/* Header Section */}
-      <div className="w-full pt-4 pb-3 flex justify-center">
+      <div className="w-full pt-6 pb-4 flex justify-center border-b border-border/10">
         <OnboardingBanner theme={currentTheme} />
       </div>
       
-      {/* Main Content - Centered Layout */}
-      <div className="flex-1 flex items-center justify-center px-4">
-        <div className="w-full max-w-6xl grid lg:grid-cols-5 gap-6 items-start">
+      {/* Main Content - Perfectly Centered Layout */}
+      <div className="flex-1 flex items-center justify-center px-6 py-8">
+        <div className="w-full max-w-7xl grid lg:grid-cols-12 gap-8 items-center">
           {/* Left Sidebar - Quick Tips */}
-          <div className="hidden lg:block lg:col-span-1">
-            <FolderOnboardingSidebar />
+          <div className="hidden lg:block lg:col-span-3">
+            <div className="sticky top-24">
+              <FolderOnboardingSidebar />
+            </div>
           </div>
           
           {/* Center Content - File Selection */}
-          <div className="lg:col-span-3 flex flex-col items-center justify-center">
+          <div className="lg:col-span-6 flex flex-col items-center justify-center">
             <div className="w-full max-w-2xl">
               <FolderSelector onFolderSelect={onFolderSelect} />
             </div>
           </div>
           
           {/* Right Spacer for balance */}
-          <div className="hidden lg:block lg:col-span-1"></div>
+          <div className="hidden lg:block lg:col-span-3">
+            <div className="flex flex-col items-center text-center space-y-4 p-6 rounded-2xl bg-gradient-to-br from-card/50 to-card/30 border border-border/20">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-primary animate-pulse"></div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="font-semibold text-sm text-foreground">Next Steps</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  After selecting your folder, you'll be able to organize, search, and tag your images automatically
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       
       {/* Bottom Section - Steps */}
-      <div className="w-full pb-4 px-4">
-        <div className="max-w-5xl mx-auto">
+      <div className="w-full pb-6 px-6 border-t border-border/10 bg-card/30">
+        <div className="max-w-6xl mx-auto pt-6">
           <FolderOnboardingSteps />
         </div>
       </div>

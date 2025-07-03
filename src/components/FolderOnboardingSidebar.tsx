@@ -2,32 +2,40 @@
 import { Info } from "lucide-react";
 
 export const FolderOnboardingSidebar = () => (
-  <aside className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-xl border border-border/30 rounded-xl p-5 shadow-lg animate-fade-in sticky top-32">
-    <div className="flex items-center gap-2 mb-5">
-      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent animate-pulse"></div>
-      <span className="font-bold text-base text-foreground">Quick Tips</span>
+  <aside className="bg-gradient-to-br from-card/90 to-card/75 backdrop-blur-2xl border-r border-border/40 rounded-2xl p-6 shadow-xl animate-fade-in sticky top-24 h-fit">
+    <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border/20">
+      <div className="w-3 h-3 rounded-full bg-gradient-to-r from-primary to-accent animate-pulse shadow-sm"></div>
+      <h3 className="font-bold text-lg text-foreground tracking-tight">Quick Tips</h3>
     </div>
-    <div className="space-y-4">
-      <div className="group p-4 bg-gradient-to-r from-green-500/10 to-green-500/5 rounded-lg border-l-3 border-l-green-500 transition-all duration-300 hover:bg-gradient-to-r hover:from-green-500/15 hover:to-green-500/10">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-          <div className="font-semibold text-sm text-foreground">Privacy First</div>
+    <div className="space-y-5">
+      <div className="group p-5 bg-gradient-to-r from-emerald-50 to-emerald-25 dark:from-emerald-500/8 dark:to-emerald-500/4 rounded-xl border border-emerald-200/30 dark:border-emerald-500/20 transition-all duration-300 hover:from-emerald-100 hover:to-emerald-50 dark:hover:from-emerald-500/12 dark:hover:to-emerald-500/6 cursor-pointer">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+            <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+          </div>
+          <h4 className="font-bold text-sm text-foreground">Privacy First</h4>
         </div>
-        <div className="text-xs text-muted-foreground leading-relaxed">Images never leave your device. Everything stays completely local and secure.</div>
+        <p className="text-xs text-muted-foreground leading-relaxed">Images never leave your device. Everything stays completely local and secure.</p>
       </div>
-      <div className="group p-4 bg-gradient-to-r from-blue-500/10 to-blue-500/5 rounded-lg border-l-3 border-l-blue-500 transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500/15 hover:to-blue-500/10">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-          <div className="font-semibold text-sm text-foreground">Smart Organization</div>
+      
+      <div className="group p-5 bg-gradient-to-r from-blue-50 to-blue-25 dark:from-blue-500/8 dark:to-blue-500/4 rounded-xl border border-blue-200/30 dark:border-blue-500/20 transition-all duration-300 hover:from-blue-100 hover:to-blue-50 dark:hover:from-blue-500/12 dark:hover:to-blue-500/6 cursor-pointer">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+          </div>
+          <h4 className="font-bold text-sm text-foreground">Smart Organization</h4>
         </div>
-        <div className="text-xs text-muted-foreground leading-relaxed">Subfolders are automatically included for complete image discovery.</div>
+        <p className="text-xs text-muted-foreground leading-relaxed">Subfolders are automatically included for complete image discovery.</p>
       </div>
-      <div className="group p-4 bg-gradient-to-r from-purple-500/10 to-purple-500/5 rounded-lg border-l-3 border-l-purple-500 transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500/15 hover:to-purple-500/10">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-purple-500"></div>
-          <div className="font-semibold text-sm text-foreground">Better Results</div>
+      
+      <div className="group p-5 bg-gradient-to-r from-violet-50 to-violet-25 dark:from-violet-500/8 dark:to-violet-500/4 rounded-xl border border-violet-200/30 dark:border-violet-500/20 transition-all duration-300 hover:from-violet-100 hover:to-violet-50 dark:hover:from-violet-500/12 dark:hover:to-violet-500/6 cursor-pointer">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
+            <div className="w-3 h-3 rounded-full bg-violet-500"></div>
+          </div>
+          <h4 className="font-bold text-sm text-foreground">Better Results</h4>
         </div>
-        <div className="text-xs text-muted-foreground leading-relaxed">Descriptive filenames dramatically improve auto-tagging accuracy.</div>
+        <p className="text-xs text-muted-foreground leading-relaxed">Descriptive filenames dramatically improve auto-tagging accuracy.</p>
       </div>
     </div>
   </aside>
