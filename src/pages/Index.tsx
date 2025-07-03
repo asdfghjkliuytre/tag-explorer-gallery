@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Filter } from 'lucide-react';
 import { PasswordProtectedFolderButton } from "@/components/PasswordProtectedFolderButton";
 import { Logo } from "@/components/Logo";
-import Footer from "@/components/Footer";
+
 import { useGalleryImages } from "@/hooks/useGalleryImages";
 import { GalleryOnboarding } from "@/components/GalleryOnboarding";
 import { GalleryMainContent } from "@/components/GalleryMainContent";
@@ -135,7 +135,7 @@ const Index = () => {
         </main>
 
         <PasswordProtectedFolderButton onFolderSelect={handleFolderSelect} />
-        <Footer />
+        
       </div>
     </SidebarProvider>
   );
