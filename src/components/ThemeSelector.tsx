@@ -1,9 +1,8 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Palette, X } from 'lucide-react';
+import { Palette, X, Check } from 'lucide-react';
 
 const THEMES = [
   { id: 'light', name: 'Light', description: 'Clean and bright' },
@@ -30,13 +29,18 @@ interface ThemeSelectorProps {
 export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
   
+  const handleThemeSelect = (themeId: string) => {
+    onThemeChange(themeId);
+    setIsOpen(false);
+  };
+  
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <Button
         variant="outline"
         size="sm"
         onClick={() => setIsOpen(!isOpen)}
-        className="relative bg-background border border-border shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
+        className={`relative bg-background border border-border shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors duration-200 ${isOpen ? 'bg-accent text-accent-foreground' : ''}`}
         aria-label="Theme selector"
       >
         <Palette className="h-4 w-4" />
@@ -51,13 +55,13 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
           />
           
           {/* Dropdown */}
-          <div className="absolute right-0 top-12 w-80 bg-popover border border-border rounded-xl shadow-lg z-50">
+          <div className="absolute right-0 top-full mt-1 w-80 bg-background border border-border rounded-xl shadow-xl z-50 overflow-hidden">
             {/* Header */}
-            <div className="p-4 border-b border-border">
+            <div className="p-4 border-b border-border bg-muted/50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Palette className="h-4 w-4 text-primary" />
-                  <h3 className="font-semibold text-sm text-popover-foreground">Choose Theme</h3>
+                  <h3 className="font-semibold text-sm text-foreground">Choose Theme</h3>
                 </div>
                 <Button 
                   variant="ghost" 
@@ -75,40 +79,36 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
               <div className="p-4">
                 <div className="grid grid-cols-2 gap-3">
                   {THEMES.map((theme) => (
-                    <div
+                    <button
                       key={theme.id}
                       className={`
-                        group relative p-3 rounded-lg cursor-pointer transition-all duration-200 border flex flex-col space-y-2
+                        group relative p-3 rounded-lg cursor-pointer transition-all duration-200 border flex flex-col space-y-2 text-left w-full
                         ${currentTheme === theme.id
-                          ? 'border-primary bg-primary/10'
+                          ? 'border-primary bg-primary/10 ring-2 ring-primary/20'
                           : 'border-border hover:border-primary/50 hover:bg-accent/50'
                         }
                       `}
-                      onClick={() => {
-                        onThemeChange(theme.id);
-                        setIsOpen(false);
-                      }}
-                      role="button"
+                      onClick={() => handleThemeSelect(theme.id)}
                       aria-label={`Switch to ${theme.name}`}
                     >
                       {/* Theme preview */}
                       <div
-                        className={`h-6 rounded-md theme-preview-${theme.id} border border-border/20`}
+                        className={`h-6 rounded-md theme-preview-${theme.id} border border-border/20 shadow-sm`}
                       />
                       
                       {/* Theme info */}
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <span className="font-medium text-sm text-popover-foreground block">{theme.name}</span>
+                          <span className="font-medium text-sm text-foreground block">{theme.name}</span>
                           <span className="text-xs text-muted-foreground line-clamp-1">{theme.description}</span>
                         </div>
                         {currentTheme === theme.id && (
                           <div className="flex-shrink-0 ml-2">
-                            <div className="w-3 h-3 rounded-full bg-primary" />
+                            <Check className="h-4 w-4 text-primary" />
                           </div>
                         )}
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>

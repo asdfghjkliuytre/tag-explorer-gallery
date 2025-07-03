@@ -67,7 +67,7 @@ const Index = () => {
         `}
       >
         {/* Header */}
-        <header className="border-b border-border/30 bg-card/80 backdrop-blur-xl py-3 sticky top-0 z-30 shadow-lg">
+        <header className="fixed top-0 left-0 right-0 border-b border-border/30 bg-background/95 backdrop-blur-xl py-3 z-50 shadow-lg">
           <div className="container flex items-center justify-between gap-4">
             <div className="flex items-center gap-6">
               <Logo />
@@ -102,7 +102,7 @@ const Index = () => {
           </div>
         </header>
 
-        <main className="flex w-full min-h-screen bg-background">
+        <main className="flex w-full min-h-screen bg-background pt-20">
           {isTagSidebarOpen && images.length > 0 && (
             <TagSidebar
               tagStats={tagStats}
