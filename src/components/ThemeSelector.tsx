@@ -45,32 +45,45 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
         variant="outline"
         size="icon"
         onClick={() => setIsOpen(o => !o)}
-        className="bg-card/60 backdrop-blur-3xl border border-border/70 shadow-md hover:scale-105 transition-transform"
+        className="relative bg-card/80 backdrop-blur-xl border border-border/40 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group"
         aria-label="Theme selector"
       >
-        <Palette className="h-4 w-4" />
+        <Palette className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 top-12 w-72 bg-card/98 backdrop-blur-2xl border border-border/70 rounded-2xl shadow-2xl z-50 animate-fade-in">
-          <div className="p-4 border-b border-border/40">
+        <div className="absolute right-0 top-14 w-80 bg-card/95 backdrop-blur-2xl border border-border/40 rounded-3xl shadow-2xl z-50 animate-fade-in overflow-hidden">
+          {/* Header */}
+          <div className="p-6 border-b border-border/30 bg-gradient-to-r from-card to-card/80">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-foreground tracking-normal">Choose Theme</h3>
-              <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="hover:bg-muted/60">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent animate-pulse"></div>
+                <h3 className="font-bold text-lg text-foreground tracking-tight">Choose Theme</h3>
+              </div>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => setIsOpen(false)} 
+                className="hover:bg-muted/60 rounded-full transition-colors duration-200"
+              >
                 <X className="h-4 w-4" />
               </Button>
             </div>
+            <p className="text-sm text-muted-foreground mt-2">Transform your gallery experience</p>
           </div>
-          <ScrollArea className="p-4 max-h-96">
-            <div className="grid grid-cols-2 gap-3">
+          
+          {/* Theme grid */}
+          <div className="p-6">
+            <div className="grid grid-cols-2 gap-4">
               {THEMES.map((theme) => (
                 <div
                   key={theme.id}
                   className={
-                    `p-3 rounded-xl cursor-pointer card-hover transition-all duration-200 border-2 flex flex-col space-y-2 group
+                    `group relative p-4 rounded-2xl cursor-pointer transition-all duration-300 border-2 flex flex-col space-y-3
                     ${currentTheme === theme.id
-                      ? 'border-primary bg-primary/10 scale-[1.03] shadow-lg'
-                      : 'border-border/60 hover:border-primary/70 hover:bg-muted/60'
+                      ? 'border-primary bg-gradient-to-br from-primary/10 to-accent/10 scale-[1.02] shadow-lg'
+                      : 'border-border/40 hover:border-primary/50 hover:bg-gradient-to-br hover:from-muted/60 hover:to-muted/40 hover:scale-[1.01]'
                     }`
                   }
                   onClick={() => {
@@ -80,21 +93,34 @@ export const ThemeSelector = ({ currentTheme, onThemeChange }: ThemeSelectorProp
                   role="button"
                   aria-label={`Switch to ${theme.name}`}
                 >
+                  {/* Theme preview */}
+                  <div
+                    className={`h-8 rounded-xl theme-preview-${theme.id} border border-border/20 shadow-sm group-hover:shadow-md transition-shadow duration-300`}
+                  ></div>
+                  
+                  {/* Theme info */}
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-sm text-foreground">{theme.name}</span>
+                    <div className="flex-1">
+                      <span className="font-bold text-sm text-foreground block">{theme.name}</span>
+                      <span className="text-xs text-muted-foreground">{theme.description}</span>
+                    </div>
                     {currentTheme === theme.id && (
-                      <Badge variant="default" className="text-xs">Active</Badge>
+                      <div className="flex-shrink-0 ml-2">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center shadow-lg">
+                          <div className="w-2 h-2 rounded-full bg-white"></div>
+                        </div>
+                      </div>
                     )}
                   </div>
-                  <p className="text-xs text-muted-foreground">{theme.description}</p>
-                  {/* Theme Preview Bar */}
-                  <div
-                    className={`h-6 rounded-lg theme-preview-${theme.id} border border-border/30`}
-                  ></div>
+                  
+                  {/* Active indicator glow */}
+                  {currentTheme === theme.id && (
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 to-accent/20 -z-10 blur-sm"></div>
+                  )}
                 </div>
               ))}
             </div>
-          </ScrollArea>
+          </div>
         </div>
       )}
     </div>

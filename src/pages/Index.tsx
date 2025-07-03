@@ -67,28 +67,33 @@ const Index = () => {
         `}
       >
         {/* Header */}
-        <header className="border-b bg-card/95 backdrop-blur-md py-6 px-0 sticky top-0 z-20 shadow-md">
-          <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0">
-            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+        <header className="border-b border-border/30 bg-card/80 backdrop-blur-xl py-4 px-0 sticky top-0 z-30 shadow-sm">
+          <div className="container flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
               <Logo />
-              <span className="text-base md:ml-3 text-muted-foreground font-normal">
-                Organize, tag, and explore your images with ease.
-              </span>
-              {selectedFolderName && (
-                <span className="text-base font-medium text-primary/90 ml-1">{`📁 ${selectedFolderName}`}</span>
-              )}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                <span className="text-sm text-muted-foreground font-medium">
+                  Organize, tag, and explore your images with ease.
+                </span>
+                {selectedFolderName && (
+                  <div className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
+                    <div className="w-2 h-2 rounded-full bg-primary"></div>
+                    <span className="text-sm font-medium text-primary">{selectedFolderName}</span>
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="flex items-center gap-2 mt-2 md:mt-0">
+            <div className="flex items-center gap-3">
               <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => setIsTagSidebarOpen(!isTagSidebarOpen)}
-                className="relative shadow-sm"
+                className="relative shadow-sm hover:shadow-md transition-all duration-200"
               >
                 <Filter className="h-4 w-4" />
                 {selectedTag && (
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full border border-background"></div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full border-2 border-background animate-pulse"></div>
                 )}
               </Button>
             </div>
