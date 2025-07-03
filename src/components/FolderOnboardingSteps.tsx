@@ -31,24 +31,23 @@ const STEPS = [
 ];
 
 export const FolderOnboardingSteps: FC<FolderOnboardingStepsProps> = ({ className }) => (
-  <div className={clsx("space-y-4", className)}>
-    <h3 className="text-lg font-semibold text-center text-foreground mb-6">How it works</h3>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <div className={clsx("w-full", className)}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {STEPS.map((step, idx) => (
         <div 
           key={step.title} 
-          className="flex items-start gap-3 rounded-lg bg-card/60 border border-border/40 p-4 shadow-sm hover:shadow-md transition-shadow"
+          className="flex flex-col items-center text-center p-6 rounded-xl bg-card/60 border border-border/40 shadow-sm hover:shadow-md transition-shadow"
         >
-          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-            <step.icon className="h-5 w-5 text-primary" />
+          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+            <step.icon className="h-6 w-6 text-primary" />
           </div>
-          <div className="min-w-0">
-            <div className="font-semibold text-sm text-foreground mb-1">
-              {`${idx + 1}. ${step.title}`}
-            </div>
-            <div className="text-xs text-muted-foreground leading-relaxed">
+          <div className="space-y-2">
+            <h3 className="font-semibold text-sm text-foreground">
+              Step {idx + 1}: {step.title}
+            </h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">
               {step.desc}
-            </div>
+            </p>
           </div>
         </div>
       ))}

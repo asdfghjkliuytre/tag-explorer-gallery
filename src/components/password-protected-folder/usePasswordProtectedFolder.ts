@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-const DEFAULT_PASSWORD = "qazwsx";
+const DEFAULT_PASSWORD = "1590";
 const DEFAULT_FOLDER_PATH = "F:\\movie\\Telegram Desktop";
 
 export function usePasswordProtectedFolder(onFolderSelect: (files: FileList) => void) {
