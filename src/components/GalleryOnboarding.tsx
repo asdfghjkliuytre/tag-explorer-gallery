@@ -24,41 +24,50 @@ export function GalleryOnboarding({ currentTheme, onFolderSelect }: GalleryOnboa
   }
   
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-background via-background/95 to-muted/5 flex flex-col">
-      {/* Header Section */}
-      <div className="w-full pt-4 pb-3 flex justify-center border-b border-border/10 shrink-0">
-        <OnboardingBanner theme={currentTheme} />
+    <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-background via-background/95 to-muted/5 flex flex-col">
+      {/* Header Section - Compact */}
+      <div className="w-full py-3 flex justify-center border-b border-border/10 shrink-0">
+        <div className="text-center">
+          <h1 className="font-bold text-2xl lg:text-3xl tracking-tight text-foreground leading-tight">
+            Welcome to <span className="gradient-text font-black">Your Gallery</span>
+          </h1>
+          <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+            Organize, search & enjoy your images with lightning speed
+          </p>
+        </div>
       </div>
       
-      {/* Main Content - Full Viewport Responsive Layout */}
-      <div className="flex-1 flex items-center justify-center min-h-0 py-4 lg:py-8">
-        <div className="w-full h-full max-w-[1200px] mx-auto px-4 lg:px-8 box-border">
-          {/* Desktop: 3-column grid, Tablet/Mobile: stacked */}
-          <div className="h-full grid grid-cols-1 xl:grid-cols-[1fr_2fr_1fr] gap-4 lg:gap-8 items-start xl:items-center">
+      {/* Main Content - 16:9 Aspect Ratio Layout */}
+      <div className="flex-1 min-h-0 overflow-hidden">
+        <div className="h-full max-w-7xl mx-auto px-4 lg:px-6">
+          {/* Desktop: 3-column layout, Mobile: stacked */}
+          <div className="h-full grid grid-cols-1 lg:grid-cols-[280px_1fr_280px] gap-6 py-6">
             
-            {/* Left Sidebar - Quick Tips */}
-            <div className="order-2 xl:order-1 w-full">
+            {/* Left Panel - Quick Tips */}
+            <div className="order-2 lg:order-1 overflow-y-auto">
               <FolderOnboardingSidebar />
             </div>
             
-            {/* Center Content - File Selection */}
-            <div className="order-1 xl:order-2 w-full flex items-center justify-center">
-              <div className="w-full max-w-[600px] mx-auto bg-muted/20 rounded-3xl p-4 lg:p-6">
+            {/* Center Panel - File Selection */}
+            <div className="order-1 lg:order-2 flex items-center justify-center min-h-0">
+              <div className="w-full max-w-[600px] h-full max-h-[500px] flex flex-col">
                 <FolderSelector onFolderSelect={onFolderSelect} />
               </div>
             </div>
             
             {/* Right Panel - Next Steps */}
-            <div className="order-3 xl:order-3 w-full">
-              <div className="w-full flex flex-col items-center text-center space-y-4 p-6 rounded-2xl bg-gradient-to-br from-card/50 to-card/30 border border-border/20">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <div className="w-6 h-6 rounded-full bg-primary animate-pulse"></div>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-sm text-foreground">Next Steps</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    After selecting your folder, you'll be able to organize, search, and tag your images automatically
-                  </p>
+            <div className="order-3 lg:order-3 flex items-start lg:items-center">
+              <div className="w-full p-6 rounded-2xl bg-gradient-to-br from-card/60 to-card/40 border border-border/30 shadow-lg">
+                <div className="flex flex-col items-center text-center space-y-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center border border-primary/30">
+                    <div className="w-6 h-6 rounded-full bg-primary animate-pulse"></div>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-base text-foreground">Next Steps</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      After selecting your folder, you'll be able to organize, search, and tag your images automatically
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,12 +75,14 @@ export function GalleryOnboarding({ currentTheme, onFolderSelect }: GalleryOnboa
         </div>
       </div>
       
-      {/* Bottom Section - Steps */}
-      <div className="w-full pb-4 px-4 lg:px-6 border-t border-border/10 bg-card/30 shrink-0">
-        <div className="max-w-6xl mx-auto pt-4">
-          <FolderOnboardingSteps />
-        </div>
-      </div>
+      <style>{`
+        .gradient-text {
+          background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+      `}</style>
     </div>
   );
 }

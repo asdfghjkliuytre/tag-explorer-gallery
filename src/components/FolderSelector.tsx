@@ -53,10 +53,10 @@ export const FolderSelector = ({
     <div className="w-full h-full flex items-center justify-center">
       <div
         className={`
-          w-full max-w-[600px] h-full min-h-[400px] mx-auto 
-          p-4 sm:p-6 lg:p-8 border border-border/30 rounded-3xl 
+          w-full h-full min-h-[420px] max-h-[500px]
+          p-6 border border-border/30 rounded-3xl 
           bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl
-          transition-all duration-300 ease-out shadow-2xl hover:shadow-3xl
+          transition-all duration-300 ease-out shadow-lg hover:shadow-xl
           ${isDragOver ? "ring-2 ring-primary/40 scale-[1.002] bg-gradient-to-br from-primary/8 to-accent/8 shadow-primary/10" : ""}
           animate-fade-in relative overflow-hidden group
           flex flex-col box-border
