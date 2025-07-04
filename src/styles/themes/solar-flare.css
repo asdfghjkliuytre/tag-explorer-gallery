@@ -1,0 +1,32 @@
+/* Solar Flare Theme - Orange/blue cosmic energy */
+.theme-solar-flare {
+  --background: 210 25% 8%;
+  --foreground: 30 90% 95%;
+  --card: 210 30% 12%;
+  --card-foreground: 30 90% 95%;
+  --popover: 210 30% 12%;
+  --popover-foreground: 30 90% 95%;
+  --primary: 30 100% 60%;
+  --primary-foreground: 210 25% 8%;
+  --secondary: 210 100% 60%;
+  --secondary-foreground: 30 90% 95%;
+  --muted: 210 20% 18%;
+  --muted-foreground: 30 40% 75%;
+  --accent: 210 100% 70%;
+  --accent-foreground: 210 25% 8%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 30 90% 95%;
+  --border: 210 40% 25%;
+  --input: 210 40% 25%;
+  --ring: 30 100% 60%;
+  --radius: 0.8rem;
+  
+  --sidebar-background: 210 30% 10%;
+  --sidebar-foreground: 30 90% 95%;
+  --sidebar-primary: 30 100% 60%;
+  --sidebar-primary-foreground: 210 25% 8%;
+  --sidebar-accent: 210 100% 70%;
+  --sidebar-accent-foreground: 210 25% 8%;
+  --sidebar-border: 210 40% 25%;
+  --sidebar-ring: 30 100% 60%;
+}
