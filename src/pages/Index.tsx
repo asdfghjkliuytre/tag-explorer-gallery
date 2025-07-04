@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TagSidebar } from '@/components/TagSidebar';
-import { ThemeSelector } from '@/components/ThemeSelector';
+
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Filter } from 'lucide-react';
@@ -83,8 +83,21 @@ const Index = () => {
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
+            <div className="flex items-center gap-2">
+              {/* Theme buttons */}
+              <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
+                {['light', 'dark', 'neon', 'glass', 'pastel', 'cyberpunk', 'aurora', 'vintage-paper', 'solar-flare', 'midnight-opal', 'forest-meadow', 'tight'].map((theme) => (
+                  <Button
+                    key={theme}
+                    variant={currentTheme === theme ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => setCurrentTheme(theme)}
+                    className="h-8 px-2 text-xs capitalize transition-all duration-200"
+                  >
+                    {theme.replace('-', ' ')}
+                  </Button>
+                ))}
+              </div>
               {images.length > 0 && (
                 <Button
                   variant="outline"
