@@ -64,7 +64,7 @@ export const ImageCard = ({
           <img
             src={image.src}
             alt={image.filename}
-            className="w-full h-full object-cover cursor-pointer transition-all duration-500 group-hover:scale-110"
+            className="w-full h-full object-cover cursor-pointer transition-all duration-500 group-hover:scale-110 theme-adaptive-image"
             onClick={onImageClick}
           />
           {/* Gradient overlay on hover */}

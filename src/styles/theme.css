@@ -1,7 +1,9 @@
 @tailwind base;
 
+/* Import enhanced base theme system */
+@import "./themes/enhanced-base.css";
+
 /* Import all theme files */
-@import "./themes/base.css";
 @import "./themes/light.css";
 @import "./themes/dark.css";
 @import "./themes/neon.css";

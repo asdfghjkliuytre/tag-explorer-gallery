@@ -29,4 +29,12 @@
   --sidebar-accent-foreground: 0 0% 98%;
   --sidebar-border: 315 50% 25%;
   --sidebar-ring: 315 100% 50%;
+
+  /* Neon theme image filters */
+  --image-brightness: 1.1;
+  --image-contrast: 1.2;
+  --image-saturation: 1.3;
+  --image-hue: 5deg;
+  --image-blur: 0px;
+  --image-sepia: 0;
 }

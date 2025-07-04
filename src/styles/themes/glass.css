@@ -29,4 +29,12 @@
   --sidebar-accent-foreground: 220 26% 14%;
   --sidebar-border: 200 50% 40%;
   --sidebar-ring: 200 100% 70%;
+
+  /* Glass theme image filters */
+  --image-brightness: 0.95;
+  --image-contrast: 1.05;
+  --image-saturation: 0.9;
+  --image-hue: 0deg;
+  --image-blur: 0.5px;
+  --image-sepia: 0;
 }

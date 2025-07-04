@@ -82,3 +82,13 @@
 .theme-tight [class*="space-"] {
   gap: var(--tight-gap) !important;
 }
+
+/* Tight theme image filters */
+.theme-tight {
+  --image-brightness: 1.0;
+  --image-contrast: 1.0;
+  --image-saturation: 1.0;
+  --image-hue: 0deg;
+  --image-blur: 0px;
+  --image-sepia: 0;
+}

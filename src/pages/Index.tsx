@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { TagSidebar } from '@/components/TagSidebar';
-
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Filter } from 'lucide-react';
 import { PasswordProtectedFolderButton } from "@/components/PasswordProtectedFolderButton";
 import { Logo } from "@/components/Logo";
+import { useTheme } from '@/hooks/useTheme';
 
 import { useGalleryImages } from "@/hooks/useGalleryImages";
 import { GalleryOnboarding } from "@/components/GalleryOnboarding";
@@ -22,26 +23,13 @@ export interface ImageData {
 }
 
 const Index = () => {
-  // State for sidebar, theme, and UI
+  // State for sidebar and UI
   const [selectedTag, setSelectedTag] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isTagSidebarOpen, setIsTagSidebarOpen] = useState(true);
-  const [currentTheme, setCurrentTheme] = useState('cyberpunk');
 
-  // Load theme from localStorage on mount
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('gallery-theme');
-    if (savedTheme) {
-      setCurrentTheme(savedTheme);
-    } else {
-      setCurrentTheme('cyberpunk');
-    }
-  }, []);
-
-  // Save theme to localStorage when it changes
-  useEffect(() => {
-    localStorage.setItem('gallery-theme', currentTheme);
-  }, [currentTheme]);
+  // Use the enhanced theme system
+  const { currentTheme, themeConfig, getImageFilter } = useTheme();
 
   // Gallery images and file logic moved to hook
   const {
@@ -53,7 +41,7 @@ const Index = () => {
     updateImageTags,
   } = useGalleryImages();
 
-  // Helper for light theme: choose accent color
+  // Helper for theme-specific accent color
   const accentText =
     currentTheme === 'cyberpunk'
       ? 'text-cyberpunk-accent'
@@ -61,9 +49,14 @@ const Index = () => {
 
   return (
     <SidebarProvider>
+      {/* Skip to content link for accessibility */}
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
+      
       <div
         className={`
-          flex flex-col min-h-screen theme-${currentTheme} bg-background transition-colors duration-300 relative
+          flex flex-col min-h-screen theme-transition bg-background transition-colors duration-300 relative
         `}
       >
         {/* Header */}
@@ -84,20 +77,9 @@ const Index = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {/* Theme buttons */}
-              <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
-                {['light', 'dark', 'neon', 'glass', 'pastel', 'cyberpunk', 'aurora', 'vintage-paper', 'solar-flare', 'midnight-opal', 'forest-meadow', 'tight'].map((theme) => (
-                  <Button
-                    key={theme}
-                    variant={currentTheme === theme ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => setCurrentTheme(theme)}
-                    className="h-8 px-2 text-xs capitalize transition-all duration-200"
-                  >
-                    {theme.replace('-', ' ')}
-                  </Button>
-                ))}
-              </div>
+              {/* Enhanced Theme Switcher */}
+              <ThemeSwitcher variant="compact" />
+              
               {images.length > 0 && (
                 <Button
                   variant="outline"
@@ -115,7 +97,7 @@ const Index = () => {
           </div>
         </header>
 
-        <main className="flex w-full min-h-screen bg-background pt-20">
+        <main id="main-content" className="flex w-full min-h-screen bg-background pt-20">
           {isTagSidebarOpen && images.length > 0 && (
             <TagSidebar
               tagStats={tagStats}

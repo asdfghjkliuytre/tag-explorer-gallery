@@ -29,4 +29,12 @@
   --sidebar-accent-foreground: 220 15% 6%;
   --sidebar-border: 220 30% 25%;
   --sidebar-ring: 220 100% 70%;
+
+  /* Aurora theme image filters */
+  --image-brightness: 0.95;
+  --image-contrast: 1.1;
+  --image-saturation: 1.1;
+  --image-hue: -5deg;
+  --image-blur: 0px;
+  --image-sepia: 0;
 }

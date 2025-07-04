@@ -103,7 +103,7 @@ export const ImageViewer = ({
               <img
                 src={image.src}
                 alt={image.title}
-                className="w-full h-full object-contain max-w-[90vw] max-h-[70vh] rounded-lg shadow-2xl animate-fade-in"
+                className="w-full h-full object-contain max-w-[90vw] max-h-[70vh] rounded-lg shadow-2xl animate-fade-in theme-adaptive-image"
                 style={{ 
                   filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))',
                   animationDelay: '100ms'

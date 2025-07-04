@@ -29,4 +29,12 @@
   --sidebar-accent-foreground: 120 30% 15%;
   --sidebar-border: 120 25% 70%;
   --sidebar-ring: 120 40% 50%;
+
+  /* Forest meadow theme image filters */
+  --image-brightness: 1.0;
+  --image-contrast: 1.0;
+  --image-saturation: 0.9;
+  --image-hue: 5deg;
+  --image-blur: 0px;
+  --image-sepia: 0;
 }

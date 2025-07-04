@@ -29,4 +29,12 @@
   --sidebar-accent-foreground: 260 40% 5%;
   --sidebar-border: 260 40% 20%;
   --sidebar-ring: 260 60% 50%;
+
+  /* Midnight opal theme image filters */
+  --image-brightness: 0.9;
+  --image-contrast: 1.2;
+  --image-saturation: 1.1;
+  --image-hue: -10deg;
+  --image-blur: 0px;
+  --image-sepia: 0;
 }

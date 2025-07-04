@@ -29,4 +29,12 @@
   --sidebar-accent-foreground: 30 30% 15%;
   --sidebar-border: 30 25% 75%;
   --sidebar-ring: 15 60% 55%;
+
+  /* Vintage paper theme image filters */
+  --image-brightness: 1.0;
+  --image-contrast: 0.95;
+  --image-saturation: 0.85;
+  --image-hue: 0deg;
+  --image-blur: 0px;
+  --image-sepia: 0.2;
 }

@@ -1,4 +1,4 @@
-/* Light Theme */
+/* Light Theme - Enhanced with transitions and accessibility */
 .theme-light {
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
@@ -29,4 +29,12 @@
   --sidebar-accent-foreground: 222.2 47.4% 11.2%;
   --sidebar-border: 214.3 31.8% 91.4%;
   --sidebar-ring: 222.2 84% 4.9%;
+
+  /* Image filters for light theme */
+  --image-brightness: 1.0;
+  --image-contrast: 1.0;
+  --image-saturation: 1.0;
+  --image-hue: 0deg;
+  --image-blur: 0px;
+  --image-sepia: 0;
 }

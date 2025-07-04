@@ -29,4 +29,12 @@
   --sidebar-accent-foreground: 210 25% 8%;
   --sidebar-border: 210 40% 25%;
   --sidebar-ring: 30 100% 60%;
+
+  /* Solar flare theme image filters */
+  --image-brightness: 1.05;
+  --image-contrast: 1.15;
+  --image-saturation: 1.25;
+  --image-hue: 15deg;
+  --image-blur: 0px;
+  --image-sepia: 0;
 }
